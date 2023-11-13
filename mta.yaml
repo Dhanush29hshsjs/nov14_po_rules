@@ -1,0 +1,121 @@
+_schema-version: "3.1"
+ID: P_O_dep
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: P_O_dep-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: uaa_P_O_dep
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm
+- name: P_O_dep-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: P_O_dep-destination-service
+    parameters:
+      content-target: true
+  - name: P_O_dep_html_repo_host
+    parameters:
+      service-key:
+        name: P_O_dep_html_repo_host-key
+  - name: uaa_P_O_dep
+    parameters:
+      service-key:
+        name: uaa_P_O_dep-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: mngdemil_P_O_dep_html_repo_host
+          ServiceInstanceName: P_O_dep-html5-app-host-service
+          ServiceKeyName: P_O_dep_html_repo_host-key
+          sap.cloud.service: mngdemil
+        - Authentication: OAuth2UserTokenExchange
+          Name: mngdemil_uaa_P_O_dep
+          ServiceInstanceName: P_O_dep-xsuaa-service
+          ServiceKeyName: uaa_P_O_dep-key
+          sap.cloud.service: mngdemil
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: P_O_dep-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: P_O_dep_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - emaildep.zip
+      name: emaildep
+      target-path: resources/
+- name: emaildep
+  type: html5
+  path: app/email_dep
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: P_O_dep-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: P_O_dep-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: P_O_dep-destination-service
+    service-plan: lite
+  requires:
+  - name: srv-api
+- name: P_O_dep_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: P_O_dep-html5-app-host-service
+    service-plan: app-host
+- name: uaa_P_O_dep
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: P_O_dep-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npx cds build --production
