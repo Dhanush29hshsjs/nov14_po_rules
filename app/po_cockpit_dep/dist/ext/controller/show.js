@@ -1,0 +1,1 @@
+sap.ui.define(["sap/m/MessageToast"],function(e){"use strict";return{function1:function(e){this.showSideContent("GeneratedFacet1")}}});

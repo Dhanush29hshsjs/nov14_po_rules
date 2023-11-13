@@ -1,0 +1,1 @@
+sap.ui.define(["sap/m/MessageToast"],function(t){"use strict";return{function1:function(t){this.showSideContent("DraftDetails")}}});

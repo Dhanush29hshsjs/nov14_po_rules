@@ -1,0 +1,1 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";return e.extend("pocockpitdep.Component",{metadata:{manifest:"json"}})});

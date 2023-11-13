@@ -488,12 +488,12 @@ this.before('READ', po_data_item, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
-            if (resp.body == "") {
-                const spaces = [{},{}];
-            }    else{
-                const spaces = resp.body;
-            }
+            // if (resp.body == "") {
             
+            // }    else{
+            //     const spaces = resp.body;
+            // }
+                const spaces = resp.body.item;
             // const entries1 = [];
             const entries11 = [];
            
@@ -541,10 +541,10 @@ this.before('READ', po_data_itemD, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
-            if (resp.body == "") {
-                resp.body = [];
-            }
-            const spaces = resp.body;
+            // if (resp.body == "") {
+            //     resp.body = [];
+            // }
+            const spaces = resp.body.item;
             // const entries1 = [];
             const entries11 = [];
            
@@ -592,10 +592,10 @@ this.before('READ', po_data_itemS, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
-            if (resp.body == "") {
-                resp.body = [];
-            }
-            const spaces = resp.body;
+            // if (resp.body == "") {
+            //     resp.body = [];
+            // }
+            const spaces = resp.body.item;
             // const entries1 = [];
             const entries11 = [];
            
