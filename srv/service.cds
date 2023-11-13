@@ -23,13 +23,13 @@ service CatalogService
         projection on demo.Plant;
     // entity podatatab as
     //     projection on demo.podatatab;
-        
+        @odata.draft.enabled
     entity po_data_item as
         projection on demo.po_data_item;
-
+    @odata.draft.enabled
     entity po_data_itemD as
         projection on demo.po_data_itemD;
-
+    @odata.draft.enabled
     entity po_data_itemS as
         projection on demo.po_data_itemS;
 

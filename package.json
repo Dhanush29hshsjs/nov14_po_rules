@@ -23,9 +23,11 @@
         "watch-email_dep": "cds watch --open email_dep/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy P_O_dep --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "watch-po_cockpit_dep": "cds watch --open po_cockpit_dep/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "sapux": [
-        "app/email_dep"
+        "app/email_dep",
+        "app/po_cockpit_dep"
     ]
 }

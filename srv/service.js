@@ -488,26 +488,31 @@ this.before('READ', po_data_item, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
-            const spaces = resp.body;
+            if (resp.body == "") {
+                const spaces = [{},{}];
+            }    else{
+                const spaces = resp.body;
+            }
+            
             // const entries1 = [];
             const entries11 = [];
            
-                const items = [{"material_no":"9","material_name":"MARA","taxable_amount":"10","ref_po_no":spaces.ref_po_no},{"ref_po_no":spaces.ref_po_no,"material_no":"19","material_name":"MARAa","taxable_amount":"11"}];//`${spaces.item;
-                items.forEach(item =>  {    
+               
+                spaces.forEach(item =>  {    
                     entries11.push({
                     slno:1,
                     ref_po_no:item.ref_po_no,
-                    item_no:"1",//item.item_no,
-                    hsn_code:"1",//item.hsn_code,
+                    item_no:item.item_no,
+                    hsn_code:item.hsn_code,
                     material_no:item.material_no,
                     material_name:item.material_name,
-                    quantity:2,//item.quantity,
-                    unit_price:"1",//item.unit_price,
-                    unit_of_measure:"1",//item.unit_of_measure,
-                    tax_percentage:5,//item.tax_percentage,
+                    quantity:item.quantity,
+                    unit_price:item.unit_price,
+                    unit_of_measure:item.unit_of_measure,
+                    tax_percentage:item.tax_percentage,
                     taxable_amount:item.taxable_amount,
-                    tax_amount:"1",//item.tax_amount,
-                    total_amount:"1",//item.total_amount
+                    tax_amount:item.tax_amount,
+                    total_amount:item.total_amount
                 });
                 }); 
             await cds.tx(req).run(INSERT.into(po_data_item).entries(entries11));
@@ -536,26 +541,29 @@ this.before('READ', po_data_itemD, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
+            if (resp.body == "") {
+                resp.body = [];
+            }
             const spaces = resp.body;
             // const entries1 = [];
             const entries11 = [];
            
-                const items = [{"material_no":"9","material_name":"MARA","taxable_amount":"10","ref_po_no":spaces.ref_po_no},{"ref_po_no":spaces.ref_po_no,"material_no":"19","material_name":"MARAa","taxable_amount":"11"}];//`${spaces.item;
-                items.forEach(item =>  {    
+                
+                spaces.forEach(item =>  {    
                     entries11.push({
                     slno:1,
                     ref_po_no:item.ref_po_no,
-                    item_no:"1",//item.item_no,
-                    hsn_code:"1",//item.hsn_code,
+                    item_no:item.item_no,
+                    hsn_code:item.hsn_code,
                     material_no:item.material_no,
                     material_name:item.material_name,
-                    quantity:2,//item.quantity,
-                    unit_price:"1",//item.unit_price,
-                    unit_of_measure:"1",//item.unit_of_measure,
-                    tax_percentage:5,//item.tax_percentage,
+                    quantity:item.quantity,
+                    unit_price:item.unit_price,
+                    unit_of_measure:item.unit_of_measure,
+                    tax_percentage:item.tax_percentage,
                     taxable_amount:item.taxable_amount,
-                    tax_amount:"1",//item.tax_amount,
-                    total_amount:"1",//item.total_amount
+                    tax_amount:item.tax_amount,
+                    total_amount:item.total_amount
                 });
                 }); 
             await cds.tx(req).run(INSERT.into(po_data_itemD).entries(entries11));
@@ -584,26 +592,29 @@ this.before('READ', po_data_itemS, async (req) => {debugger
             // console.log(resp);
             // console.log("------------------------------");
             // console.log(resp.body);
+            if (resp.body == "") {
+                resp.body = [];
+            }
             const spaces = resp.body;
             // const entries1 = [];
             const entries11 = [];
            
-                const items = [{"material_no":"9","material_name":"MARA","taxable_amount":"10","ref_po_no":spaces.ref_po_no},{"ref_po_no":spaces.ref_po_no,"material_no":"19","material_name":"MARAa","taxable_amount":"11"}];//`${spaces.item;
-                items.forEach(item =>  {    
+                
+                spaces.forEach(item =>  {    
                     entries11.push({
                     slno:1,
                     ref_po_no:item.ref_po_no,
-                    item_no:"1",//item.item_no,
-                    hsn_code:"1",//item.hsn_code,
+                    item_no:item.item_no,
+                    hsn_code:item.hsn_code,
                     material_no:item.material_no,
                     material_name:item.material_name,
-                    quantity:2,//item.quantity,
-                    unit_price:"1",//item.unit_price,
-                    unit_of_measure:"1",//item.unit_of_measure,
-                    tax_percentage:5,//item.tax_percentage,
+                    quantity:item.quantity,
+                    unit_price:item.unit_price,
+                    unit_of_measure:item.unit_of_measure,
+                    tax_percentage:item.tax_percentage,
                     taxable_amount:item.taxable_amount,
-                    tax_amount:"1",//item.tax_amount,
-                    total_amount:"1",//item.total_amount
+                    tax_amount:item.tax_amount,
+                    total_amount:item.total_amount
                 });
                 }); 
             await cds.tx(req).run(INSERT.into(po_data_itemS).entries(entries11));

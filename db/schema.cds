@@ -8,22 +8,22 @@ entity Newtab
     Date : String(11);
     Modified_Date_Time : String(25);
     PO_File : String(100);
-    @mandatory po_number : String(20);
-    @mandatory po_date : String(11);
-    @mandatory delivery_date : String(11);
+    po_number : String(20);
+    po_date : String(11);
+    delivery_date : String(11);
     delivery_address : String(500);
     bill_to_address : String(100);
     customer : String(100);
-    @mandatory currency : String(5);
+    currency : String(5);
     purchase_group : String(100);
     taxable_amount : Integer;
     amount_total : String(30);
     tax : Integer;
-    @mandatory company_code : String(10);
-    @mandatory plant : String(100);
+    company_code : String(10);
+    plant : String(100);
     file_link : LargeString;
     // newtodata : Composition of many podatatab on newtodata.data = $self;
-    newtoitem : Composition of many po_data_item on newtoitem.podataN = $self;
+    newtoitem : Association to  many po_data_item on newtoitem.podataN = $self;
 }
 entity Draft
 {
@@ -35,22 +35,22 @@ entity Draft
     Modified_Date_Time : String(25);
     PO_File : String(100);
 
-    @mandatory po_number : String(20);
-    @mandatory po_date : String(11);
-    @mandatory delivery_date : String(11);
+    po_number : String(20);
+    po_date : String(11);
+    delivery_date : String(11);
     delivery_address : String(500);
     bill_to_address : String(100);
     customer : String(100);
-    @mandatory currency : String(5);
+    currency : String(5);
     purchase_group : String(100);
     taxable_amount : Integer;
     amount_total : String(30);
     tax : Integer;
-    @mandatory company_code : String(10);
-    @mandatory plant : String(100);
+    company_code : String(10);
+    plant : String(100);
     file_link : LargeString;
     // drafttodata : Composition of many  podatatab on drafttodata.data1 = $self;
-    drafttoitem : Composition of many  po_data_itemD on drafttoitem.podataD = $self;
+    drafttoitem : Association to  many  po_data_itemD on drafttoitem.podataD = $self;
 }
 
 entity Submitted
@@ -62,22 +62,22 @@ entity Submitted
     Modified_Date_Time : String(25);
     PO_File : String(100);
 
-    @mandatory po_number : String(20);
-    @mandatory po_date : String(11);
-    @mandatory delivery_date : String(11);
+    po_number : String(20);
+    po_date : String(11);
+    delivery_date : String(11);
     delivery_address : String(500);
     bill_to_address : String(100);
     customer : String(100);
-    @mandatory currency : String(5);
+    currency : String(5);
     purchase_group : String(100);
     taxable_amount : Integer;
     amount_total : String(30);
     tax : Integer;
-    @mandatory company_code : String(10);
-    @mandatory plant : String(100);
+    company_code : String(10);
+    plant : String(100);
     file_link : LargeString;
     // submittedtodata : Composition of many  podatatab on submittedtodata.data2 = $self;
-    submittedtoitem : Composition of many  po_data_itemS on submittedtoitem.podataS = $self;
+    submittedtoitem : Association to  many  po_data_itemS on submittedtoitem.podataS = $self;
 }
 // entity podatatab
 // {

@@ -60,9 +60,23 @@ modules:
       - emaildep.zip
       name: emaildep
       target-path: resources/
+    - artifacts:
+      - pocockpitdep.zip
+      name: pocockpitdep
+      target-path: resources/
 - name: emaildep
   type: html5
   path: app/email_dep
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: pocockpitdep
+  type: html5
+  path: app/po_cockpit_dep
   build-parameters:
     build-result: dist
     builder: custom
