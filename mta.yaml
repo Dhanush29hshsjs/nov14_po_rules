@@ -64,6 +64,10 @@ modules:
       - pocockpitdep.zip
       name: pocockpitdep
       target-path: resources/
+    - artifacts:
+      - trackpodep.zip
+      name: trackpodep
+      target-path: resources/
 - name: emaildep
   type: html5
   path: app/email_dep
@@ -77,6 +81,16 @@ modules:
 - name: pocockpitdep
   type: html5
   path: app/po_cockpit_dep
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: trackpodep
+  type: html5
+  path: app/trackpodep
   build-parameters:
     build-result: dist
     builder: custom

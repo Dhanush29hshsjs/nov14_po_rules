@@ -1,0 +1,3113 @@
+{
+  "namespace": "demo",
+  "definitions": {
+    "demo.Newtab": {
+      "kind": "entity",
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "newtoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.po_data_item",
+          "on": [
+            {
+              "ref": [
+                "newtoitem",
+                "podataN"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.Draft": {
+      "kind": "entity",
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String"
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_by": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "drafttoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.po_data_itemD",
+          "on": [
+            {
+              "ref": [
+                "drafttoitem",
+                "podataD"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.Submitted": {
+      "kind": "entity",
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String"
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "submittedtoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.po_data_itemS",
+          "on": [
+            {
+              "ref": [
+                "submittedtoitem",
+                "podataS"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.po_data_item": {
+      "kind": "entity",
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataN": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.Newtab",
+          "on": [
+            {
+              "ref": [
+                "podataN",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.po_data_itemD": {
+      "kind": "entity",
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataD": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.Draft",
+          "on": [
+            {
+              "ref": [
+                "podataD",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.po_data_itemS": {
+      "kind": "entity",
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataS": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.Submitted",
+          "on": [
+            {
+              "ref": [
+                "podataS",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.Currency": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "demo.Plant": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "demo.CompanyCode": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "demo.Track_po": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "error_log": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "modified_by": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "po_number": {
+          "type": "cds.String"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "supplier_name": {
+          "type": "cds.String",
+          "length": 20
+        }
+      }
+    },
+    "demo.email": {
+      "kind": "entity",
+      "elements": {
+        "msg_id": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "FROM_": {
+          "type": "cds.String"
+        },
+        "DATE": {
+          "type": "cds.Date"
+        },
+        "TIME": {
+          "type": "cds.Time"
+        },
+        "SUBJECT": {
+          "type": "cds.String"
+        },
+        "TIME_TAKEN": {
+          "type": "cds.String"
+        },
+        "isReaded": {
+          "type": "cds.String"
+        },
+        "ass1": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.attachment",
+          "on": [
+            {
+              "ref": [
+                "ass1",
+                "email"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "ass2": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.invoice_No",
+          "on": [
+            {
+              "ref": [
+                "ass2",
+                "email"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.attachment": {
+      "kind": "entity",
+      "elements": {
+        "id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "msg_id": {
+          "type": "cds.String"
+        },
+        "attachmentId": {
+          "type": "cds.LargeString"
+        },
+        "filename": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.email",
+          "on": [
+            {
+              "ref": [
+                "email",
+                "msg_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "msg_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.invoice_No": {
+      "kind": "entity",
+      "elements": {
+        "id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "msg_id": {
+          "type": "cds.String"
+        },
+        "invoice_no": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.email",
+          "on": [
+            {
+              "ref": [
+                "email",
+                "msg_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "msg_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService": {
+      "@source": "srv/service.cds",
+      "kind": "service"
+    },
+    "CatalogService.Newtab": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_number"
+          },
+          "Label": "PO Number"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_date"
+          },
+          "Label": "PO Date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_date"
+          },
+          "Label": "Delivery date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_address"
+          },
+          "Label": "Delivery Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "bill_to_address"
+          },
+          "Label": "Bill To Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "customer"
+          },
+          "Label": "Customer"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currency"
+          },
+          "Label": "Currency"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "purchase_group"
+          },
+          "Label": "Purchase group"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "Taxable Amount"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "amount_total"
+          },
+          "Label": "Amount(Total.)"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax"
+          },
+          "Label": "Tax %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "company_code"
+          },
+          "Label": "Company Code"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "plant"
+          },
+          "Label": "Plant"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "NEW Details",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "New Items",
+          "ID": "NewItems",
+          "Target": "newtoitem/@UI.LineItem#NewItems"
+        }
+      ],
+      "@UI.DeleteHidden": true,
+      "@UI.CreateHidden": true,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "Ref_PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CUSTOMER NAME",
+          "Value": {
+            "=": "Customer_Name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED DATE-TIME",
+          "Value": {
+            "=": "Modified_Date_Time"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_File"
+          },
+          "Label": "PO FILE"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "New",
+      "@UI.HeaderInfo.TypeName": " ",
+      "@UI.HeaderInfo.TypeNamePlural": "",
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "Ref_PO_No"
+      },
+      "@UI.SelectionPresentationVariant#tableView1.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView1.Text": "New",
+      "@UI.SelectionPresentationVariant#tableView2.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView2.Text": "New",
+      "@UI.Identification": [],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Newtab"
+          ]
+        }
+      },
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Currency",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "currency"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Currency",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "CompanyCode",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "company_code"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Search Company Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Plant",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "plant"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Plant Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "newtoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.po_data_item",
+          "on": [
+            {
+              "ref": [
+                "newtoitem",
+                "podataN"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Draft": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.DeleteHidden": true,
+      "@UI.CreateHidden": true,
+      "@UI.LineItem#tableView2": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "Ref_PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CUSTOMER NAME",
+          "Value": {
+            "=": "Customer_Name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED DATE-TIME",
+          "Value": {
+            "=": "Modified_Date_Time"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_File"
+          },
+          "Label": "PO FILE"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView1.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView2"
+      ],
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView1.Text": "Draft",
+      "@UI.LineItem#tableView": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "Ref_PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CUSTOMER NAME",
+          "Value": {
+            "=": "Customer_Name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED DATE-TIME",
+          "Value": {
+            "=": "Modified_Date_Time"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_File"
+          },
+          "Label": "PO FILE"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "Draft",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Draft Details",
+          "ID": "DraftDetails",
+          "Target": "@UI.FieldGroup#DraftDetails"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Draft Items",
+          "ID": "DraftItems",
+          "Target": "drafttoitem/@UI.LineItem#DraftItems"
+        }
+      ],
+      "@UI.FieldGroup#DraftDetails.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#DraftDetails.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_number"
+          },
+          "Label": "PO Number"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_date"
+          },
+          "Label": "PO Date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_date"
+          },
+          "Label": "Delivery date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_address"
+          },
+          "Label": "Delivery Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "bill_to_address"
+          },
+          "Label": "Bill To Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "customer"
+          },
+          "Label": "Customer"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currency"
+          },
+          "Label": "Currency"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "purchase_group"
+          },
+          "Label": "Purchase group"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "Taxable Amount"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "amount_total"
+          },
+          "Label": "Amount(Total.)"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax"
+          },
+          "Label": "Tax %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "company_code"
+          },
+          "Label": "Company Code"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "plant"
+          },
+          "Label": "Plant"
+        }
+      ],
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "Ref_PO_No"
+      },
+      "@UI.HeaderInfo.TypeName": "",
+      "@UI.HeaderInfo.TypeNamePlural": "",
+      "@UI.SelectionPresentationVariant#tableView2.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView2"
+      ],
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView2.Text": "Draft",
+      "@UI.Identification": [],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Draft"
+          ]
+        }
+      },
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String"
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_by": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Currency",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "currency"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Currency",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "CompanyCode",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "company_code"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Company Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Plant",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "plant"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Plant Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "drafttoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.po_data_itemD",
+          "on": [
+            {
+              "ref": [
+                "drafttoitem",
+                "podataD"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Submitted": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.DeleteHidden": true,
+      "@UI.CreateHidden": true,
+      "@UI.LineItem#tableView1": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "Ref_PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CUSTOMER NAME",
+          "Value": {
+            "=": "Customer_Name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED DATE-TIME",
+          "Value": {
+            "=": "Modified_Date_Time"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_File"
+          },
+          "Label": "PO FILE"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView2.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView1"
+      ],
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView2.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView2.Text": "Submitted",
+      "@UI.LineItem#tableView": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "Ref_PO_No"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CUSTOMER NAME",
+          "Value": {
+            "=": "Customer_Name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED DATE-TIME",
+          "Value": {
+            "=": "Modified_Date_Time"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_File"
+          },
+          "Label": "PO FILE"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "Submitted",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "submitted details",
+          "ID": "submitteddetails",
+          "Target": "@UI.FieldGroup#submitteddetails"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Submitted Items",
+          "ID": "SubmittedItems",
+          "Target": "submittedtoitem/@UI.LineItem#SubmittedItems"
+        }
+      ],
+      "@UI.FieldGroup#submitteddetails.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#submitteddetails.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_number"
+          },
+          "Label": "PO Number"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "po_date"
+          },
+          "Label": "PO Date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_date"
+          },
+          "Label": "Delivery date"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "delivery_address"
+          },
+          "Label": "Delivery Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "bill_to_address"
+          },
+          "Label": "Bill To Address"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "customer"
+          },
+          "Label": "Customer"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currency"
+          },
+          "Label": "Currency"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "purchase_group"
+          },
+          "Label": "Purchase group"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "Taxable Amount"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "amount_total"
+          },
+          "Label": "Amount(Total.)"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax"
+          },
+          "Label": "Tax %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "company_code"
+          },
+          "Label": "Company Code"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "plant"
+          },
+          "Label": "Plant"
+        }
+      ],
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "Ref_PO_No"
+      },
+      "@UI.HeaderInfo.TypeName": "",
+      "@UI.HeaderInfo.TypeNamePlural": "",
+      "@UI.SelectionPresentationVariant#tableView1.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView1"
+      ],
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView1.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView1.Text": "Submitted",
+      "@UI.Identification": [],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Submitted"
+          ]
+        }
+      },
+      "elements": {
+        "Ref_PO_No": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PO_No": {
+          "type": "cds.String"
+        },
+        "Customer_Name": {
+          "type": "cds.String",
+          "length": 50
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "Modified_Date_Time": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "PO_File": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "po_number": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "po_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_date": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 11
+        },
+        "delivery_address": {
+          "type": "cds.String",
+          "length": 500
+        },
+        "bill_to_address": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "customer": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "currency": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Currency",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "currency"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Currency",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 5
+        },
+        "purchase_group": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "taxable_amount": {
+          "type": "cds.Integer"
+        },
+        "amount_total": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "tax": {
+          "type": "cds.Integer"
+        },
+        "company_code": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "CompanyCode",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "company_code"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Company Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "plant": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "Plant",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "plant"
+              },
+              "ValueListProperty": "code"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "description"
+            }
+          ],
+          "@Common.ValueList.Label": "Select Plant Code",
+          "@Common.ValueListWithFixedValues": false,
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 100
+        },
+        "file_link": {
+          "type": "cds.LargeString"
+        },
+        "submittedtoitem": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.po_data_itemS",
+          "on": [
+            {
+              "ref": [
+                "submittedtoitem",
+                "podataS"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Currency": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Currency"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "CatalogService.CompanyCode": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.CompanyCode"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "CatalogService.Plant": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Plant"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "description": {
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "CatalogService.po_data_item": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.LineItem#NewItems": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "slno"
+          },
+          "Label": "SL.NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "item_no"
+          },
+          "Label": "ITEM NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "hsn_code"
+          },
+          "Label": "HSN CODE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "material_no"
+          },
+          "Label": "MATERIAL"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "quantity"
+          },
+          "Label": "QTY"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_price"
+          },
+          "Label": "UNIT PRICE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_of_measure"
+          },
+          "Label": "UNIT OF MEASURE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_percentage"
+          },
+          "Label": "TAX %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "TAXABLE AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_amount"
+          },
+          "Label": "TAX AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "total_amount"
+          },
+          "Label": "TOTAL AMOUNT"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.po_data_item"
+          ]
+        }
+      },
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "@Common.Text": {
+            "=": "material_name"
+          },
+          "@Common.Text.@UI.TextArrangement": {
+            "#": "TextLast"
+          },
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataN": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.Newtab",
+          "on": [
+            {
+              "ref": [
+                "podataN",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.po_data_itemD": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.LineItem#DraftItems": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "slno"
+          },
+          "Label": "SL.NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "item_no"
+          },
+          "Label": "ITEM NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "hsn_code"
+          },
+          "Label": "HSN CODE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "material_no"
+          },
+          "Label": "MATERIAL"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "quantity"
+          },
+          "Label": "QTY"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_price"
+          },
+          "Label": "UNIT PRICE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_of_measure"
+          },
+          "Label": "UNIT OF MEASURE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_percentage"
+          },
+          "Label": "TAX %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "TAXABLE AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_amount"
+          },
+          "Label": "TAX AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "total_amount"
+          },
+          "Label": "TOTAL AMOUNT"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.po_data_itemD"
+          ]
+        }
+      },
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "@Common.Text": {
+            "=": "material_name"
+          },
+          "@Common.Text.@UI.TextArrangement": {
+            "#": "TextLast"
+          },
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataD": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.Draft",
+          "on": [
+            {
+              "ref": [
+                "podataD",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.po_data_itemS": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.LineItem#SubmittedItems": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "slno"
+          },
+          "Label": "SL.NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "item_no"
+          },
+          "Label": "ITEM NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "hsn_code"
+          },
+          "Label": "HSN CODE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "material_no"
+          },
+          "Label": "MATERIAL"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "quantity"
+          },
+          "Label": "QTY"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_price"
+          },
+          "Label": "UNIT PRICE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "unit_of_measure"
+          },
+          "Label": "UNIT OF MEASURE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_percentage"
+          },
+          "Label": "TAX %"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "taxable_amount"
+          },
+          "Label": "TAXABLE AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "tax_amount"
+          },
+          "Label": "TAX AMOUNT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "total_amount"
+          },
+          "Label": "TOTAL AMOUNT"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.po_data_itemS"
+          ]
+        }
+      },
+      "elements": {
+        "uid": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "slno": {
+          "type": "cds.Integer"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "item_no": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "hsn_code": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_no": {
+          "@Common.Text": {
+            "=": "material_name"
+          },
+          "@Common.Text.@UI.TextArrangement": {
+            "#": "TextLast"
+          },
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 10
+        },
+        "material_name": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "quantity": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.Integer"
+        },
+        "unit_price": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String",
+          "length": 20
+        },
+        "unit_of_measure": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "tax_percentage": {
+          "type": "cds.Integer"
+        },
+        "taxable_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "tax_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "total_amount": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "podataS": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.Submitted",
+          "on": [
+            {
+              "ref": [
+                "podataS",
+                "Ref_PO_No"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ref_po_no"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Track_po": {
+      "kind": "entity",
+      "@UI.DeleteHidden": true,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO NO",
+          "Value": {
+            "=": "po_number"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "REF.PO NO",
+          "Value": {
+            "=": "ref_po_no"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "supplier_name"
+          },
+          "Label": "SUPPLIER NAME"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "PO DATE",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "MODIFIED BY",
+          "Value": {
+            "=": "modified_by"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "status"
+          },
+          "Label": "STATUS"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "ERROR LOG",
+          "Value": {
+            "=": "error_log"
+          }
+        }
+      ],
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "ref_po_no",
+          "Value": {
+            "=": "ref_po_no"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "error_log",
+          "Value": {
+            "=": "error_log"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "modified_by",
+          "Value": {
+            "=": "modified_by"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "Date",
+          "Value": {
+            "=": "Date"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "po_number",
+          "Value": {
+            "=": "po_number"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "status",
+          "Value": {
+            "=": "status"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "supplier_name",
+          "Value": {
+            "=": "supplier_name"
+          }
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "General Information",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.Track_po"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "ref_po_no": {
+          "type": "cds.Integer"
+        },
+        "error_log": {
+          "type": "cds.String",
+          "length": 20
+        },
+        "modified_by": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "Date": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "po_number": {
+          "type": "cds.String"
+        },
+        "status": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "supplier_name": {
+          "type": "cds.String",
+          "length": 20
+        }
+      }
+    },
+    "CatalogService.email": {
+      "kind": "entity",
+      "@UI.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.PresentationVariant.SortOrder": [
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "DATE"
+          },
+          "Descending": true
+        },
+        {
+          "$Type": "Common.SortOrderType",
+          "Property": {
+            "=": "TIME"
+          },
+          "Descending": true
+        }
+      ],
+      "@UI.DeleteHidden": true,
+      "@UI.FieldGroup#FieldGroup3.Data": [
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.buttomaction",
+          "Label": "Process",
+          "Criticality": 3,
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "isReaded"
+                },
+                "yes"
+              ]
+            }
+          }
+        },
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.buttomaction1",
+          "Label": "Processed",
+          "Criticality": 1,
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "isReaded"
+                },
+                "no"
+              ]
+            }
+          }
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "FROM",
+          "Value": {
+            "=": "FROM_"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "DATE"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "TIME",
+          "Value": {
+            "=": "TIME"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "SUBJECT",
+          "Value": {
+            "=": "SUBJECT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "ass2.invoice_no"
+          },
+          "Label": "INVOICE NO"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "TIME_TAKEN"
+          },
+          "Label": "TIME TAKEN"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "ass1.filename"
+          },
+          "Label": "ATTACHMENTS"
+        },
+        {
+          "$Type": "UI.DataFieldForAnnotation",
+          "Target": "@UI.FieldGroup#FieldGroup3",
+          "Label": " "
+        }
+      ],
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "msg_id",
+          "Value": {
+            "=": "msg_id"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "FROM_",
+          "Value": {
+            "=": "FROM_"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "DATE",
+          "Value": {
+            "=": "DATE"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "TIME",
+          "Value": {
+            "=": "TIME"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "SUBJECT",
+          "Value": {
+            "=": "SUBJECT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "TIME_TAKEN",
+          "Value": {
+            "=": "TIME_TAKEN"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "isReaded",
+          "Value": {
+            "=": "isReaded"
+          }
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "General Information",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.email"
+          ]
+        }
+      },
+      "elements": {
+        "msg_id": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "FROM_": {
+          "type": "cds.String"
+        },
+        "DATE": {
+          "type": "cds.Date"
+        },
+        "TIME": {
+          "type": "cds.Time"
+        },
+        "SUBJECT": {
+          "type": "cds.String"
+        },
+        "TIME_TAKEN": {
+          "type": "cds.String"
+        },
+        "isReaded": {
+          "type": "cds.String"
+        },
+        "ass1": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.attachment",
+          "on": [
+            {
+              "ref": [
+                "ass1",
+                "email"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "ass2": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.invoice_No",
+          "on": [
+            {
+              "ref": [
+                "ass2",
+                "email"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      },
+      "actions": {
+        "buttomaction": {
+          "kind": "action",
+          "@cds.odata.bindingparameter.name": "_it",
+          "@Common.SideEffects.TargetProperties": [
+            "_it/isReaded"
+          ]
+        },
+        "buttomaction1": {
+          "kind": "action",
+          "@Core.OperationAvailable.$edmJson.$Eq": [
+            {
+              "$Path": "_it/bool"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "CatalogService.attachment": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.attachment"
+          ]
+        }
+      },
+      "elements": {
+        "id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "msg_id": {
+          "type": "cds.String"
+        },
+        "attachmentId": {
+          "type": "cds.LargeString"
+        },
+        "filename": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.email",
+          "on": [
+            {
+              "ref": [
+                "email",
+                "msg_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "msg_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.invoice_No": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.invoice_No"
+          ]
+        }
+      },
+      "elements": {
+        "id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "msg_id": {
+          "type": "cds.String"
+        },
+        "invoice_no": {
+          "type": "cds.String"
+        },
+        "email": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.email",
+          "on": [
+            {
+              "ref": [
+                "email",
+                "msg_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "msg_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.getPdfUrl": {
+      "kind": "function",
+      "returns": {
+        "type": "cds.LargeString"
+      }
+    },
+    "CatalogService.getPdfUrlD": {
+      "kind": "function",
+      "returns": {
+        "type": "cds.LargeString"
+      }
+    },
+    "CatalogService.getPdfUrlS": {
+      "kind": "function",
+      "returns": {
+        "type": "cds.LargeString"
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v4.3.2",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}
