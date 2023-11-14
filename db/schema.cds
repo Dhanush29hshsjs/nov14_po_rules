@@ -212,3 +212,105 @@ entity invoice_No {
         email      : Association to one email
                          on email.msg_id = msg_id;
 }
+
+//////////////rules////////////
+
+entity assignment_ruless
+{
+    key f1 : Integer;
+    f2 : String;
+    f3 : String;
+    f4 : String;
+    asstomem : Composition of many memberss on asstomem.memtoasss = $self;
+}
+
+entity memberss
+{
+    key memid : UUID;
+    f1 : Integer;
+    name : String;
+    memtoasss : Association to one assignment_ruless on memtoasss.f1 = f1;
+}
+
+entity approval_rules
+{
+    key rule_id : Integer;
+    approval_type : String;
+    status : String;
+    comments : String;
+    apprtoapp : Composition of many approver on apprtoapp.apptoappr = $self;
+    apprtorul : Composition of many rule on apprtorul.rultoappr = $self;
+}
+
+entity approver
+{
+    key appid : UUID;
+    rule_id : Integer;
+    name : String;
+    apptoappr : Association to one approval_rules on apptoappr.rule_id = rule_id;
+}
+
+entity rule
+{
+    key appid : UUID;
+    rule_id : Integer;
+    rulee : String;
+    rultoappr : Association to one approval_rules on rultoappr.rule_id = rule_id;
+}
+
+entity emailnotification
+{key idd:UUID;
+    invoice_status : String;
+    status : String;
+    mail_subject : String;
+    mail_body : String;
+    mailtocc : Association to many cc on mailtocc.cctomail = $self;
+}
+
+entity cc
+{
+    key invoice_status : String;
+    name : String;
+    key member_id : Integer;
+    cctomail : Association to one emailnotification on cctomail.invoice_status = invoice_status;
+}
+
+entity cc_s_h
+{
+    key invoice_status : String default ' ';
+    name : String;
+    position : String;
+    key member_id : Integer;
+    key group_id : Integer;
+    key department_id : Integer;
+}
+
+entity rulenoti_s_h
+{
+    key value2 : String;
+}
+
+entity rules_n_status_s_h
+{
+    key table_key : String;
+    value2 : String;
+}
+
+entity notification_rules
+{
+    key nr_id : UUID;
+    table_key : String;
+    status : String;
+    mail_subject : String;
+    mail_body : LargeString;
+    nrtocc : Composition of many n_r_cc on nrtocc.notification_rules = $self;
+}
+
+entity n_r_cc
+{key idd:UUID;
+      member_id : Integer;
+      group_id : Integer;
+     department_id : Integer;
+    name : String;
+    notification_rules : Association to one notification_rules;
+}

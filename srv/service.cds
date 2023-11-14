@@ -50,5 +50,91 @@ service CatalogService {
     function getPdfUrl()  returns LargeString;
     function getPdfUrlD() returns LargeString;
     function getPdfUrlS() returns LargeString;
+ ////////////////Rules//////////////////////////
+    
+    // entity statuss as
+    //     projection on demo.statuss;
+   
+    // @odata.draft.enabled
+    // entity rules_notification as
+    //     projection on demo.rules_notification;
+    // @odata.draft.enabled
+    
+    // entity approval_rules as
+    //     projection on demo.approval_rules  actions{ @(  cds.odata.bindingparameter.name : '_it',
+    //         Common.SideEffects : {TargetProperties : ['_it/criteria']} ,
+    //         )action approve_conditions() ;
+    //     };
+    // entity criteria as
+    //     projection on demo.criteria;
+    
+    // entity condition as
+    //     projection on demo.condition;
+
+    // entity currency1 as
+    //     projection on demo.currency1;
+
+    
+    // entity conditions as
+    //     projection on demo.conditions;
+
+    // entity assignment_rules as
+    //     projection on demo.assignment_rules;
+        
+    // entity members as
+    //     projection on demo.members;
+    
+    entity assignment_ruless as
+        projection on demo.assignment_ruless actions{
+              @(  cds.odata.bindingparameter.name : '_it',
+            Common.SideEffects              : {TargetProperties : ['_it/f4']} ,
+            
+              )action toggleon() ;
+              @(  cds.odata.bindingparameter.name : '_it',
+            Common.SideEffects              : {TargetProperties : ['_it/f4']} ,
+            
+              )
+                 action toggleoff();       
+            
+            
+            }
+            ;
+    entity memberss as
+        projection on demo.memberss;
+
+     entity approval_rules as
+        projection on demo.approval_rules actions{
+              @(  cds.odata.bindingparameter.name : '_it',
+            Common.SideEffects              : {TargetProperties : ['_it/status']} , )
+            action apprtoggleon() ;
+              @(  cds.odata.bindingparameter.name : '_it',
+            Common.SideEffects              : {TargetProperties : ['_it/status']} , )
+            action apprtoggleoff();       
+            }
+            ;
+        entity rule as
+        projection on demo.rule;
+        entity approver as
+        projection on demo.approver;
+
+
+        @odata.draft.enabled entity emailnotification as
+        projection on demo.emailnotification;
+         entity cc as
+        projection on demo.cc;
+        
+        function getstatus() returns String;
+
+         entity rulenoti_s_h as
+        projection on demo.rulenoti_s_h;
+        
+         entity cc_s_h as
+        projection on demo.cc_s_h;
+        
+         entity rules_n_status_s_h as
+        projection on demo.rules_n_status_s_h;
+        @odata.draft.enabled
+         entity notification_rules as
+        projection on demo.notification_rules;
 
 }
