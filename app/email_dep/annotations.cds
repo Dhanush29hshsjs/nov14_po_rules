@@ -1,4 +1,5 @@
 using CatalogService as service from '../../srv/service';
+/////////////////////////////////////////////////
 
 annotate service.email with @UI.PresentationVariant: {
     Visualizations: ['@UI.LineItem'],
