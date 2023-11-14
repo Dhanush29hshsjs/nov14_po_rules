@@ -2,32 +2,32 @@ using {demo} from '../db/schema';
 
 service CatalogService {
     @odata.draft.enabled
-    entity Newtab        as projection on demo.Newtab;
+    entity Newtab             as projection on demo.Newtab;
 
     @odata.draft.enabled
-    entity Draft         as projection on demo.Draft;
+    entity Draft              as projection on demo.Draft;
 
     @odata.draft.enabled
-    entity Submitted     as projection on demo.Submitted;
+    entity Submitted          as projection on demo.Submitted;
 
-    entity Currency      as projection on demo.Currency;
-    entity CompanyCode   as projection on demo.CompanyCode;
-    entity Plant         as projection on demo.Plant;
+    entity Currency           as projection on demo.Currency;
+    entity CompanyCode        as projection on demo.CompanyCode;
+    entity Plant              as projection on demo.Plant;
 
     // entity podatatab as
     //     projection on demo.podatatab;
     @odata.draft.enabled
-    entity po_data_item  as projection on demo.po_data_item;
+    entity po_data_item       as projection on demo.po_data_item;
 
     @odata.draft.enabled
-    entity po_data_itemD as projection on demo.po_data_itemD;
+    entity po_data_itemD      as projection on demo.po_data_itemD;
 
     @odata.draft.enabled
-    entity po_data_itemS as projection on demo.po_data_itemS;
+    entity po_data_itemS      as projection on demo.po_data_itemS;
 
-    entity Track_po      as projection on demo.Track_po;
+    entity Track_po           as projection on demo.Track_po;
 
-    entity email         as projection on demo.email actions {
+    entity email              as projection on demo.email actions {
         @(
             cds.odata.bindingparameter.name: '_it',
             Common.SideEffects             : {TargetProperties: ['_it/isReaded']},
@@ -45,21 +45,21 @@ service CatalogService {
 
     };
 
-    entity attachment    as projection on demo.attachment;
-    entity invoice_No    as projection on demo.invoice_No;
+    entity attachment         as projection on demo.attachment;
+    entity invoice_No         as projection on demo.invoice_No;
     function getPdfUrl()  returns LargeString;
     function getPdfUrlD() returns LargeString;
     function getPdfUrlS() returns LargeString;
- ////////////////Rules//////////////////////////
-    
+    ////////////////Rules//////////////////////////
+
     // entity statuss as
     //     projection on demo.statuss;
-   
+
     // @odata.draft.enabled
     // entity rules_notification as
     //     projection on demo.rules_notification;
     // @odata.draft.enabled
-    
+
     // entity approval_rules as
     //     projection on demo.approval_rules  actions{ @(  cds.odata.bindingparameter.name : '_it',
     //         Common.SideEffects : {TargetProperties : ['_it/criteria']} ,
@@ -67,74 +67,68 @@ service CatalogService {
     //     };
     // entity criteria as
     //     projection on demo.criteria;
-    
+
     // entity condition as
     //     projection on demo.condition;
 
     // entity currency1 as
     //     projection on demo.currency1;
 
-    
+
     // entity conditions as
     //     projection on demo.conditions;
 
     // entity assignment_rules as
     //     projection on demo.assignment_rules;
-        
+
     // entity members as
     //     projection on demo.members;
-    
-    entity assignment_ruless as
-        projection on demo.assignment_ruless actions{
-              @(  cds.odata.bindingparameter.name : '_it',
-            Common.SideEffects              : {TargetProperties : ['_it/f4']} ,
-            
-              )action toggleon() ;
-              @(  cds.odata.bindingparameter.name : '_it',
-            Common.SideEffects              : {TargetProperties : ['_it/f4']} ,
-            
-              )
-                 action toggleoff();       
-            
-            
-            }
-            ;
-    entity memberss as
-        projection on demo.memberss;
 
-     entity approval_rules as
-        projection on demo.approval_rules actions{
-              @(  cds.odata.bindingparameter.name : '_it',
-            Common.SideEffects              : {TargetProperties : ['_it/status']} , )
-            action apprtoggleon() ;
-              @(  cds.odata.bindingparameter.name : '_it',
-            Common.SideEffects              : {TargetProperties : ['_it/status']} , )
-            action apprtoggleoff();       
-            }
-            ;
-        entity rule as
-        projection on demo.rule;
-        entity approver as
-        projection on demo.approver;
+    entity assignment_ruless  as projection on demo.assignment_ruless actions {
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/f4']},
+
+        ) action toggleon();
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/f4']},
+
+        )
+        action   toggleoff();
 
 
-        @odata.draft.enabled entity emailnotification as
-        projection on demo.emailnotification;
-         entity cc as
-        projection on demo.cc;
-        
-        function getstatus() returns String;
+    };
 
-         entity rulenoti_s_h as
-        projection on demo.rulenoti_s_h;
-        
-         entity cc_s_h as
-        projection on demo.cc_s_h;
-        
-         entity rules_n_status_s_h as
-        projection on demo.rules_n_status_s_h;
-        @odata.draft.enabled
-         entity notification_rules as
-        projection on demo.notification_rules;
+    entity memberss           as projection on demo.memberss;
+
+    entity approval_rules     as projection on demo.approval_rules actions {
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/status']},
+        )
+        action apprtoggleon();
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/status']},
+        )
+        action apprtoggleoff();
+    };
+
+    entity rule               as projection on demo.rule;
+    entity approver           as projection on demo.approver;
+
+
+    @odata.draft.enabled
+    entity emailnotification  as projection on demo.emailnotification;
+
+    entity cc                 as projection on demo.cc;
+    function getstatus()  returns String;
+    entity rulenoti_s_h       as projection on demo.rulenoti_s_h;
+    entity cc_s_h             as projection on demo.cc_s_h;
+    entity rules_n_status_s_h as projection on demo.rules_n_status_s_h;
+
+    @odata.draft.enabled
+    entity notification_rules as projection on demo.notification_rules;
 
 }

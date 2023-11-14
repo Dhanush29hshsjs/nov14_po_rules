@@ -266,7 +266,17 @@
                                             "press": "pocockpitdep.ext.controller.show.function1",
                                             "visible": true,
                                             "enabled": true,
-                                            "text": "Show / Hide (PDF)"
+                                            "text": "📄 Show / Hide"
+                                        },
+                                        "newattachment": {
+                                            "press": "pocockpitdep.ext.controller.Draftattachment.upload",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "🔗 Upload Attachment",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "show"
+                                            }
                                         }
                                     }
                                 }
@@ -308,7 +318,17 @@
                                             "press": "pocockpitdep.ext.controller.showd.function1",
                                             "visible": true,
                                             "enabled": true,
-                                            "text": "Show / Hide (PDF)"
+                                            "text": "📄 Show / Hide"
+                                        },
+                                        "draftattachment": {
+                                            "press": "pocockpitdep.ext.controller.Draftattachment.upload",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "🔗 Upload Attachment",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "showd"
+                                            }
                                         }
                                     }
                                 }
@@ -350,7 +370,17 @@
                                             "press": "pocockpitdep.ext.controller.shows.function1",
                                             "visible": true,
                                             "enabled": true,
-                                            "text": "Show / Hide (PDF)"
+                                            "text": "📄 Show / Hide"
+                                        },
+                                        "subattachment": {
+                                            "press": "pocockpitdep.ext.controller.Draftattachment.upload",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "🔗 Upload Attachment",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "shows"
+                                            }
                                         }
                                     }
                                 }
