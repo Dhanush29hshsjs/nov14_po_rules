@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Newtab" EntityType="CatalogService.Newtab">
+                    <NavigationPropertyBinding Path="newtoitem" Target="po_data_item"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Newtab"/>
+                </EntitySet>
+                <EntitySet Name="Draft" EntityType="CatalogService.Draft">
+                    <NavigationPropertyBinding Path="drafttoitem" Target="po_data_itemD"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Draft"/>
+                </EntitySet>
+                <EntitySet Name="Submitted" EntityType="CatalogService.Submitted">
+                    <NavigationPropertyBinding Path="submittedtoitem" Target="po_data_itemS"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Submitted"/>
+                </EntitySet>
+                <EntitySet Name="Currency" EntityType="CatalogService.Currency"/>
+                <EntitySet Name="CompanyCode" EntityType="CatalogService.CompanyCode"/>
+                <EntitySet Name="Plant" EntityType="CatalogService.Plant"/>
+                <EntitySet Name="po_data_item" EntityType="CatalogService.po_data_item">
+                    <NavigationPropertyBinding Path="podataN" Target="Newtab"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="po_data_item"/>
+                </EntitySet>
+                <EntitySet Name="po_data_itemD" EntityType="CatalogService.po_data_itemD">
+                    <NavigationPropertyBinding Path="podataD" Target="Draft"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="po_data_itemD"/>
+                </EntitySet>
+                <EntitySet Name="po_data_itemS" EntityType="CatalogService.po_data_itemS">
+                    <NavigationPropertyBinding Path="podataS" Target="Submitted"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="po_data_itemS"/>
+                </EntitySet>
+                <EntitySet Name="Track_po" EntityType="CatalogService.Track_po"/>
+                <EntitySet Name="email" EntityType="CatalogService.email">
+                    <NavigationPropertyBinding Path="ass1" Target="attachment"/>
+                    <NavigationPropertyBinding Path="ass2" Target="invoice_No"/>
+                </EntitySet>
+                <EntitySet Name="attachment" EntityType="CatalogService.attachment">
+                    <NavigationPropertyBinding Path="email" Target="email"/>
+                </EntitySet>
+                <EntitySet Name="invoice_No" EntityType="CatalogService.invoice_No">
+                    <NavigationPropertyBinding Path="email" Target="email"/>
+                </EntitySet>
+                <EntitySet Name="assignment_ruless" EntityType="CatalogService.assignment_ruless">
+                    <NavigationPropertyBinding Path="asstomem" Target="memberss"/>
+                </EntitySet>
+                <EntitySet Name="memberss" EntityType="CatalogService.memberss">
+                    <NavigationPropertyBinding Path="memtoasss" Target="assignment_ruless"/>
+                </EntitySet>
+                <EntitySet Name="approval_rules" EntityType="CatalogService.approval_rules">
+                    <NavigationPropertyBinding Path="apprtoapp" Target="approver"/>
+                    <NavigationPropertyBinding Path="apprtorul" Target="rule"/>
+                </EntitySet>
+                <EntitySet Name="rule" EntityType="CatalogService.rule">
+                    <NavigationPropertyBinding Path="rultoappr" Target="approval_rules"/>
+                </EntitySet>
+                <EntitySet Name="approver" EntityType="CatalogService.approver">
+                    <NavigationPropertyBinding Path="apptoappr" Target="approval_rules"/>
+                </EntitySet>
+                <EntitySet Name="emailnotification" EntityType="CatalogService.emailnotification">
+                    <NavigationPropertyBinding Path="mailtocc" Target="cc"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="emailnotification"/>
+                </EntitySet>
+                <EntitySet Name="cc" EntityType="CatalogService.cc">
+                    <NavigationPropertyBinding Path="cctomail" Target="emailnotification"/>
+                </EntitySet>
+                <EntitySet Name="rulenoti_s_h" EntityType="CatalogService.rulenoti_s_h"/>
+                <EntitySet Name="cc_s_h" EntityType="CatalogService.cc_s_h"/>
+                <EntitySet Name="rules_n_status_s_h" EntityType="CatalogService.rules_n_status_s_h"/>
+                <EntitySet Name="notification_rules" EntityType="CatalogService.notification_rules">
+                    <NavigationPropertyBinding Path="nrtocc" Target="n_r_cc"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="notification_rules"/>
+                </EntitySet>
+                <EntitySet Name="n_r_cc" EntityType="CatalogService.n_r_cc">
+                    <NavigationPropertyBinding Path="notification_rules" Target="notification_rules"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="n_r_cc"/>
+                </EntitySet>
+                <FunctionImport Name="getPdfUrl" Function="CatalogService.getPdfUrl"/>
+                <FunctionImport Name="getPdfUrlD" Function="CatalogService.getPdfUrlD"/>
+                <FunctionImport Name="getPdfUrlS" Function="CatalogService.getPdfUrlS"/>
+                <FunctionImport Name="getstatus" Function="CatalogService.getstatus"/>
+            </EntityContainer>
+            <EntityType Name="Newtab">
+                <Key>
+                    <PropertyRef Name="Ref_PO_No"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Ref_PO_No" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="PO_No" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Customer_Name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="Modified_Date_Time" Type="Edm.String" MaxLength="25"/>
+                <Property Name="PO_File" Type="Edm.String" MaxLength="100"/>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"/>
+                <Property Name="po_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_address" Type="Edm.String" MaxLength="500"/>
+                <Property Name="bill_to_address" Type="Edm.String" MaxLength="100"/>
+                <Property Name="customer" Type="Edm.String" MaxLength="100"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5"/>
+                <Property Name="purchase_group" Type="Edm.String" MaxLength="100"/>
+                <Property Name="taxable_amount" Type="Edm.Int32"/>
+                <Property Name="amount_total" Type="Edm.String" MaxLength="30"/>
+                <Property Name="tax" Type="Edm.Int32"/>
+                <Property Name="company_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="plant" Type="Edm.String" MaxLength="100"/>
+                <Property Name="file_link" Type="Edm.String"/>
+                <NavigationProperty Name="newtoitem" Type="Collection(CatalogService.po_data_item)" Partner="podataN"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Newtab"/>
+            </EntityType>
+            <EntityType Name="Draft">
+                <Key>
+                    <PropertyRef Name="Ref_PO_No"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Ref_PO_No" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="PO_No" Type="Edm.String"/>
+                <Property Name="Customer_Name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="Modified_by" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Modified_Date_Time" Type="Edm.String" MaxLength="25"/>
+                <Property Name="PO_File" Type="Edm.String" MaxLength="100"/>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"/>
+                <Property Name="po_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_address" Type="Edm.String" MaxLength="500"/>
+                <Property Name="bill_to_address" Type="Edm.String" MaxLength="100"/>
+                <Property Name="customer" Type="Edm.String" MaxLength="100"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5"/>
+                <Property Name="purchase_group" Type="Edm.String" MaxLength="100"/>
+                <Property Name="taxable_amount" Type="Edm.Int32"/>
+                <Property Name="amount_total" Type="Edm.String" MaxLength="30"/>
+                <Property Name="tax" Type="Edm.Int32"/>
+                <Property Name="company_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="plant" Type="Edm.String" MaxLength="100"/>
+                <Property Name="file_link" Type="Edm.String"/>
+                <NavigationProperty Name="drafttoitem" Type="Collection(CatalogService.po_data_itemD)" Partner="podataD"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Draft"/>
+            </EntityType>
+            <EntityType Name="Submitted">
+                <Key>
+                    <PropertyRef Name="Ref_PO_No"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Ref_PO_No" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="PO_No" Type="Edm.String"/>
+                <Property Name="Customer_Name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="Modified_Date_Time" Type="Edm.String" MaxLength="25"/>
+                <Property Name="PO_File" Type="Edm.String" MaxLength="100"/>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"/>
+                <Property Name="po_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="delivery_address" Type="Edm.String" MaxLength="500"/>
+                <Property Name="bill_to_address" Type="Edm.String" MaxLength="100"/>
+                <Property Name="customer" Type="Edm.String" MaxLength="100"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5"/>
+                <Property Name="purchase_group" Type="Edm.String" MaxLength="100"/>
+                <Property Name="taxable_amount" Type="Edm.Int32"/>
+                <Property Name="amount_total" Type="Edm.String" MaxLength="30"/>
+                <Property Name="tax" Type="Edm.Int32"/>
+                <Property Name="company_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="plant" Type="Edm.String" MaxLength="100"/>
+                <Property Name="file_link" Type="Edm.String"/>
+                <NavigationProperty Name="submittedtoitem" Type="Collection(CatalogService.po_data_itemS)" Partner="podataS"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Submitted"/>
+            </EntityType>
+            <EntityType Name="Currency">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="CompanyCode">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="Plant">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="po_data_item">
+                <Key>
+                    <PropertyRef Name="uid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="uid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="slno" Type="Edm.Int32"/>
+                <Property Name="ref_po_no" Type="Edm.Int32"/>
+                <Property Name="item_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="hsn_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_name" Type="Edm.String" MaxLength="60"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="unit_price" Type="Edm.String" MaxLength="20"/>
+                <Property Name="unit_of_measure" Type="Edm.String" MaxLength="5"/>
+                <Property Name="tax_percentage" Type="Edm.Int32"/>
+                <Property Name="taxable_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="tax_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="total_amount" Type="Edm.String" MaxLength="15"/>
+                <NavigationProperty Name="podataN" Type="CatalogService.Newtab" Partner="newtoitem">
+                    <ReferentialConstraint Property="ref_po_no" ReferencedProperty="Ref_PO_No"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.po_data_item"/>
+            </EntityType>
+            <EntityType Name="po_data_itemD">
+                <Key>
+                    <PropertyRef Name="uid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="uid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="slno" Type="Edm.Int32"/>
+                <Property Name="ref_po_no" Type="Edm.Int32"/>
+                <Property Name="item_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="hsn_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_name" Type="Edm.String" MaxLength="60"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="unit_price" Type="Edm.String" MaxLength="20"/>
+                <Property Name="unit_of_measure" Type="Edm.String" MaxLength="5"/>
+                <Property Name="tax_percentage" Type="Edm.Int32"/>
+                <Property Name="taxable_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="tax_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="total_amount" Type="Edm.String" MaxLength="15"/>
+                <NavigationProperty Name="podataD" Type="CatalogService.Draft" Partner="drafttoitem">
+                    <ReferentialConstraint Property="ref_po_no" ReferencedProperty="Ref_PO_No"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.po_data_itemD"/>
+            </EntityType>
+            <EntityType Name="po_data_itemS">
+                <Key>
+                    <PropertyRef Name="uid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="uid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="slno" Type="Edm.Int32"/>
+                <Property Name="ref_po_no" Type="Edm.Int32"/>
+                <Property Name="item_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="hsn_code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_no" Type="Edm.String" MaxLength="10"/>
+                <Property Name="material_name" Type="Edm.String" MaxLength="60"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="unit_price" Type="Edm.String" MaxLength="20"/>
+                <Property Name="unit_of_measure" Type="Edm.String" MaxLength="5"/>
+                <Property Name="tax_percentage" Type="Edm.Int32"/>
+                <Property Name="taxable_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="tax_amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="total_amount" Type="Edm.String" MaxLength="15"/>
+                <NavigationProperty Name="podataS" Type="CatalogService.Submitted" Partner="submittedtoitem">
+                    <ReferentialConstraint Property="ref_po_no" ReferencedProperty="Ref_PO_No"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.po_data_itemS"/>
+            </EntityType>
+            <EntityType Name="Track_po">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ref_po_no" Type="Edm.Int32"/>
+                <Property Name="error_log" Type="Edm.String" MaxLength="20"/>
+                <Property Name="modified_by" Type="Edm.String" MaxLength="30"/>
+                <Property Name="Date" Type="Edm.String" MaxLength="11"/>
+                <Property Name="po_number" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="supplier_name" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="email">
+                <Key>
+                    <PropertyRef Name="msg_id"/>
+                </Key>
+                <Property Name="msg_id" Type="Edm.String" Nullable="false"/>
+                <Property Name="FROM_" Type="Edm.String"/>
+                <Property Name="DATE" Type="Edm.Date"/>
+                <Property Name="TIME" Type="Edm.TimeOfDay"/>
+                <Property Name="SUBJECT" Type="Edm.String"/>
+                <Property Name="TIME_TAKEN" Type="Edm.String"/>
+                <Property Name="isReaded" Type="Edm.String"/>
+                <NavigationProperty Name="ass1" Type="Collection(CatalogService.attachment)" Partner="email"/>
+                <NavigationProperty Name="ass2" Type="Collection(CatalogService.invoice_No)" Partner="email"/>
+            </EntityType>
+            <EntityType Name="attachment">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="msg_id" Type="Edm.String"/>
+                <Property Name="attachmentId" Type="Edm.String"/>
+                <Property Name="filename" Type="Edm.String"/>
+                <NavigationProperty Name="email" Type="CatalogService.email" Partner="ass1">
+                    <ReferentialConstraint Property="msg_id" ReferencedProperty="msg_id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="invoice_No">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="msg_id" Type="Edm.String"/>
+                <Property Name="invoice_no" Type="Edm.String"/>
+                <NavigationProperty Name="email" Type="CatalogService.email" Partner="ass2">
+                    <ReferentialConstraint Property="msg_id" ReferencedProperty="msg_id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="assignment_ruless">
+                <Key>
+                    <PropertyRef Name="f1"/>
+                </Key>
+                <Property Name="f1" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="f2" Type="Edm.String"/>
+                <Property Name="f3" Type="Edm.String"/>
+                <Property Name="f4" Type="Edm.String"/>
+                <NavigationProperty Name="asstomem" Type="Collection(CatalogService.memberss)" Partner="memtoasss">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="memberss">
+                <Key>
+                    <PropertyRef Name="memid"/>
+                </Key>
+                <Property Name="memid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="f1" Type="Edm.Int32"/>
+                <Property Name="name" Type="Edm.String"/>
+                <NavigationProperty Name="memtoasss" Type="CatalogService.assignment_ruless" Partner="asstomem">
+                    <ReferentialConstraint Property="f1" ReferencedProperty="f1"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="approval_rules">
+                <Key>
+                    <PropertyRef Name="rule_id"/>
+                </Key>
+                <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="approval_type" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="comments" Type="Edm.String"/>
+                <NavigationProperty Name="apprtoapp" Type="Collection(CatalogService.approver)" Partner="apptoappr">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="apprtorul" Type="Collection(CatalogService.rule)" Partner="rultoappr">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="rule">
+                <Key>
+                    <PropertyRef Name="appid"/>
+                </Key>
+                <Property Name="appid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="rule_id" Type="Edm.Int32"/>
+                <Property Name="rulee" Type="Edm.String"/>
+                <NavigationProperty Name="rultoappr" Type="CatalogService.approval_rules" Partner="apprtorul">
+                    <ReferentialConstraint Property="rule_id" ReferencedProperty="rule_id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="approver">
+                <Key>
+                    <PropertyRef Name="appid"/>
+                </Key>
+                <Property Name="appid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="rule_id" Type="Edm.Int32"/>
+                <Property Name="name" Type="Edm.String"/>
+                <NavigationProperty Name="apptoappr" Type="CatalogService.approval_rules" Partner="apprtoapp">
+                    <ReferentialConstraint Property="rule_id" ReferencedProperty="rule_id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="emailnotification">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="invoice_status" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="mail_subject" Type="Edm.String"/>
+                <Property Name="mail_body" Type="Edm.String"/>
+                <NavigationProperty Name="mailtocc" Type="Collection(CatalogService.cc)" Partner="cctomail"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.emailnotification"/>
+            </EntityType>
+            <EntityType Name="cc">
+                <Key>
+                    <PropertyRef Name="invoice_status"/>
+                    <PropertyRef Name="member_id"/>
+                </Key>
+                <Property Name="invoice_status" Type="Edm.String" Nullable="false"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="member_id" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="cctomail" Type="CatalogService.emailnotification" Partner="mailtocc"/>
+            </EntityType>
+            <EntityType Name="rulenoti_s_h">
+                <Key>
+                    <PropertyRef Name="value2"/>
+                </Key>
+                <Property Name="value2" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="cc_s_h">
+                <Key>
+                    <PropertyRef Name="invoice_status"/>
+                    <PropertyRef Name="member_id"/>
+                    <PropertyRef Name="group_id"/>
+                    <PropertyRef Name="department_id"/>
+                </Key>
+                <Property Name="invoice_status" Type="Edm.String" Nullable="false" DefaultValue=" "/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="position" Type="Edm.String"/>
+                <Property Name="member_id" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="group_id" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="department_id" Type="Edm.Int32" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="rules_n_status_s_h">
+                <Key>
+                    <PropertyRef Name="table_key"/>
+                </Key>
+                <Property Name="table_key" Type="Edm.String" Nullable="false"/>
+                <Property Name="value2" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="notification_rules">
+                <Key>
+                    <PropertyRef Name="nr_id"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="nr_id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="table_key" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="mail_subject" Type="Edm.String"/>
+                <Property Name="mail_body" Type="Edm.String"/>
+                <NavigationProperty Name="nrtocc" Type="Collection(CatalogService.n_r_cc)" Partner="notification_rules">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.notification_rules"/>
+            </EntityType>
+            <EntityType Name="n_r_cc">
+                <Key>
+                    <PropertyRef Name="idd"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="member_id" Type="Edm.Int32"/>
+                <Property Name="group_id" Type="Edm.Int32"/>
+                <Property Name="department_id" Type="Edm.Int32"/>
+                <Property Name="name" Type="Edm.String"/>
+                <NavigationProperty Name="notification_rules" Type="CatalogService.notification_rules" Partner="nrtocc">
+                    <ReferentialConstraint Property="notification_rules_nr_id" ReferencedProperty="nr_id"/>
+                </NavigationProperty>
+                <Property Name="notification_rules_nr_id" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.n_r_cc"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Newtab"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Newtab"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Draft"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Draft"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Submitted"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Submitted"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_item"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.po_data_item"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemD"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.po_data_itemD"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemS"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.po_data_itemS"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.emailnotification"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.emailnotification"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.notification_rules"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.notification_rules"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.n_r_cc"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.n_r_cc"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Newtab"/>
+                <ReturnType Type="CatalogService.Newtab"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Draft"/>
+                <ReturnType Type="CatalogService.Draft"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Submitted"/>
+                <ReturnType Type="CatalogService.Submitted"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_item"/>
+                <ReturnType Type="CatalogService.po_data_item"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemD"/>
+                <ReturnType Type="CatalogService.po_data_itemD"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemS"/>
+                <ReturnType Type="CatalogService.po_data_itemS"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.emailnotification"/>
+                <ReturnType Type="CatalogService.emailnotification"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.notification_rules"/>
+                <ReturnType Type="CatalogService.notification_rules"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Newtab"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Newtab"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Draft"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Draft"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Submitted"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Submitted"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_item"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.po_data_item"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemD"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.po_data_itemD"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.po_data_itemS"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.po_data_itemS"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.emailnotification"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.emailnotification"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.notification_rules"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.notification_rules"/>
+            </Action>
+            <Action Name="buttomaction" IsBound="true">
+                <Parameter Name="_it" Type="CatalogService.email"/>
+            </Action>
+            <Action Name="buttomaction1" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.email"/>
+            </Action>
+            <Action Name="toggleon" IsBound="true">
+                <Parameter Name="_it" Type="CatalogService.assignment_ruless"/>
+            </Action>
+            <Action Name="toggleoff" IsBound="true">
+                <Parameter Name="_it" Type="CatalogService.assignment_ruless"/>
+            </Action>
+            <Action Name="apprtoggleon" IsBound="true">
+                <Parameter Name="_it" Type="CatalogService.approval_rules"/>
+            </Action>
+            <Action Name="apprtoggleoff" IsBound="true">
+                <Parameter Name="_it" Type="CatalogService.approval_rules"/>
+            </Action>
+            <Function Name="getPdfUrl" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="getPdfUrlD" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="getPdfUrlS" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="getstatus" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Annotations Target="CatalogService.EntityContainer/Newtab">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Newtab/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Newtab/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Newtab/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Newtab/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Draft">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Draft/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Draft/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Draft/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Draft/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Submitted">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Submitted/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Submitted/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Submitted/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Submitted/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/po_data_item">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_item/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_item/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_item/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_item/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/po_data_itemD">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemD/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemD/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemD/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemD/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/po_data_itemS">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemS/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemS/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemS/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.po_data_itemS/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.buttomaction(CatalogService.email)">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>_it/isReaded</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.buttomaction1(CatalogService.email)">
+                <Annotation Term="Core.OperationAvailable">
+                    <Eq>
+                        <Path>_it/bool</Path>
+                        <Bool>false</Bool>
+                    </Eq>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.toggleon(CatalogService.assignment_ruless)">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>_it/f4</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.toggleoff(CatalogService.assignment_ruless)">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>_it/f4</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.apprtoggleon(CatalogService.approval_rules)">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>_it/status</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.apprtoggleoff(CatalogService.approval_rules)">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>_it/status</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/emailnotification">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.emailnotification/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.emailnotification/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.emailnotification/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.emailnotification/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/notification_rules">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.notification_rules/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.notification_rules/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.notification_rules/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.notification_rules/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/n_r_cc">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.n_r_cc/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.n_r_cc/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.n_r_cc/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.n_r_cc/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                </Annotations>
+                <Annotations Target="CatalogService.DraftAdministrativeData/DraftUUID">
+                    <Annotation Term="UI.Hidden" Bool="true"/>
+                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                    </Annotations>
+                    <Annotations Target="CatalogService.DraftAdministrativeData/CreationDateTime">
+                        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                        </Annotations>
+                        <Annotations Target="CatalogService.DraftAdministrativeData/CreatedByUser">
+                            <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                            </Annotations>
+                            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                </Annotations>
+                                <Annotations Target="CatalogService.DraftAdministrativeData/LastChangeDateTime">
+                                    <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.DraftAdministrativeData/LastChangedByUser">
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                        </Annotations>
+                                        <Annotations Target="CatalogService.DraftAdministrativeData/InProcessByUser">
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                            </Annotations>
+                                            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>

@@ -25,11 +25,15 @@
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
         "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
         "watch-po_cockpit_dep": "cds watch --open po_cockpit_dep/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-trackpodep": "cds watch --open trackpodep/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-trackpodep": "cds watch --open trackpodep/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-notificationrules": "cds watch --open notificationrules/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-view_all_r_n": "cds watch --open view_all_r_n/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "sapux": [
         "app/email_dep",
         "app/po_cockpit_dep",
-        "app/trackpodep"
+        "app/trackpodep",
+        "app/notificationrules",
+        "app/view_all_r_n"
     ]
 }

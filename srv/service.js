@@ -35,7 +35,9 @@ function togglebutton(i) {
 module.exports = cds.service.impl(async function () {
     /* SERVICE ENTITIES */
     let {
-
+        approvers,
+        assignment_ruless,
+rule_statuses,
         Source_Event,
         Source_Event_Name,
         NoKey,
@@ -46,8 +48,8 @@ module.exports = cds.service.impl(async function () {
         approval_rules,
         approver,
         rule,
-        assignment_ruless,
-        memberss,
+        
+        
         rulenoti_s_h,
         cc_s_h,
         togglee,
@@ -1095,14 +1097,14 @@ module.exports = cds.service.impl(async function () {
             // cds.tx(req).run(DELETE(memberss)); 
             // no = 1;   
             // }
+            await cds.tx(req).run(DELETE(assignment_ruless));
+            await cds.tx(req).run(DELETE(approvers));
             spaces.forEach(space => {
                 entries.push({
-                    f1: space.rule_id,
-                    f2: `${space.rule_name}`,
-                    f3: `${space.comments}`,
-                    f4: `${space.is_on}`
-
-
+                    rule_id :space.rule_id,
+                    rule_name: `${space.rule_name}`,
+                       comments: `${space.comments}`,
+                       is_on :`${space.is_on}`
                 });
                 // entries2.push({
 
@@ -1113,7 +1115,12 @@ module.exports = cds.service.impl(async function () {
 
                 space1.forEach(space11 => {
                     entries1.push({
-                        f1: space.rule_id,
+                        rule_id: space.rule_id,
+                        approver: Integer;
+                        isgroup: String;
+                        level: Integer;
+                        name: String;
+                        position
                         name: `${space11.name}`
                     });
                 });
@@ -1125,37 +1132,7 @@ module.exports = cds.service.impl(async function () {
             return req;
 
         } catch (err) {
-            try {
-                const resp = await c5re.get('/dev/rules?is_approval=n');
-
-                const spaces = resp.body;
-                let entries = [];
-                let entries1 = [];
-                await cds.tx(req).run(DELETE(assignment_ruless));
-                cds.tx(req).run(DELETE(memberss));
-                spaces.forEach(space => {
-                    entries.push({
-                        f1: space.rule_id,
-                        f2: `${space.rule_name}`,
-                        f3: `${space.comments}`,
-                        f4: `${space.is_on}`
-                    });
-                    const space1 = space.approvers;
-
-                    space1.forEach(space11 => {
-                        entries1.push({
-                            f1: space.rule_id,
-                            name: `${space11.name}`
-                        });
-                    });
-                });
-
-                await cds.tx(req).run(INSERT.into(assignment_ruless).entries(entries));
-                await cds.tx(req).run(INSERT.into(memberss).entries(entries1));
-                return req;
-            } catch (err) {
                 req.error(500, err.message);
-            }
         }
     });
 
@@ -1468,22 +1445,24 @@ module.exports = cds.service.impl(async function () {
             req.error(500, err.message);
         }
     });
-    ///////////rules_n_status_s_h
-    this.before('READ', rules_n_status_s_h, async (req) => {
+    ///////////rule_statuses
+    this.before('READ', rule_statuses, async (req) => {
         debugger
         try {
             if (true) {
                 const resp = await c5re.get('/dev/dropdown?drop_key=rule_statuses');
-                await cds.tx(req).run(DELETE(rules_n_status_s_h));
+                await cds.tx(req).run(DELETE(rule_statuses));
                 const spaces = resp.body;
                 const entries = [];
                 spaces.forEach(space => {
                     entries.push({
                         table_key: `${space.table_key}`,
                         value2: `${space.value2}`,
+                        value3: `${space.value3}`,
+                        value4: `${space.value4}`,
                     });
                 });
-                await cds.tx(req).run(INSERT.into(rules_n_status_s_h).entries(entries));
+                await cds.tx(req).run(INSERT.into(rule_statuses).entries(entries));
             }
             return req;
         }

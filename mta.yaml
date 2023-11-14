@@ -68,6 +68,14 @@ modules:
       - trackpodep.zip
       name: trackpodep
       target-path: resources/
+    - artifacts:
+      - notificationrules.zip
+      name: notificationrules
+      target-path: resources/
+    - artifacts:
+      - viewallrn.zip
+      name: viewallrn
+      target-path: resources/
 - name: emaildep
   type: html5
   path: app/email_dep
@@ -91,6 +99,26 @@ modules:
 - name: trackpodep
   type: html5
   path: app/trackpodep
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: notificationrules
+  type: html5
+  path: app/notificationrules
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: viewallrn
+  type: html5
+  path: app/view_all_r_n
   build-parameters:
     build-result: dist
     builder: custom

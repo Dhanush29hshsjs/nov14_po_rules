@@ -84,23 +84,9 @@ service CatalogService {
     // entity members as
     //     projection on demo.members;
 
-    entity assignment_ruless  as projection on demo.assignment_ruless actions {
-        @(
-            cds.odata.bindingparameter.name: '_it',
-            Common.SideEffects             : {TargetProperties: ['_it/f4']},
+  
 
-        ) action toggleon();
-        @(
-            cds.odata.bindingparameter.name: '_it',
-            Common.SideEffects             : {TargetProperties: ['_it/f4']},
-
-        )
-        action   toggleoff();
-
-
-    };
-
-    entity memberss           as projection on demo.memberss;
+   
 
     entity approval_rules     as projection on demo.approval_rules actions {
         @(
@@ -128,7 +114,23 @@ service CatalogService {
     entity cc_s_h             as projection on demo.cc_s_h;
     entity rules_n_status_s_h as projection on demo.rules_n_status_s_h;
 
+////////////rules notification/
+
+
     @odata.draft.enabled
     entity notification_rules as projection on demo.notification_rules;
-
+    entity rule_statuses as projection on demo.rule_statuses;
+  ////////view all r and n//////////
+  entity assignment_ruless  as projection on demo.assignment_ruless actions {
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/is_on']},
+        ) action toggleon();
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/is_on']},
+        )
+        action   toggleoff();
+    };
+     entity approvers   as projection on demo.approvers;
 }
