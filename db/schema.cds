@@ -214,55 +214,6 @@ entity invoice_No {
 }
 
 //////////////rules////////////
-
-
-
-
-entity approval_rules {
-    key rule_id       : Integer;
-        approval_type : String;
-        status        : String;
-        comments      : String;
-        apprtoapp     : Composition of many approver
-                            on apprtoapp.apptoappr = $self;
-        apprtorul     : Composition of many rule
-                            on apprtorul.rultoappr = $self;
-}
-
-entity approver {
-    key appid     : UUID;
-        rule_id   : Integer;
-        name      : String;
-        apptoappr : Association to one approval_rules
-                        on apptoappr.rule_id = rule_id;
-}
-
-entity rule {
-    key appid     : UUID;
-        rule_id   : Integer;
-        rulee     : String;
-        rultoappr : Association to one approval_rules
-                        on rultoappr.rule_id = rule_id;
-}
-
-entity emailnotification {
-    key idd            : UUID;
-        invoice_status : String;
-        status         : String;
-        mail_subject   : String;
-        mail_body      : String;
-        mailtocc       : Association to many cc
-                             on mailtocc.cctomail = $self;
-}
-
-entity cc {
-    key invoice_status : String;
-        name           : String;
-    key member_id      : Integer;
-        cctomail       : Association to one emailnotification
-                             on cctomail.invoice_status = invoice_status;
-}
-
 entity cc_s_h {
     key invoice_status : String default ' ';
         name           : String;
@@ -307,23 +258,82 @@ entity n_r_cc {
         name               : String;
         notification_rules : Association to one notification_rules;
 }
+
 ///////////////////////view all r & n//////
 entity assignment_ruless {
-    key rule_id : Integer;
-     rule_name: String;
-        comments: String;
-        is_on      : String;
-      
-        asstoapp : Composition of many approvers
-                       on asstoapp.apptoass = $self;
+    key rule_id   : Integer;
+        rule_name : String;
+        comments  : String;
+        is_on     : String;
+        asstoapp  : Composition of many approvers
+                        on asstoapp.apptoass = $self;
 }
+
 entity approvers {
-    key rule_id : Integer;
-                 key   approver: Integer;
-                    isgroup: String;
-                    level: Integer;
-                    name: String;
-                    position: String;
+    key rule_id  : Integer;
+    key approver : Integer;
+        isgroup  : String;
+        level    : Integer;
+        name     : String;
+        position : String;
         apptoass : Association to one assignment_ruless
-                        on apptoass.rule_id = rule_id;
+                       on apptoass.rule_id = rule_id;
+}
+
+entity approval_rules {
+    key rule_id              : Integer;
+        approval_type        : String;
+        comments             : String;
+        due_notification     : Integer;
+        due_reminder         : Integer;
+        ec_isgroup           : String;
+        es_name              : String;
+        escelator            : Integer;
+        ifnot_withindays     : Integer;
+        is_on                : String;
+        overdue_notification : Integer;
+        overdue_reminder     : Integer;
+        rule_name            : String;
+        apprtoapp            : Composition of many approvers1
+                                   on apprtoapp.apptoappr = $self;
+        apprtocri            : Composition of many criteria
+                                   on apprtocri.critoappr = $self;
+}
+
+entity approvers1 {
+    key rule_id   : Integer;
+    key approver  : Integer;
+        isgroup   : String;
+        level     : Integer;
+        name      : String;
+        position  : String;
+        apptoappr : Association to one approval_rules
+                        on apptoappr.rule_id = rule_id;
+}
+
+entity criteria {
+    key rule_id      : Integer;
+    key rule         : String;
+        decider_type : String;
+        critoappr    : Association to one approval_rules
+                           on critoappr.rule_id = rule_id;
+}
+
+entity emailnotification {
+    key e_id           : UUID;
+    key invoice_status : String;
+        body           : String;
+        status_desc    : String;
+        subject        : String;
+        mailtocc       : Composition of many mail_cc
+                             on mailtocc.cctomail = $self;
+}
+
+
+entity mail_cc {
+    key invoice_status : String;
+    key member_id      : Integer;
+        name           : String;
+        cctomail       : Association to one emailnotification
+                             on cctomail.invoice_status = invoice_status;
 }

@@ -35,7 +35,11 @@ function togglebutton(i) {
 module.exports = cds.service.impl(async function () {
     /* SERVICE ENTITIES */
     let {
+        approval_rules,
+        approvers1,
+        criteria,
         approvers,
+        mail_cc,  
         assignment_ruless,
 rule_statuses,
         Source_Event,
@@ -43,13 +47,7 @@ rule_statuses,
         NoKey,
         notification_rules,
         rules_n_status_s_h,
-        emailnotification,
-        cc,
-        approval_rules,
-        approver,
-        rule,
-        
-        
+        emailnotification,   
         rulenoti_s_h,
         cc_s_h,
         togglee,
@@ -59,7 +57,6 @@ rule_statuses,
         conditions,
         Newtab,
         statuss,
-        criteria,
         po_data,
         po_data_item,
         po_data_itemD,
@@ -889,195 +886,6 @@ rule_statuses,
     });
 
     ////////////////////rules///////////////////////////
-    ///////////status
-    // this.before('READ', statuss, async (req) => {debugger
-    //     try { if (true) {
-    //         const resp = await c5re.get('/dev/dropdown?drop_key=rule_statuses');
-    //         cds.tx(req).run(DELETE(statuss));
-    //         const spaces = resp.body;
-    //         const entries = [];
-    //         spaces.forEach(space =>  {        
-    //             entries.push({
-    //                 table_key : `${space.table_key}`,
-    //                 value2 : `${space.value2}`
-    //             });
-    //         });
-    //         await cds.tx(req).run(INSERT.into(statuss).entries(entries));
-    //         }
-    //     return req;
-
-    //     } catch (err) {
-    //         req.error(500, err.message);
-    //     }
-    //     }); 
-
-
-    //     this.before('READ', criteria, async (req) => {debugger
-    //         try { if (true) {
-    //             const resp = await c5re.get('/dev/dropdown?drop_key=rule-decider-fields');
-    //             cds.tx(req).run(DELETE(criteria));
-    //             const spaces = resp.body;
-    //             const entries = [];
-    //             spaces.forEach(space =>  {        
-    //                 entries.push({
-    //                     value2 : `${space.value2}`,
-    //                     // description : `${space.description}`
-    //                 });
-    //             });
-    //             await cds.tx(req).run(INSERT.into(criteria).entries(entries));
-    //             }
-    //         return req;
-
-    //         } catch (err) {
-    //             req.error(500, err.message);
-    //         }
-    //         }); 
-    //         this.before('READ', condition, async (req) => {debugger
-
-    //             try { if (true) {
-
-    //                 cds.tx(req).run(DELETE(condition));
-
-    //                 const entries = [];
-    //                 // const comp = await SELECT `criteria`.from(approval_rules);
-    //                 // if (comp == 'Cost Center') {
-    //                     entries.push({
-    //                         value2 : `Equal To`,
-    //                         criteria : `Amount`,
-    //                     });
-    //                     entries.push({
-    //                     value2 : `In Between`,
-    //                     criteria : `Amount`,
-    //                     });
-    //                     entries.push({
-    //                     value2 : `Less Than`,
-
-    //                     criteria : `Amount`,
-    //                 });
-    //                     entries.push({
-    //                     value2 : `More Than`,
-    //                     criteria : `Amount`,
-    //                 });
-    //                     entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Cost Center`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Department`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Document Type`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `G/ L Account`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Item Category`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Jurisdiction Code`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `PO Type`,
-    //                 });
-    //                 entries.push({
-    //                     value2 : `Equal To`,
-    //                     criteria : `Vendor`,
-    //                 });
-    //                 // }
-    //                 await cds.tx(req).run(INSERT.into(condition).entries(entries));
-    //                 return req;
-    //             }
-
-
-    //             } catch (err) {
-    //                 req.error(500, err.message);
-    //                 console.log(err);
-    //             }
-    //             }); 
-
-    //             this.before('READ', currency1, async (req) => {debugger
-    //                 try { if (true) {
-    //                     const resp = await c5re.get('/dev/search-help?master_id=12');
-    //                     cds.tx(req).run(DELETE(currency1));
-    //                     const spaces = resp.body.search_help;
-    //                     const entries = [];
-    //                     spaces.forEach(space =>  {        
-    //                         entries.push({
-    //                             code : `${space.code}`,
-    //                             description : `${space.description}`
-    //                         });
-    //                     });
-    //                     await cds.tx(req).run(INSERT.into(currency1).entries(entries));
-    //                     }
-    //                 return req;
-
-    //                 } catch (err) {
-    //                     req.error(500, err.message);
-    //                 }
-    //                 }); 
-    //                 this.on('approve_conditions', async (req) => {
-    //                     try { if (true) {
-
-    //                         const entries = [];
-
-    //                             entries.push({
-    //                                 code : `${space.code}`,
-    //                                 description : `${space.description}`
-    //                             });
-
-    //                         await cds.tx(req).run(INSERT.into(currency1).entries(entries));
-    //                         }
-    //                     return req;
-
-    //                     } catch (err) {
-    //                         req.error(500, err.message);
-    //                     }
-    //                 });
-
-    // this.before('READ', assignment_rules, async (req) => {debugger
-    //     try { if (true) {
-    //         const resp = await c5re.get('/dev/rules?is_approval=n');
-    //         cds.tx(req).run(DELETE(assignment_rules));
-    //         cds.tx(req).run(DELETE(members));
-    //         const spaces = resp.body;
-    //         let entries = [];
-    //         let entries1 = [];
-
-    //         spaces.forEach(space =>  {        
-    //             entries.push({
-    //                 rule_id : space.rule_id,
-    //                 assignment_rule : `${space.rule_name}`,
-    //                 comments : `${space.comments}`,
-    //                 status : `${space.is_on}`,
-    //             });
-
-    //             const space1 = space.approvers;
-
-    //             space1.forEach(space11 =>  {   
-    //             entries1.push({
-    //                 rule_id : space.rule_id,
-    //                 name : `${space11.name}`,
-    //             });
-    //         });
-    //         });
-    //         await cds.tx(req).run(INSERT.into(assignment_rules).entries(entries));
-    //         await cds.tx(req).run(INSERT.into(members).entries(entries1));
-    //         }
-    //     return req;
-
-    //     } catch (err) {
-    //         req.error(500, err.message);
-    //     }
-    //     });
-
-
     //////////////////
     let no = 1;
     this.before('READ', assignment_ruless, async (req) => {
@@ -1116,39 +924,58 @@ rule_statuses,
                 space1.forEach(space11 => {
                     entries1.push({
                         rule_id: space.rule_id,
-                        approver: Integer;
-                        isgroup: String;
-                        level: Integer;
-                        name: String;
-                        position
-                        name: `${space11.name}`
+                        approver: space11.approver,
+                        isgroup: `${space11.isgroup}`,
+                        level: space11.level,
+                            name: `${space11.name}`,
+                        position:`${space11.position}`
                     });
                 });
             });
             // }
             await cds.tx(req).run(INSERT.into(assignment_ruless).entries(entries));
             // await cds.tx(req).run(INSERT.into(togglee).entries(entries2));
-            await cds.tx(req).run(INSERT.into(memberss).entries(entries1));
+            await cds.tx(req).run(INSERT.into(approvers).entries(entries1));
             return req;
 
         } catch (err) {
                 req.error(500, err.message);
         }
     });
+    this.on('toggleon', async (req) => {
+        debugger
+        var ruleid = req.params[0].rule_id
+        // console.log("button hit aytu");
+        const stat = await SELECT`is_on`.from(assignment_ruless).where`rule_id = ${ruleid}`;
+        if (stat[0].is_on == 'y') {
+            stat[0].is_on = 'n';
+        } else {
+            stat[0].is_on = 'y';
+        }
+        var bodyy = {};
+        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].is_on}`, bodyy);
+        // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
+        //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
+        //    console.log(statr);
 
-    // this.on('toggleon', async (req) => {
-    //     // var msgid = req.params[0].msg_id;
-    //     console.log("toggle on!");
-    //     // var bodyy = {};
-    //     // var res = await c5re.post(`/dev/gmail-s3?user_id=einvoiceportal@gmail.com&msg_id=${msgid}`, bodyy);
-    // });
-    // this.on('toggleoff', async (req) => {
-    //     // var msgid = req.params[0].msg_id;
-    //     console.log("toggle off!");
-    //     // var bodyy = {};
-    //     // var res = await c5re.post(`/dev/gmail-s3?user_id=einvoiceportal@gmail.com&msg_id=${msgid}`, bodyy);
-    // });
+    });
+    this.on('toggleoff', async (req) => {
+        debugger
+        var ruleid = req.params[0].rule_id
+        // console.log("button hit aytu");
+        const stat = await SELECT`is_on`.from(assignment_ruless).where`rule_id = ${ruleid}`;
+        if (stat[0].is_on == 'y') {
+            stat[0].is_on = 'n';
+        } else {
+            stat[0].is_on = 'y';
+        }
+        var bodyy = {};
+        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].is_on}`, bodyy);
+        // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
+        //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
+        //    console.log(statr);
 
+    });
     /* SERVICE HANDLERS */
     this.before('READ', approval_rules, async (req) => {
         debugger
@@ -1156,9 +983,9 @@ rule_statuses,
         try {
 
             const resp = await c5re.get('/dev/rules');
-            // cds.tx(req).run(DELETE(approval_rules));
-            // cds.tx(req).run(DELETE(rule));
-            // cds.tx(req).run(DELETE(approver));
+            await cds.tx(req).run(DELETE(approval_rules));
+            await cds.tx(req).run(DELETE(criteria));
+            await cds.tx(req).run(DELETE(approvers1));
 
             const spaces = resp.body;
             let entries = [];
@@ -1166,78 +993,50 @@ rule_statuses,
             let entries2 = [];
             spaces.forEach(space => {
                 entries.push({
-                    rule_id: space.rule_id,
-                    approval_type: `${space.approval_type}`,
-                    comments: `${space.comments}`,
-                    status: `${space.is_on}`,
+            rule_id: space.rule_id,
+        approval_type        : `${space.approval_type}`,
+        comments             : `${space.comments}`,
+        due_notification     : space.due_notification,
+        due_reminder         : space.due_reminder,
+        ec_isgroup           : `${space.ec_isgroup}`,
+        es_name              : `${space.es_name}`,
+        escelator            : space.escelator,
+        ifnot_withindays     : space.ifnot_withindays,
+        is_on                : `${space.is_on}`,
+        overdue_notification : space.overdue_notification,
+        overdue_reminder     : space.overdue_reminder,
+        rule_name            : `${space.rule_name}`,
                 });
                 const spaces1 = space.criteria;
                 spaces1.forEach(space1 => {
                     entries1.push({
                         rule_id: space.rule_id,
                         rule: `${space1.rule}`,
+                        decider_type : `${space1.decider_type}`,
                     });
                 });
                 const spaces2 = space.approvers;
                 spaces2.forEach(space2 => {
                     entries2.push({
                         rule_id: space.rule_id,
-                        name: `${space2.name}`,
+                         approver  : space2.approver,
+                            isgroup   : `${space2.isgroup}`,
+                            level     : space2.level,
+                            name: `${space2.name}`,
+                            position  :`${space2.position}`,
                     });
                 });
             });
 
             await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
-            await cds.tx(req).run(INSERT.into(rule).entries(entries1));
-            await cds.tx(req).run(INSERT.into(approver).entries(entries2));
+            await cds.tx(req).run(INSERT.into(criteria).entries(entries1));
+            await cds.tx(req).run(INSERT.into(approvers1).entries(entries2));
             return req;
 
 
         } catch (err) {
-            try {
-                if (firstRead) {
-                    const resp = await c5re.get('/dev/rules');
-                    await cds.tx(req).run(DELETE(approval_rules));
-                    cds.tx(req).run(DELETE(rule));
-                    cds.tx(req).run(DELETE(approver));
 
-                    const spaces = resp.body;
-                    let entries = [];
-                    let entries1 = [];
-                    let entries2 = [];
-                    spaces.forEach(space => {
-                        entries.push({
-                            rule_id: space.rule_id,
-                            approval_type: `${space.approval_type}`,
-                            comments: `${space.comments}`,
-                            status: `${space.is_on}`,
-                        });
-                        const spaces1 = space.criteria;
-                        spaces1.forEach(space1 => {
-                            entries1.push({
-                                rule_id: space.rule_id,
-                                rule: `${space1.rule}`,
-                            });
-                        });
-                        const spaces2 = space.approvers;
-                        spaces2.forEach(space2 => {
-                            entries2.push({
-                                rule_id: space.rule_id,
-                                name: `${space2.name}`,
-                            });
-                        });
-                    });
-                    await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
-                    await cds.tx(req).run(INSERT.into(rule).entries(entries1));
-                    await cds.tx(req).run(INSERT.into(approver).entries(entries2));
-                    // firstRead = true;
-                    return req;
-                }
-
-            } catch (err) {
-                req.error(500, err.message);
-            }
-            // req.error(500, err.message);
+            req.error(500, err.message);
         }
     });
     /////////////////
@@ -1246,30 +1045,30 @@ rule_statuses,
         try {
             const resp = await c5re.get('/dev/rule-notification');
             await cds.tx(req).run(DELETE(emailnotification));
-            cds.tx(req).run(DELETE(cc));
+            await cds.tx(req).run(DELETE(mail_cc));
             const spaces = resp.body;
             let entries = [];
             let entries1 = [];
 
             spaces.forEach(space => {
                 entries.push({
-                    invoice_status: `${space.invoice_status}`,
-                    status: `${space.status_desc}`,
-                    mail_subject: `${space.subject}`,
-                    mail_body: `${space.body}`
+                    invoice_status : `${space.invoice_status}`,
+        body           : `${space.body}`,
+        status_desc    : `${space.status_desc}`,
+        subject        : `${space.subject}`,
                 });
                 const space1 = space.mail_cc;
                 space1.forEach(space11 => {
                     entries1.push({
-                        invoice_status: `${space.invoice_status}`,
+                        invoice_status : `${space.invoice_status}`,
                         name: `${space11.name}`,
-                        member_id: `${space11.member_id}`,
+                        member_id: space11.member_id,
                     });
                 });
 
             });
             await cds.tx(req).run(INSERT.into(emailnotification).entries(entries));
-            await cds.tx(req).run(INSERT.into(cc).entries(entries1));
+            await cds.tx(req).run(INSERT.into(mail_cc).entries(entries1));
             return req;
         } catch (err) {
             //      try { 
@@ -1302,7 +1101,7 @@ rule_statuses,
             //         await cds.tx(req).run(INSERT.into(cc).entries(entries1));
             //     return req;
             // } catch (err) {        
-            //     req.error(500, err.message);
+                req.error(500, err.message);
             // }
         }
     });
@@ -1311,52 +1110,19 @@ rule_statuses,
         const statusValue = await SELECT`f4`.from(assignment_ruless);
         return statusValue;
     });
-    this.on('toggleon', async (req) => {
-        debugger
-        var ruleid = req.params[0].f1
-        // console.log("button hit aytu");
-        const stat = await SELECT`f4`.from(assignment_ruless).where`f1 = ${ruleid}`;
-        if (stat[0].f4 == 'y') {
-            stat[0].f4 = 'n';
-        } else {
-            stat[0].f4 = 'y';
-        }
-        var bodyy = {};
-        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`, bodyy);
-        // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
-        //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
-        //    console.log(statr);
 
-    });
-    this.on('toggleoff', async (req) => {
-        debugger
-        var ruleid = req.params[0].f1
-        // console.log("button hit aytu");
-        const stat = await SELECT`f4`.from(assignment_ruless).where`f1 = ${ruleid}`;
-        if (stat[0].f4 == 'y') {
-            stat[0].f4 = 'n';
-        } else {
-            stat[0].f4 = 'y';
-        }
-        var bodyy = {};
-        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`, bodyy);
-        // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
-        //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
-        //    console.log(statr);
-
-    });
     this.on('apprtoggleon', async (req) => {
         debugger
         var ruleid = req.params[0].rule_id
         // console.log("button hit aytu");
-        const stat = await SELECT`status`.from(approval_rules).where`rule_id = ${ruleid}`;
-        if (stat[0].status == 'y') {
-            stat[0].status = 'n';
+        const stat = await SELECT`is_on`.from(approval_rules).where`rule_id = ${ruleid}`;
+        if (stat[0].is_on == 'y') {
+            stat[0].is_on = 'n';
         } else {
-            stat[0].status = 'y';
+            stat[0].is_on = 'y';
         }
         var bodyy = {};
-        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].status}`, bodyy);
+        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].is_on}`, bodyy);
         // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
         //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
         //    console.log(statr);
@@ -1366,19 +1132,27 @@ rule_statuses,
         debugger
         var ruleid = req.params[0].rule_id
         // console.log("button hit aytu");
-        const stat = await SELECT`status`.from(approval_rules).where`rule_id = ${ruleid}`;
-        if (stat[0].status == 'y') {
-            stat[0].status = 'n';
+        const stat = await SELECT`is_on`.from(approval_rules).where`rule_id = ${ruleid}`;
+        if (stat[0].is_on == 'y') {
+            stat[0].is_on = 'n';
         } else {
-            stat[0].status = 'y';
+            stat[0].is_on = 'y';
         }
         var bodyy = {};
-        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].status}`, bodyy);
+        var res = await c5re.patch(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].is_on}`, bodyy);
         // const statr =  await SELECT `f4`.from(assignment_ruless) .where `f1 = ${ruleid}`;
         //    console.log(`/dev/rule-status?rule_id=${ruleid}&is_on=${stat[0].f4}`);
         //    console.log(statr);
 
     });
+
+
+
+
+
+
+
+
     ///////////rulenoti_s_h help
     this.before('READ', rulenoti_s_h, async (req) => {
         debugger

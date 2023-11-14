@@ -84,44 +84,21 @@ service CatalogService {
     // entity members as
     //     projection on demo.members;
 
-  
-
-   
-
-    entity approval_rules     as projection on demo.approval_rules actions {
-        @(
-            cds.odata.bindingparameter.name: '_it',
-            Common.SideEffects             : {TargetProperties: ['_it/status']},
-        )
-        action apprtoggleon();
-        @(
-            cds.odata.bindingparameter.name: '_it',
-            Common.SideEffects             : {TargetProperties: ['_it/status']},
-        )
-        action apprtoggleoff();
-    };
-
-    entity rule               as projection on demo.rule;
-    entity approver           as projection on demo.approver;
-
-
-    @odata.draft.enabled
-    entity emailnotification  as projection on demo.emailnotification;
-
-    entity cc                 as projection on demo.cc;
     function getstatus()  returns String;
     entity rulenoti_s_h       as projection on demo.rulenoti_s_h;
     entity cc_s_h             as projection on demo.cc_s_h;
     entity rules_n_status_s_h as projection on demo.rules_n_status_s_h;
 
-////////////rules notification/
+    ////////////rules notification/
 
 
     @odata.draft.enabled
     entity notification_rules as projection on demo.notification_rules;
-    entity rule_statuses as projection on demo.rule_statuses;
-  ////////view all r and n//////////
-  entity assignment_ruless  as projection on demo.assignment_ruless actions {
+
+    entity rule_statuses      as projection on demo.rule_statuses;
+
+    ////////view all r and n//////////
+    entity assignment_ruless  as projection on demo.assignment_ruless actions {
         @(
             cds.odata.bindingparameter.name: '_it',
             Common.SideEffects             : {TargetProperties: ['_it/is_on']},
@@ -132,5 +109,29 @@ service CatalogService {
         )
         action   toggleoff();
     };
-     entity approvers   as projection on demo.approvers;
+
+    entity approvers          as projection on demo.approvers;
+
+    entity approval_rules     as projection on demo.approval_rules actions {
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/is_on']},
+        )
+        action apprtoggleon();
+        @(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects             : {TargetProperties: ['_it/is_on']},
+        )
+        action apprtoggleoff();
+    };
+
+    entity criteria           as projection on demo.criteria;
+    entity approvers1         as projection on demo.approvers1;
+
+ @odata.draft.enabled
+    entity emailnotification  as projection on demo.emailnotification;
+
+    entity mail_cc                 as projection on demo.mail_cc;
+   
+
 }
