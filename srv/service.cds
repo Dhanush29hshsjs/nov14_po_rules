@@ -85,8 +85,8 @@ service CatalogService {
     //     projection on demo.members;
 
     function getstatus()  returns String;
-    entity rulenoti_s_h       as projection on demo.rulenoti_s_h;
-    entity cc_s_h             as projection on demo.cc_s_h;
+    
+    
     entity rules_n_status_s_h as projection on demo.rules_n_status_s_h;
 
     ////////////rules notification/
@@ -133,6 +133,6 @@ service CatalogService {
     entity emailnotification  as projection on demo.emailnotification;
 
     entity mail_cc                 as projection on demo.mail_cc;
-   
-
+entity cc_s_h             as projection on demo.cc_s_h;   
+entity approvalrulesdecider_s_h       as projection on demo.approvalrulesdecider_s_h;
 }

@@ -215,14 +215,9 @@ entity invoice_No {
 
 //////////////rules////////////
 
-entity rulenoti_s_h {
-    key value2 : String;
-}
 
-entity rules_n_status_s_h {
-    key table_key : String;
-        value2    : String;
-}
+
+
 
 ////notification Rules//////////////////
 entity notification_rules {
@@ -274,6 +269,9 @@ entity approvers {
 
 entity approval_rules {
     key rule_id              : Integer;
+        ////
+        criteria             : String;
+        ////
         approval_type        : String;
         comments             : String;
         due_notification     : Integer;
@@ -307,6 +305,18 @@ entity criteria {
     key rule_id      : Integer;
     key rule         : String;
         decider_type : String;
+        operator:String;
+        d_value2:String;
+        d_value:String;
+        ////////////modify of rules
+        Criteria:String;
+        currCriteria:String;
+        Condition:String;
+        currCondition:String;
+        Value1:String;
+        currValue1:String;
+        Value2:String;
+        ////////////
         critoappr    : Association to one approval_rules
                            on critoappr.rule_id = rule_id;
 }
@@ -314,8 +324,8 @@ entity criteria {
 entity emailnotification {
     key e_id           : Integer;
     key invoice_status : String;
-     body           : String;
-     subject        : String;
+        body           : String;
+        subject        : String;
         status_desc    : String;
 
         mailtocc       : Composition of many mail_cc
@@ -324,9 +334,9 @@ entity emailnotification {
 
 
 entity mail_cc {
-    key idd:UUID;
+    key idd            : UUID;
     key invoice_status : String;
-     member_id      : Integer;
+        member_id      : Integer;
         name           : String;
         cctomail       : Association to one emailnotification
                              on cctomail.invoice_status = invoice_status;
@@ -341,4 +351,15 @@ entity cc_s_h {
         ls_name       : String;
         position      : String;
         profile_photo : String;
+}
+entity approvalrulesdecider_s_h {
+    key table_key: String;
+    drop_key: String;
+            value2: String;
+            value3: String;
+            value4:  String;
+}
+entity rules_n_status_s_h {
+    key table_key : String;
+     key   value2    : String;
 }

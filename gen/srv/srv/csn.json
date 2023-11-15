@@ -776,27 +776,6 @@
         }
       }
     },
-    "demo.rulenoti_s_h": {
-      "kind": "entity",
-      "elements": {
-        "value2": {
-          "key": true,
-          "type": "cds.String"
-        }
-      }
-    },
-    "demo.rules_n_status_s_h": {
-      "kind": "entity",
-      "elements": {
-        "table_key": {
-          "key": true,
-          "type": "cds.String"
-        },
-        "value2": {
-          "type": "cds.String"
-        }
-      }
-    },
     "demo.notification_rules": {
       "kind": "entity",
       "elements": {
@@ -984,6 +963,9 @@
           "key": true,
           "type": "cds.Integer"
         },
+        "criteria": {
+          "type": "cds.String"
+        },
         "approval_type": {
           "type": "cds.String"
         },
@@ -1124,6 +1106,36 @@
         "decider_type": {
           "type": "cds.String"
         },
+        "operator": {
+          "type": "cds.String"
+        },
+        "d_value2": {
+          "type": "cds.String"
+        },
+        "d_value": {
+          "type": "cds.String"
+        },
+        "Criteria": {
+          "type": "cds.String"
+        },
+        "currCriteria": {
+          "type": "cds.String"
+        },
+        "Condition": {
+          "type": "cds.String"
+        },
+        "currCondition": {
+          "type": "cds.String"
+        },
+        "Value1": {
+          "type": "cds.String"
+        },
+        "currValue1": {
+          "type": "cds.String"
+        },
+        "Value2": {
+          "type": "cds.String"
+        },
         "critoappr": {
           "type": "cds.Association",
           "cardinality": {
@@ -1256,6 +1268,40 @@
           "type": "cds.String"
         },
         "profile_photo": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "demo.approvalrulesdecider_s_h": {
+      "kind": "entity",
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "drop_key": {
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        },
+        "value3": {
+          "type": "cds.String"
+        },
+        "value4": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "demo.rules_n_status_s_h": {
+      "kind": "entity",
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value2": {
+          "key": true,
           "type": "cds.String"
         }
       }
@@ -3594,65 +3640,6 @@
         "type": "cds.String"
       }
     },
-    "CatalogService.rulenoti_s_h": {
-      "kind": "entity",
-      "projection": {
-        "from": {
-          "ref": [
-            "demo.rulenoti_s_h"
-          ]
-        }
-      },
-      "elements": {
-        "value2": {
-          "key": true,
-          "type": "cds.String"
-        }
-      }
-    },
-    "CatalogService.cc_s_h": {
-      "kind": "entity",
-      "projection": {
-        "from": {
-          "ref": [
-            "demo.cc_s_h"
-          ]
-        }
-      },
-      "elements": {
-        "member_id": {
-          "key": true,
-          "type": "cds.Integer"
-        },
-        "department_id": {
-          "type": "cds.Integer"
-        },
-        "email": {
-          "type": "cds.String"
-        },
-        "fs_name": {
-          "@Common.Text": {
-            "=": "position"
-          },
-          "@Common.Text.@UI.TextArrangement": {
-            "#": "TextLast"
-          },
-          "type": "cds.String"
-        },
-        "group_id": {
-          "type": "cds.Integer"
-        },
-        "ls_name": {
-          "type": "cds.String"
-        },
-        "position": {
-          "type": "cds.String"
-        },
-        "profile_photo": {
-          "type": "cds.String"
-        }
-      }
-    },
     "CatalogService.rules_n_status_s_h": {
       "kind": "entity",
       "projection": {
@@ -3668,6 +3655,7 @@
           "type": "cds.String"
         },
         "value2": {
+          "key": true,
           "type": "cds.String"
         }
       }
@@ -4003,6 +3991,7 @@
     },
     "CatalogService.approval_rules": {
       "kind": "entity",
+      "@odata.draft.enabled": true,
       "@UI.DeleteHidden": true,
       "@UI.FieldGroup#FieldGroup3.Data": [
         {
@@ -4087,6 +4076,30 @@
       "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
       "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
       "@UI.SelectionPresentationVariant#tableView.Text": "Approval Rules",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "form1",
+          "ID": "form1",
+          "Target": "@UI.FieldGroup#form1"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Rule tab",
+          "ID": "Ruletab",
+          "Target": "apprtocri/@UI.LineItem#Ruletab"
+        }
+      ],
+      "@UI.FieldGroup#form1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#form1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "criteria"
+          },
+          "Label": "Criteria"
+        }
+      ],
       "projection": {
         "from": {
           "ref": [
@@ -4098,6 +4111,21 @@
         "rule_id": {
           "key": true,
           "type": "cds.Integer"
+        },
+        "criteria": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "approvalrulesdecider_s_h",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "criteria"
+              },
+              "ValueListProperty": "value2"
+            }
+          ],
+          "@Common.ValueListWithFixedValues": true,
+          "type": "cds.String"
         },
         "approval_type": {
           "type": "cds.String"
@@ -4197,6 +4225,57 @@
     },
     "CatalogService.criteria": {
       "kind": "entity",
+      "@UI.LineItem#Ruletab": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "Criteria"
+          },
+          "Label": "Criteria"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "Condition"
+          },
+          "Label": "Condition"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "Value1"
+          },
+          "Label": "Value1"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "Value2"
+          },
+          "Label": "Value2"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currCondition"
+          },
+          "Label": "currCondition"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currCriteria"
+          },
+          "Label": "currCriteria"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "currValue1"
+          },
+          "Label": "currValue1"
+        }
+      ],
       "projection": {
         "from": {
           "ref": [
@@ -4214,6 +4293,67 @@
           "type": "cds.String"
         },
         "decider_type": {
+          "type": "cds.String"
+        },
+        "operator": {
+          "type": "cds.String"
+        },
+        "d_value2": {
+          "type": "cds.String"
+        },
+        "d_value": {
+          "type": "cds.String"
+        },
+        "Criteria": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "approvalrulesdecider_s_h",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "Criteria"
+              },
+              "ValueListProperty": "value2"
+            }
+          ],
+          "@Common.ValueListWithFixedValues": true,
+          "type": "cds.String"
+        },
+        "currCriteria": {
+          "type": "cds.String"
+        },
+        "Condition": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "rules_n_status_s_h",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "Condition"
+              },
+              "ValueListProperty": "value2"
+            },
+            {
+              "$Type": "Common.ValueListParameterIn",
+              "ValueListProperty": "table_key",
+              "LocalDataProperty": {
+                "=": "Criteria"
+              }
+            }
+          ],
+          "@Common.ValueListWithFixedValues": true,
+          "type": "cds.String"
+        },
+        "currCondition": {
+          "type": "cds.String"
+        },
+        "Value1": {
+          "type": "cds.String"
+        },
+        "currValue1": {
+          "type": "cds.String"
+        },
+        "Value2": {
           "type": "cds.String"
         },
         "critoappr": {
@@ -4528,6 +4668,77 @@
               ]
             }
           ]
+        }
+      }
+    },
+    "CatalogService.cc_s_h": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.cc_s_h"
+          ]
+        }
+      },
+      "elements": {
+        "member_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "department_id": {
+          "type": "cds.Integer"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "fs_name": {
+          "@Common.Text": {
+            "=": "position"
+          },
+          "@Common.Text.@UI.TextArrangement": {
+            "#": "TextLast"
+          },
+          "type": "cds.String"
+        },
+        "group_id": {
+          "type": "cds.Integer"
+        },
+        "ls_name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "profile_photo": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.approvalrulesdecider_s_h": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.approvalrulesdecider_s_h"
+          ]
+        }
+      },
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "drop_key": {
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        },
+        "value3": {
+          "type": "cds.String"
+        },
+        "value4": {
+          "type": "cds.String"
         }
       }
     },

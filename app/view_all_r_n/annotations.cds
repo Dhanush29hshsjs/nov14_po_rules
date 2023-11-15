@@ -287,3 +287,107 @@ annotate service.emailnotification with {
 annotate service.emailnotification with {
     status_desc @Common.FieldControl : #ReadOnly
 };
+annotate service.approval_rules with @(
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'form1',
+            ID : 'form1',
+            Target : '@UI.FieldGroup#form1',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Rule tab',
+            ID : 'Ruletab',
+            Target : 'apprtocri/@UI.LineItem#Ruletab',
+        },
+    ],
+    UI.FieldGroup #form1 : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : criteria,
+                Label : 'Criteria',
+            },],
+    }
+);
+annotate service.approval_rules with {
+    criteria @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvalrulesdecider_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : criteria,
+                    ValueListProperty : 'value2',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.criteria with @(
+    UI.LineItem #Ruletab : [
+        {
+            $Type : 'UI.DataField',
+            Value : Criteria,
+            Label : 'Criteria',
+        },{
+            $Type : 'UI.DataField',
+            Value : Condition,
+            Label : 'Condition',
+        },{
+            $Type : 'UI.DataField',
+            Value : Value1,
+            Label : 'Value1',
+        },{
+            $Type : 'UI.DataField',
+            Value : Value2,
+            Label : 'Value2',
+        },{
+            $Type : 'UI.DataField',
+            Value : currCondition,
+            Label : 'currCondition',
+        },{
+            $Type : 'UI.DataField',
+            Value : currCriteria,
+            Label : 'currCriteria',
+        },{
+            $Type : 'UI.DataField',
+            Value : currValue1,
+            Label : 'currValue1',
+        },]
+);
+annotate service.criteria with {
+    Condition @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'rules_n_status_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Condition,
+                    ValueListProperty : 'value2',
+                },
+                {
+                    $Type : 'Common.ValueListParameterIn',
+                    ValueListProperty : 'table_key',
+                    LocalDataProperty : Criteria,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.criteria with {
+    Criteria @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvalrulesdecider_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Criteria,
+                    ValueListProperty : 'value2',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};

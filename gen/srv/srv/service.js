@@ -35,6 +35,7 @@ function togglebutton(i) {
 module.exports = cds.service.impl(async function () {
     /* SERVICE ENTITIES */
     let {
+        approvalrulesdecider_s_h,
         approval_rules,
         approvers1,
         criteria,
@@ -48,7 +49,6 @@ module.exports = cds.service.impl(async function () {
         notification_rules,
         rules_n_status_s_h,
         emailnotification,
-        rulenoti_s_h,
         cc_s_h,
         togglee,
         assignment_rules,
@@ -981,63 +981,125 @@ module.exports = cds.service.impl(async function () {
         debugger
 
         try {
-
-            const resp = await c5re.get('/dev/rules');
+            const r_id = req.params[0].rule_id;
+            const resp = await c5re.get(`/dev/rules?rule_id=${r_id}`);
+            // throw new Error("This is a custom error message");
             await cds.tx(req).run(DELETE(approval_rules));
-            await cds.tx(req).run(DELETE(criteria));
-            await cds.tx(req).run(DELETE(approvers1));
-
-            const spaces = resp.body;
-            let entries = [];
-            let entries1 = [];
-            let entries2 = [];
-            spaces.forEach(space => {
-                entries.push({
-                    rule_id: space.rule_id,
-                    approval_type: `${space.approval_type}`,
-                    comments: `${space.comments}`,
-                    due_notification: space.due_notification,
-                    due_reminder: space.due_reminder,
-                    ec_isgroup: `${space.ec_isgroup}`,
-                    es_name: `${space.es_name}`,
-                    escelator: space.escelator,
-                    ifnot_withindays: space.ifnot_withindays,
-                    is_on: `${space.is_on}`,
-                    overdue_notification: space.overdue_notification,
-                    overdue_reminder: space.overdue_reminder,
-                    rule_name: `${space.rule_name}`,
-                });
-                const spaces1 = space.criteria;
-                spaces1.forEach(space1 => {
-                    entries1.push({
-                        rule_id: space.rule_id,
-                        rule: `${space1.rule}`,
-                        decider_type: `${space1.decider_type}`,
+                await cds.tx(req).run(DELETE(criteria));
+                await cds.tx(req).run(DELETE(approvers1));
+    
+                const spaces = resp.body;
+                let entries = [];
+                let entries1 = [];
+                let entries2 = [];
+                
+                    entries.push({
+                        approval_type: `${spaces.approval_type}`,
+                        comments: `${spaces.comments}`,
+                        due_notification: spaces.due_notification,
+                        due_reminder: spaces.due_reminder,
+                        rule_id: parseInt(spaces.rule_id, 10),
+                        ec_isgroup: `${spaces.ec_isgroup}`,
+                        es_name: `${spaces.es_name}`,
+                        escelator: spaces.escelator,
+                        ifnot_withindays: spaces.ifnot_withindays,
+                        overdue_notification: spaces.overdue_notification,
+                        overdue_reminder: spaces.overdue_reminder,
+                        rule_name: `${spaces.rule_name}`,
                     });
-                });
-                const spaces2 = space.approvers;
-                spaces2.forEach(space2 => {
-                    entries2.push({
-                        rule_id: space.rule_id,
-                        approver: space2.approver,
-                        isgroup: `${space2.isgroup}`,
-                        level: space2.level,
-                        name: `${space2.name}`,
-                        position: `${space2.position}`,
+                    const spaces1 = spaces.criteria;
+                    spaces1.forEach(space1 => {
+                        entries1.push({
+                            rule_id: parseInt(spaces.rule_id, 10),
+                            rule: `${space1.decider}`,
+                            operator:`${space1.operator}`,
+                            d_value2:`${space1.d_value2}`,
+                            d_value:`${space1.d_value}`,
+                            decider_type: `${space1.decider_type}`,
+                        });
                     });
-                });
-            });
-
-            await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
-            await cds.tx(req).run(INSERT.into(criteria).entries(entries1));
-            await cds.tx(req).run(INSERT.into(approvers1).entries(entries2));
-            return req;
-
-
+                    const spaces2 = spaces.approvers;
+                    spaces2.forEach(space2 => {
+                        entries2.push({
+                            rule_id: parseInt(spaces.rule_id, 10),
+                            approver: space2.approver,
+                            isgroup: `${space2.isgroup}`,
+                            level: space2.level,
+                            name: `${space2.name}`,
+                            position: `${space2.position}`,
+                        });
+                    });
+                
+    
+                await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
+                await cds.tx(req).run(INSERT.into(criteria).entries(entries1));
+                await cds.tx(req).run(INSERT.into(approvers1).entries(entries2));
+                return req;
+    
+    
         } catch (err) {
+            try {
 
-            req.error(500, err.message);
+                const resp = await c5re.get('/dev/rules');
+                await cds.tx(req).run(DELETE(approval_rules));
+                await cds.tx(req).run(DELETE(criteria));
+                await cds.tx(req).run(DELETE(approvers1));
+    
+                const spaces = resp.body;
+                let entries = [];
+                let entries1 = [];
+                let entries2 = [];
+                spaces.forEach(space => {
+                    entries.push({
+                        rule_id: space.rule_id,
+                        approval_type: `${space.approval_type}`,
+                        comments: `${space.comments}`,
+                        due_notification: space.due_notification,
+                        due_reminder: space.due_reminder,
+                        ec_isgroup: `${space.ec_isgroup}`,
+                        es_name: `${space.es_name}`,
+                        escelator: space.escelator,
+                        ifnot_withindays: space.ifnot_withindays,
+                        is_on: `${space.is_on}`,
+                        overdue_notification: space.overdue_notification,
+                        overdue_reminder: space.overdue_reminder,
+                        rule_name: `${space.rule_name}`,
+                    });
+                    const spaces1 = space.criteria;
+                    spaces1.forEach(space1 => {
+                        entries1.push({
+                            rule_id: space.rule_id,
+                            rule: `${space1.rule}`,
+                            decider_type: `${space1.decider_type}`,
+                        });
+                    });
+                    const spaces2 = space.approvers;
+                    spaces2.forEach(space2 => {
+                        entries2.push({
+                            rule_id: space.rule_id,
+                            approver: space2.approver,
+                            isgroup: `${space2.isgroup}`,
+                            level: space2.level,
+                            name: `${space2.name}`,
+                            position: `${space2.position}`,
+                        });
+                    });
+                });
+    
+                await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
+                await cds.tx(req).run(INSERT.into(criteria).entries(entries1));
+                await cds.tx(req).run(INSERT.into(approvers1).entries(entries2));
+                return req;
+    
+    
+            } catch (err) {
+    
+                req.error(500, err.message);
+            }
         }
+
+
+       
     });
     /////////////////
     this.before('READ', emailnotification, async (req) => {
@@ -1156,20 +1218,24 @@ let ccc = 1;
 
 
     ///////////rulenoti_s_h help
-    this.before('READ', rulenoti_s_h, async (req) => {
+    this.before('READ', approvalrulesdecider_s_h, async (req) => {
         debugger
         try {
             if (true) {
-                const resp = await c5re.get('/dev/dropdown?drop_key=rule_statuses');
-                cds.tx(req).run(DELETE(rulenoti_s_h));
+                const resp = await c5re.get('/dev/dropdown?drop_key=rule-decider-fields');
+                cds.tx(req).run(DELETE(approvalrulesdecider_s_h));
                 const spaces = resp.body;
                 const entries = [];
                 spaces.forEach(space => {
                     entries.push({
-                        value2: `${space.value2}`,
+                        table_key: `${space.table_key}`,
+                        drop_key:`${space.drop_key}`,
+                                value2:`${space.value2}`,
+                                value3:`${space.value3}`,
+                                value4:`${space.value4}`,
                     });
                 });
-                await cds.tx(req).run(INSERT.into(rulenoti_s_h).entries(entries));
+                await cds.tx(req).run(INSERT.into(approvalrulesdecider_s_h).entries(entries));
             }
             return req;
         }
@@ -1252,5 +1318,71 @@ const output = input.map(item => item.member_id);
             req.error(500, err.message);
         }
     });
+//////////rules_n_status_s_h
+this.before('READ',rules_n_status_s_h, async (req) => {
+    debugger
+    try {
+        if (true) {
+            cds.tx(req).run(DELETE(rules_n_status_s_h));
+            const entries = []; 
+                entries.push({
+                    table_key :`Amount`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Amount`,
+                    value2    :`In Between`,
+                });
+                entries.push({
+                    table_key :`Amount`,
+                    value2    :`Less Than`,
+                });
+                entries.push({
+                    table_key :`Amount`,
+                    value2    :`More Than`,
+                });
+                entries.push({
+                    table_key :`Cost Center`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Department`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Document Type`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`G/ L Account`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Item Category`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Jurisdiction Code`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`PO Type`,
+                    value2    :`Equal To`,
+                });
+                entries.push({
+                    table_key :`Vendor`,
+                    value2    :`Equal To`,
+                });
+                
+            await cds.tx(req).run(INSERT.into(rules_n_status_s_h).entries(entries));
+        }
+        return req;
+    }
+    catch (err) {
+        req.error(500, err.message);
+    }
+});
+
+
 
 });

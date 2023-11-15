@@ -226,7 +226,17 @@
                     "options": {
                         "settings": {
                             "contextPath": "/approval_rules",
-                            "navigation": {}
+                            "navigation": {},
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "Fillblank": {
+                                            "template": "viewallrn.ext.fragment.Fillblank",
+                                            "type": "XMLFragment"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },
