@@ -39,15 +39,15 @@ module.exports = cds.service.impl(async function () {
         approvers1,
         criteria,
         approvers,
-        mail_cc,  
+        mail_cc,
         assignment_ruless,
-rule_statuses,
+        rule_statuses,
         Source_Event,
         Source_Event_Name,
         NoKey,
         notification_rules,
         rules_n_status_s_h,
-        emailnotification,   
+        emailnotification,
         rulenoti_s_h,
         cc_s_h,
         togglee,
@@ -909,10 +909,10 @@ rule_statuses,
             await cds.tx(req).run(DELETE(approvers));
             spaces.forEach(space => {
                 entries.push({
-                    rule_id :space.rule_id,
+                    rule_id: space.rule_id,
                     rule_name: `${space.rule_name}`,
-                       comments: `${space.comments}`,
-                       is_on :`${space.is_on}`
+                    comments: `${space.comments}`,
+                    is_on: `${space.is_on}`
                 });
                 // entries2.push({
 
@@ -927,8 +927,8 @@ rule_statuses,
                         approver: space11.approver,
                         isgroup: `${space11.isgroup}`,
                         level: space11.level,
-                            name: `${space11.name}`,
-                        position:`${space11.position}`
+                        name: `${space11.name}`,
+                        position: `${space11.position}`
                     });
                 });
             });
@@ -939,7 +939,7 @@ rule_statuses,
             return req;
 
         } catch (err) {
-                req.error(500, err.message);
+            req.error(500, err.message);
         }
     });
     this.on('toggleon', async (req) => {
@@ -993,37 +993,37 @@ rule_statuses,
             let entries2 = [];
             spaces.forEach(space => {
                 entries.push({
-            rule_id: space.rule_id,
-        approval_type        : `${space.approval_type}`,
-        comments             : `${space.comments}`,
-        due_notification     : space.due_notification,
-        due_reminder         : space.due_reminder,
-        ec_isgroup           : `${space.ec_isgroup}`,
-        es_name              : `${space.es_name}`,
-        escelator            : space.escelator,
-        ifnot_withindays     : space.ifnot_withindays,
-        is_on                : `${space.is_on}`,
-        overdue_notification : space.overdue_notification,
-        overdue_reminder     : space.overdue_reminder,
-        rule_name            : `${space.rule_name}`,
+                    rule_id: space.rule_id,
+                    approval_type: `${space.approval_type}`,
+                    comments: `${space.comments}`,
+                    due_notification: space.due_notification,
+                    due_reminder: space.due_reminder,
+                    ec_isgroup: `${space.ec_isgroup}`,
+                    es_name: `${space.es_name}`,
+                    escelator: space.escelator,
+                    ifnot_withindays: space.ifnot_withindays,
+                    is_on: `${space.is_on}`,
+                    overdue_notification: space.overdue_notification,
+                    overdue_reminder: space.overdue_reminder,
+                    rule_name: `${space.rule_name}`,
                 });
                 const spaces1 = space.criteria;
                 spaces1.forEach(space1 => {
                     entries1.push({
                         rule_id: space.rule_id,
                         rule: `${space1.rule}`,
-                        decider_type : `${space1.decider_type}`,
+                        decider_type: `${space1.decider_type}`,
                     });
                 });
                 const spaces2 = space.approvers;
                 spaces2.forEach(space2 => {
                     entries2.push({
                         rule_id: space.rule_id,
-                         approver  : space2.approver,
-                            isgroup   : `${space2.isgroup}`,
-                            level     : space2.level,
-                            name: `${space2.name}`,
-                            position  :`${space2.position}`,
+                        approver: space2.approver,
+                        isgroup: `${space2.isgroup}`,
+                        level: space2.level,
+                        name: `${space2.name}`,
+                        position: `${space2.position}`,
                     });
                 });
             });
@@ -1049,18 +1049,20 @@ rule_statuses,
             const spaces = resp.body;
             let entries = [];
             let entries1 = [];
-
+let ccc = 1;
             spaces.forEach(space => {
                 entries.push({
-                    invoice_status : `${space.invoice_status}`,
-        body           : `${space.body}`,
-        status_desc    : `${space.status_desc}`,
-        subject        : `${space.subject}`,
+                    e_id:ccc,
+                    invoice_status: `${space.invoice_status}`,
+                    body: `${space.body}`,
+                    status_desc: `${space.status_desc}`,
+                    subject: `${space.subject}`,
                 });
+                ccc++;
                 const space1 = space.mail_cc;
                 space1.forEach(space11 => {
                     entries1.push({
-                        invoice_status : `${space.invoice_status}`,
+                        invoice_status: `${space.invoice_status}`,
                         name: `${space11.name}`,
                         member_id: space11.member_id,
                     });
@@ -1101,7 +1103,7 @@ rule_statuses,
             //         await cds.tx(req).run(INSERT.into(cc).entries(entries1));
             //     return req;
             // } catch (err) {        
-                req.error(500, err.message);
+            req.error(500, err.message);
             // }
         }
     });
@@ -1180,19 +1182,21 @@ rule_statuses,
         debugger
         try {
             if (true) {
-                const stat = await SELECT`table_key`.from(notification_rules);
+                // const stat = await SELECT`table_key`.from(notification_rules);
                 const resp = await c5re.get('/dev/member?search_string=');
                 await cds.tx(req).run(DELETE(cc_s_h));
                 const spaces = resp.body.Member;
                 const entries = [];
                 spaces.forEach(space => {
                     entries.push({
-                        // invoice_status:`${String}`,
-                        name: `${space.fs_name} ${space.ls_name} `,
-                        member_id: `${space.member_id}`,
-                        group_id: `${space.group_id}`,
-                        department_id: `${space.department_id}`,
+                        department_id: space.department_id,
+                        email: `${space.email}`,
+                        fs_name: `${space.fs_name} ${space.ls_name}`,
+                        group_id: space.group_id,
+                        ls_name: `${space.ls_name}`,
+                        member_id: space.member_id,
                         position: `${space.position}`,
+                        profile_photo: `${space.profile_photo}`,
                     });
                 });
                 await cds.tx(req).run(INSERT.into(cc_s_h).entries(entries));
@@ -1206,14 +1210,18 @@ rule_statuses,
     // update Currency
     this.on('UPDATE', emailnotification, async (req) => {
         debugger
-        const body = {
-            code: req.data.code,
-            description: req.data.description
+        const input =req.data.mailtocc;
+
+const output = input.map(item => item.member_id);
+        const bodyy = {
+            body: req.data.body,
+            mail_cc:output,
+            subject: req.data.subject
         }
-        const c_code = req.params[0].code;
+        const inv_stat = req.params[0].invoice_status;
         try {
-            resp = await c4re.patch('/master?master_id=12&code=' + c_code, body);
-            const updatedEntity = await UPDATE(Currency).set(req.data).where({ code: req.data.code });
+            resp = await c5re.patch('/dev/rule-notification?invoice_status='+inv_stat, bodyy);
+            // await UPDATE(Currency).set(req.data).where({ code: req.data.code });
             return req.data;
         } catch (err) {
             req.error(500, err.message);

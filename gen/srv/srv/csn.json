@@ -776,6 +776,490 @@
         }
       }
     },
+    "demo.rulenoti_s_h": {
+      "kind": "entity",
+      "elements": {
+        "value2": {
+          "key": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "demo.rules_n_status_s_h": {
+      "kind": "entity",
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "demo.notification_rules": {
+      "kind": "entity",
+      "elements": {
+        "nr_id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "table_key": {
+          "type": "cds.String"
+        },
+        "status": {
+          "type": "cds.String"
+        },
+        "mail_subject": {
+          "type": "cds.String"
+        },
+        "mail_body": {
+          "type": "cds.LargeString"
+        },
+        "nrtocc": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.n_r_cc",
+          "on": [
+            {
+              "ref": [
+                "nrtocc",
+                "notification_rules"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.rule_statuses": {
+      "kind": "entity",
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        },
+        "value3": {
+          "type": "cds.String"
+        },
+        "value4": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "demo.n_r_cc": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "member_id": {
+          "type": "cds.Integer"
+        },
+        "group_id": {
+          "type": "cds.Integer"
+        },
+        "department_id": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "notification_rules": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.notification_rules",
+          "keys": [
+            {
+              "ref": [
+                "nr_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.assignment_ruless": {
+      "kind": "entity",
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "rule_name": {
+          "type": "cds.String"
+        },
+        "comments": {
+          "type": "cds.String"
+        },
+        "is_on": {
+          "type": "cds.String"
+        },
+        "asstoapp": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.approvers",
+          "on": [
+            {
+              "ref": [
+                "asstoapp",
+                "apptoass"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.approvers": {
+      "kind": "entity",
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approver": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "isgroup": {
+          "type": "cds.String"
+        },
+        "level": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "apptoass": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.assignment_ruless",
+          "on": [
+            {
+              "ref": [
+                "apptoass",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.approval_rules": {
+      "kind": "entity",
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approval_type": {
+          "type": "cds.String"
+        },
+        "comments": {
+          "type": "cds.String"
+        },
+        "due_notification": {
+          "type": "cds.Integer"
+        },
+        "due_reminder": {
+          "type": "cds.Integer"
+        },
+        "ec_isgroup": {
+          "type": "cds.String"
+        },
+        "es_name": {
+          "type": "cds.String"
+        },
+        "escelator": {
+          "type": "cds.Integer"
+        },
+        "ifnot_withindays": {
+          "type": "cds.Integer"
+        },
+        "is_on": {
+          "type": "cds.String"
+        },
+        "overdue_notification": {
+          "type": "cds.Integer"
+        },
+        "overdue_reminder": {
+          "type": "cds.Integer"
+        },
+        "rule_name": {
+          "type": "cds.String"
+        },
+        "apprtoapp": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.approvers1",
+          "on": [
+            {
+              "ref": [
+                "apprtoapp",
+                "apptoappr"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "apprtocri": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.criteria",
+          "on": [
+            {
+              "ref": [
+                "apprtocri",
+                "critoappr"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.approvers1": {
+      "kind": "entity",
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approver": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "isgroup": {
+          "type": "cds.String"
+        },
+        "level": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "apptoappr": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.approval_rules",
+          "on": [
+            {
+              "ref": [
+                "apptoappr",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.criteria": {
+      "kind": "entity",
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "rule": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "decider_type": {
+          "type": "cds.String"
+        },
+        "critoappr": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.approval_rules",
+          "on": [
+            {
+              "ref": [
+                "critoappr",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.emailnotification": {
+      "kind": "entity",
+      "elements": {
+        "e_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "invoice_status": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "body": {
+          "type": "cds.String"
+        },
+        "subject": {
+          "type": "cds.String"
+        },
+        "status_desc": {
+          "type": "cds.String"
+        },
+        "mailtocc": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "demo.mail_cc",
+          "on": [
+            {
+              "ref": [
+                "mailtocc",
+                "cctomail"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.mail_cc": {
+      "kind": "entity",
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "invoice_status": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "member_id": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "cctomail": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "demo.emailnotification",
+          "on": [
+            {
+              "ref": [
+                "cctomail",
+                "invoice_status"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "invoice_status"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "demo.cc_s_h": {
+      "kind": "entity",
+      "elements": {
+        "member_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "department_id": {
+          "type": "cds.Integer"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "fs_name": {
+          "type": "cds.String"
+        },
+        "group_id": {
+          "type": "cds.Integer"
+        },
+        "ls_name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "profile_photo": {
+          "type": "cds.String"
+        }
+      }
+    },
     "CatalogService": {
       "@source": "srv/service.cds",
       "kind": "service"
@@ -3102,6 +3586,992 @@
       "kind": "function",
       "returns": {
         "type": "cds.LargeString"
+      }
+    },
+    "CatalogService.getstatus": {
+      "kind": "function",
+      "returns": {
+        "type": "cds.String"
+      }
+    },
+    "CatalogService.rulenoti_s_h": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.rulenoti_s_h"
+          ]
+        }
+      },
+      "elements": {
+        "value2": {
+          "key": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.cc_s_h": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.cc_s_h"
+          ]
+        }
+      },
+      "elements": {
+        "member_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "department_id": {
+          "type": "cds.Integer"
+        },
+        "email": {
+          "type": "cds.String"
+        },
+        "fs_name": {
+          "@Common.Text": {
+            "=": "position"
+          },
+          "@Common.Text.@UI.TextArrangement": {
+            "#": "TextLast"
+          },
+          "type": "cds.String"
+        },
+        "group_id": {
+          "type": "cds.Integer"
+        },
+        "ls_name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "profile_photo": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.rules_n_status_s_h": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.rules_n_status_s_h"
+          ]
+        }
+      },
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.notification_rules": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "status"
+          },
+          "Label": "Status"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "mail_subject",
+          "Value": {
+            "=": "mail_subject"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "mail_body",
+          "Value": {
+            "=": "mail_body"
+          }
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "General Information",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.notification_rules"
+          ]
+        }
+      },
+      "elements": {
+        "nr_id": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "table_key": {
+          "type": "cds.String"
+        },
+        "status": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "rule_statuses",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "status"
+              },
+              "ValueListProperty": "value2"
+            },
+            {
+              "$Type": "Common.ValueListParameterOut",
+              "ValueListProperty": "table_key",
+              "LocalDataProperty": {
+                "=": "table_key"
+              }
+            }
+          ],
+          "@Common.ValueList.Label": "Status",
+          "@Common.ValueListWithFixedValues": true,
+          "type": "cds.String"
+        },
+        "mail_subject": {
+          "type": "cds.String"
+        },
+        "mail_body": {
+          "type": "cds.LargeString"
+        },
+        "nrtocc": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.n_r_cc",
+          "on": [
+            {
+              "ref": [
+                "nrtocc",
+                "notification_rules"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.rule_statuses": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.rule_statuses"
+          ]
+        }
+      },
+      "elements": {
+        "table_key": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "value2": {
+          "type": "cds.String"
+        },
+        "value3": {
+          "type": "cds.String"
+        },
+        "value4": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService.assignment_ruless": {
+      "kind": "entity",
+      "@UI.FieldGroup#FieldGroup4.Data": [
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.toggleon",
+          "Label": "active",
+          "Criticality": {
+            "#": "Positive"
+          },
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "is_on"
+                },
+                "n"
+              ]
+            }
+          }
+        },
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.toggleoff",
+          "Label": "inactive",
+          "Criticality": {
+            "#": "Negative"
+          },
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "is_on"
+                },
+                "y"
+              ]
+            }
+          }
+        }
+      ],
+      "@UI.DeleteHidden": true,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "rule_name"
+          },
+          "Label": "ASSIGNMENT RULE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "asstoapp.name"
+          },
+          "Label": "MEMBER(S)"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "comments"
+          },
+          "Label": "COMMENTS"
+        },
+        {
+          "$Type": "UI.DataFieldForAnnotation",
+          "Target": "@UI.FieldGroup#FieldGroup4",
+          "Label": "STATUS"
+        }
+      ],
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "General Information",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "Assignment Rules",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.assignment_ruless"
+          ]
+        }
+      },
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "rule_name": {
+          "type": "cds.String"
+        },
+        "comments": {
+          "type": "cds.String"
+        },
+        "is_on": {
+          "type": "cds.String"
+        },
+        "asstoapp": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.approvers",
+          "on": [
+            {
+              "ref": [
+                "asstoapp",
+                "apptoass"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      },
+      "actions": {
+        "toggleon": {
+          "kind": "action",
+          "@cds.odata.bindingparameter.name": "_it",
+          "@Common.SideEffects.TargetProperties": [
+            "_it/is_on"
+          ]
+        },
+        "toggleoff": {
+          "kind": "action",
+          "@cds.odata.bindingparameter.name": "_it",
+          "@Common.SideEffects.TargetProperties": [
+            "_it/is_on"
+          ]
+        }
+      }
+    },
+    "CatalogService.approvers": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.approvers"
+          ]
+        }
+      },
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approver": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "isgroup": {
+          "type": "cds.String"
+        },
+        "level": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "apptoass": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.assignment_ruless",
+          "on": [
+            {
+              "ref": [
+                "apptoass",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.approval_rules": {
+      "kind": "entity",
+      "@UI.DeleteHidden": true,
+      "@UI.FieldGroup#FieldGroup3.Data": [
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.apprtoggleon",
+          "Label": "active",
+          "Criticality": {
+            "#": "Positive"
+          },
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "is_on"
+                },
+                "n"
+              ]
+            }
+          }
+        },
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Action": "CatalogService.apprtoggleoff",
+          "Label": "inactive",
+          "Criticality": {
+            "#": "Negative"
+          },
+          "Inline": true,
+          "@UI.Hidden": {
+            "$edmJson": {
+              "$Eq": [
+                {
+                  "$Path": "is_on"
+                },
+                "y"
+              ]
+            }
+          }
+        }
+      ],
+      "@UI.LineItem#tableView": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "apprtocri.rule"
+          },
+          "Label": "RULE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "approval_type"
+          },
+          "Label": "APPROVAL TYPE"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "apprtoapp.name"
+          },
+          "Label": "APPROVER"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "comments"
+          },
+          "Label": "COMMENTS"
+        },
+        {
+          "$Type": "UI.DataFieldForAnnotation",
+          "Target": "@UI.FieldGroup#FieldGroup3",
+          "Label": "STATUS"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "Approval Rules",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.approval_rules"
+          ]
+        }
+      },
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approval_type": {
+          "type": "cds.String"
+        },
+        "comments": {
+          "type": "cds.String"
+        },
+        "due_notification": {
+          "type": "cds.Integer"
+        },
+        "due_reminder": {
+          "type": "cds.Integer"
+        },
+        "ec_isgroup": {
+          "type": "cds.String"
+        },
+        "es_name": {
+          "type": "cds.String"
+        },
+        "escelator": {
+          "type": "cds.Integer"
+        },
+        "ifnot_withindays": {
+          "type": "cds.Integer"
+        },
+        "is_on": {
+          "type": "cds.String"
+        },
+        "overdue_notification": {
+          "type": "cds.Integer"
+        },
+        "overdue_reminder": {
+          "type": "cds.Integer"
+        },
+        "rule_name": {
+          "type": "cds.String"
+        },
+        "apprtoapp": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.approvers1",
+          "on": [
+            {
+              "ref": [
+                "apprtoapp",
+                "apptoappr"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "apprtocri": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.criteria",
+          "on": [
+            {
+              "ref": [
+                "apprtocri",
+                "critoappr"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      },
+      "actions": {
+        "apprtoggleon": {
+          "kind": "action",
+          "@cds.odata.bindingparameter.name": "_it",
+          "@Common.SideEffects.TargetProperties": [
+            "_it/is_on"
+          ]
+        },
+        "apprtoggleoff": {
+          "kind": "action",
+          "@cds.odata.bindingparameter.name": "_it",
+          "@Common.SideEffects.TargetProperties": [
+            "_it/is_on"
+          ]
+        }
+      }
+    },
+    "CatalogService.criteria": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.criteria"
+          ]
+        }
+      },
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "rule": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "decider_type": {
+          "type": "cds.String"
+        },
+        "critoappr": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.approval_rules",
+          "on": [
+            {
+              "ref": [
+                "critoappr",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.approvers1": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.approvers1"
+          ]
+        }
+      },
+      "elements": {
+        "rule_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "approver": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "isgroup": {
+          "type": "cds.String"
+        },
+        "level": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "position": {
+          "type": "cds.String"
+        },
+        "apptoappr": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.approval_rules",
+          "on": [
+            {
+              "ref": [
+                "apptoappr",
+                "rule_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "rule_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.emailnotification": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.CreateHidden": true,
+      "@UI.DeleteHidden": true,
+      "@UI.LineItem#tableView": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "status_desc"
+          },
+          "Label": "STATUS"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "mailtocc.name"
+          },
+          "Label": "CC"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "subject"
+          },
+          "Label": "MAIL SUBJECT"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "body"
+          },
+          "Label": "MAIL BODY"
+        }
+      ],
+      "@UI.SelectionPresentationVariant#tableView.$Type": "UI.SelectionPresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.$Type": "UI.PresentationVariantType",
+      "@UI.SelectionPresentationVariant#tableView.PresentationVariant.Visualizations": [
+        "@UI.LineItem#tableView"
+      ],
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.$Type": "UI.SelectionVariantType",
+      "@UI.SelectionPresentationVariant#tableView.SelectionVariant.SelectOptions": [],
+      "@UI.SelectionPresentationVariant#tableView.Text": "Email Notifications",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.CollectionFacet",
+          "Label": "Rules Notification",
+          "ID": "RulesNotification",
+          "Facets": [
+            {
+              "$Type": "UI.ReferenceFacet",
+              "ID": "Status",
+              "Target": "@UI.FieldGroup#Status"
+            },
+            {
+              "$Type": "UI.ReferenceFacet",
+              "Label": "CC",
+              "ID": "tab",
+              "Target": "mailtocc/@UI.LineItem#tab"
+            }
+          ]
+        }
+      ],
+      "@UI.FieldGroup#Status.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#Status.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "status_desc"
+          },
+          "Label": "Status"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "subject"
+          },
+          "Label": "Mail Subject"
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "body"
+          },
+          "Label": "Mail Body"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.emailnotification"
+          ]
+        }
+      },
+      "elements": {
+        "e_id": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "invoice_status": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "body": {
+          "@UI.MultiLineText": true,
+          "type": "cds.String"
+        },
+        "subject": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.String"
+        },
+        "status_desc": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "rule_statuses",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "status_desc"
+              },
+              "ValueListProperty": "value2"
+            },
+            {
+              "$Type": "Common.ValueListParameterOut",
+              "ValueListProperty": "table_key",
+              "LocalDataProperty": {
+                "=": "invoice_status"
+              }
+            }
+          ],
+          "@Common.ValueList.Label": "Status",
+          "@Common.ValueListWithFixedValues": true,
+          "@Common.FieldControl": {
+            "#": "ReadOnly"
+          },
+          "type": "cds.String"
+        },
+        "mailtocc": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.mail_cc",
+          "on": [
+            {
+              "ref": [
+                "mailtocc",
+                "cctomail"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.mail_cc": {
+      "kind": "entity",
+      "@UI.LineItem#cctable": [],
+      "@UI.LineItem#tab": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "name"
+          },
+          "Label": "name"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.mail_cc"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "invoice_status": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "member_id": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "@Common.ValueList.$Type": "Common.ValueListType",
+          "@Common.ValueList.CollectionPath": "cc_s_h",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "name"
+              },
+              "ValueListProperty": "fs_name"
+            },
+            {
+              "$Type": "Common.ValueListParameterOut",
+              "ValueListProperty": "member_id",
+              "LocalDataProperty": {
+                "=": "member_id"
+              }
+            }
+          ],
+          "@Common.ValueList.Label": "CC",
+          "@Common.ValueListWithFixedValues": true,
+          "type": "cds.String"
+        },
+        "cctomail": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.emailnotification",
+          "on": [
+            {
+              "ref": [
+                "cctomail",
+                "invoice_status"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "invoice_status"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.n_r_cc": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "demo.n_r_cc"
+          ]
+        }
+      },
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "member_id": {
+          "type": "cds.Integer"
+        },
+        "group_id": {
+          "type": "cds.Integer"
+        },
+        "department_id": {
+          "type": "cds.Integer"
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "notification_rules": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.notification_rules",
+          "keys": [
+            {
+              "ref": [
+                "nr_id"
+              ]
+            }
+          ]
+        }
       }
     }
   },

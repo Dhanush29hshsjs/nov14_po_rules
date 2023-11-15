@@ -50,9 +50,31 @@
         <EntitySet Name="invoice_No" EntityType="CatalogService.invoice_No">
           <NavigationPropertyBinding Path="email" Target="email"/>
         </EntitySet>
+        <EntitySet Name="rulenoti_s_h" EntityType="CatalogService.rulenoti_s_h"/>
+        <EntitySet Name="cc_s_h" EntityType="CatalogService.cc_s_h"/>
+        <EntitySet Name="rules_n_status_s_h" EntityType="CatalogService.rules_n_status_s_h"/>
+        <EntitySet Name="notification_rules" EntityType="CatalogService.notification_rules">
+          <NavigationPropertyBinding Path="nrtocc/notification_rules" Target="notification_rules"/>
+          <NavigationPropertyBinding Path="nrtocc/SiblingEntity" Target="notification_rules/nrtocc"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="notification_rules"/>
+        </EntitySet>
+        <EntitySet Name="rule_statuses" EntityType="CatalogService.rule_statuses"/>
+        <EntitySet Name="assignment_ruless" EntityType="CatalogService.assignment_ruless">
+          <NavigationPropertyBinding Path="asstoapp/apptoass" Target="assignment_ruless"/>
+        </EntitySet>
+        <EntitySet Name="approval_rules" EntityType="CatalogService.approval_rules">
+          <NavigationPropertyBinding Path="apprtoapp/apptoappr" Target="approval_rules"/>
+          <NavigationPropertyBinding Path="apprtocri/critoappr" Target="approval_rules"/>
+        </EntitySet>
+        <EntitySet Name="emailnotification" EntityType="CatalogService.emailnotification">
+          <NavigationPropertyBinding Path="mailtocc/cctomail" Target="emailnotification"/>
+          <NavigationPropertyBinding Path="mailtocc/SiblingEntity" Target="emailnotification/mailtocc"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="emailnotification"/>
+        </EntitySet>
         <FunctionImport Name="getPdfUrl" Function="CatalogService.getPdfUrl"/>
         <FunctionImport Name="getPdfUrlD" Function="CatalogService.getPdfUrlD"/>
         <FunctionImport Name="getPdfUrlS" Function="CatalogService.getPdfUrlS"/>
+        <FunctionImport Name="getstatus" Function="CatalogService.getstatus"/>
       </EntityContainer>
       <EntityType Name="Newtab">
         <Key>
@@ -309,6 +331,176 @@
           <ReferentialConstraint Property="msg_id" ReferencedProperty="msg_id"/>
         </NavigationProperty>
       </EntityType>
+      <EntityType Name="rulenoti_s_h">
+        <Key>
+          <PropertyRef Name="value2"/>
+        </Key>
+        <Property Name="value2" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="cc_s_h">
+        <Key>
+          <PropertyRef Name="member_id"/>
+        </Key>
+        <Property Name="member_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="department_id" Type="Edm.Int32"/>
+        <Property Name="email" Type="Edm.String"/>
+        <Property Name="fs_name" Type="Edm.String"/>
+        <Property Name="group_id" Type="Edm.Int32"/>
+        <Property Name="ls_name" Type="Edm.String"/>
+        <Property Name="position" Type="Edm.String"/>
+        <Property Name="profile_photo" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="rules_n_status_s_h">
+        <Key>
+          <PropertyRef Name="table_key"/>
+        </Key>
+        <Property Name="table_key" Type="Edm.String" Nullable="false"/>
+        <Property Name="value2" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="notification_rules">
+        <Key>
+          <PropertyRef Name="nr_id"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="nr_id" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="table_key" Type="Edm.String"/>
+        <Property Name="status" Type="Edm.String"/>
+        <Property Name="mail_subject" Type="Edm.String"/>
+        <Property Name="mail_body" Type="Edm.String"/>
+        <NavigationProperty Name="nrtocc" Type="Collection(CatalogService.n_r_cc)" Partner="notification_rules" ContainsTarget="true"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CatalogService.notification_rules"/>
+      </EntityType>
+      <EntityType Name="rule_statuses">
+        <Key>
+          <PropertyRef Name="table_key"/>
+        </Key>
+        <Property Name="table_key" Type="Edm.String" Nullable="false"/>
+        <Property Name="value2" Type="Edm.String"/>
+        <Property Name="value3" Type="Edm.String"/>
+        <Property Name="value4" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="assignment_ruless">
+        <Key>
+          <PropertyRef Name="rule_id"/>
+        </Key>
+        <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="rule_name" Type="Edm.String"/>
+        <Property Name="comments" Type="Edm.String"/>
+        <Property Name="is_on" Type="Edm.String"/>
+        <NavigationProperty Name="asstoapp" Type="Collection(CatalogService.approvers)" Partner="apptoass" ContainsTarget="true"/>
+      </EntityType>
+      <EntityType Name="approvers">
+        <Key>
+          <PropertyRef Name="rule_id"/>
+          <PropertyRef Name="approver"/>
+        </Key>
+        <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="approver" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="isgroup" Type="Edm.String"/>
+        <Property Name="level" Type="Edm.Int32"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="position" Type="Edm.String"/>
+        <NavigationProperty Name="apptoass" Type="CatalogService.assignment_ruless" Partner="asstoapp"/>
+      </EntityType>
+      <EntityType Name="approval_rules">
+        <Key>
+          <PropertyRef Name="rule_id"/>
+        </Key>
+        <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="approval_type" Type="Edm.String"/>
+        <Property Name="comments" Type="Edm.String"/>
+        <Property Name="due_notification" Type="Edm.Int32"/>
+        <Property Name="due_reminder" Type="Edm.Int32"/>
+        <Property Name="ec_isgroup" Type="Edm.String"/>
+        <Property Name="es_name" Type="Edm.String"/>
+        <Property Name="escelator" Type="Edm.Int32"/>
+        <Property Name="ifnot_withindays" Type="Edm.Int32"/>
+        <Property Name="is_on" Type="Edm.String"/>
+        <Property Name="overdue_notification" Type="Edm.Int32"/>
+        <Property Name="overdue_reminder" Type="Edm.Int32"/>
+        <Property Name="rule_name" Type="Edm.String"/>
+        <NavigationProperty Name="apprtoapp" Type="Collection(CatalogService.approvers1)" Partner="apptoappr" ContainsTarget="true"/>
+        <NavigationProperty Name="apprtocri" Type="Collection(CatalogService.criteria)" Partner="critoappr" ContainsTarget="true"/>
+      </EntityType>
+      <EntityType Name="criteria">
+        <Key>
+          <PropertyRef Name="rule_id"/>
+          <PropertyRef Name="rule"/>
+        </Key>
+        <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="rule" Type="Edm.String" Nullable="false"/>
+        <Property Name="decider_type" Type="Edm.String"/>
+        <NavigationProperty Name="critoappr" Type="CatalogService.approval_rules" Partner="apprtocri"/>
+      </EntityType>
+      <EntityType Name="approvers1">
+        <Key>
+          <PropertyRef Name="rule_id"/>
+          <PropertyRef Name="approver"/>
+        </Key>
+        <Property Name="rule_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="approver" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="isgroup" Type="Edm.String"/>
+        <Property Name="level" Type="Edm.Int32"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="position" Type="Edm.String"/>
+        <NavigationProperty Name="apptoappr" Type="CatalogService.approval_rules" Partner="apprtoapp"/>
+      </EntityType>
+      <EntityType Name="emailnotification">
+        <Key>
+          <PropertyRef Name="e_id"/>
+          <PropertyRef Name="invoice_status"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="e_id" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="invoice_status" Type="Edm.String" Nullable="false"/>
+        <Property Name="body" Type="Edm.String"/>
+        <Property Name="subject" Type="Edm.String"/>
+        <Property Name="status_desc" Type="Edm.String"/>
+        <NavigationProperty Name="mailtocc" Type="Collection(CatalogService.mail_cc)" Partner="cctomail" ContainsTarget="true"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CatalogService.emailnotification"/>
+      </EntityType>
+      <EntityType Name="mail_cc">
+        <Key>
+          <PropertyRef Name="idd"/>
+          <PropertyRef Name="invoice_status"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="invoice_status" Type="Edm.String" Nullable="false"/>
+        <Property Name="member_id" Type="Edm.Int32"/>
+        <Property Name="name" Type="Edm.String"/>
+        <NavigationProperty Name="cctomail" Type="CatalogService.emailnotification" Partner="mailtocc"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CatalogService.mail_cc"/>
+      </EntityType>
+      <EntityType Name="n_r_cc">
+        <Key>
+          <PropertyRef Name="idd"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="idd" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="member_id" Type="Edm.Int32"/>
+        <Property Name="group_id" Type="Edm.Int32"/>
+        <Property Name="department_id" Type="Edm.Int32"/>
+        <Property Name="name" Type="Edm.String"/>
+        <NavigationProperty Name="notification_rules" Type="CatalogService.notification_rules" Partner="nrtocc"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CatalogService.n_r_cc"/>
+      </EntityType>
       <EntityType Name="DraftAdministrativeData">
         <Key>
           <PropertyRef Name="DraftUUID"/>
@@ -352,6 +544,26 @@
         <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
         <ReturnType Type="CatalogService.po_data_itemS"/>
       </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.notification_rules"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CatalogService.notification_rules"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.emailnotification"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CatalogService.emailnotification"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.mail_cc"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CatalogService.mail_cc"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.n_r_cc"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CatalogService.n_r_cc"/>
+      </Action>
       <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
         <Parameter Name="in" Type="CatalogService.Newtab"/>
         <ReturnType Type="CatalogService.Newtab"/>
@@ -376,6 +588,14 @@
         <Parameter Name="in" Type="CatalogService.po_data_itemS"/>
         <ReturnType Type="CatalogService.po_data_itemS"/>
       </Action>
+      <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.notification_rules"/>
+        <ReturnType Type="CatalogService.notification_rules"/>
+      </Action>
+      <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.emailnotification"/>
+        <ReturnType Type="CatalogService.emailnotification"/>
+      </Action>
       <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
         <Parameter Name="in" Type="CatalogService.Newtab"/>
         <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
@@ -405,12 +625,34 @@
         <Parameter Name="in" Type="CatalogService.po_data_itemS"/>
         <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
         <ReturnType Type="CatalogService.po_data_itemS"/>
+      </Action>
+      <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.notification_rules"/>
+        <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+        <ReturnType Type="CatalogService.notification_rules"/>
+      </Action>
+      <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.emailnotification"/>
+        <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+        <ReturnType Type="CatalogService.emailnotification"/>
       </Action>
       <Action Name="buttomaction" IsBound="true">
         <Parameter Name="_it" Type="CatalogService.email"/>
       </Action>
       <Action Name="buttomaction1" IsBound="true">
         <Parameter Name="in" Type="CatalogService.email"/>
+      </Action>
+      <Action Name="toggleon" IsBound="true">
+        <Parameter Name="_it" Type="CatalogService.assignment_ruless"/>
+      </Action>
+      <Action Name="toggleoff" IsBound="true">
+        <Parameter Name="_it" Type="CatalogService.assignment_ruless"/>
+      </Action>
+      <Action Name="apprtoggleon" IsBound="true">
+        <Parameter Name="_it" Type="CatalogService.approval_rules"/>
+      </Action>
+      <Action Name="apprtoggleoff" IsBound="true">
+        <Parameter Name="_it" Type="CatalogService.approval_rules"/>
       </Action>
       <Function Name="getPdfUrl" IsBound="false" IsComposable="false">
         <ReturnType Type="Edm.String"/>
@@ -419,6 +661,9 @@
         <ReturnType Type="Edm.String"/>
       </Function>
       <Function Name="getPdfUrlS" IsBound="false" IsComposable="false">
+        <ReturnType Type="Edm.String"/>
+      </Function>
+      <Function Name="getstatus" IsBound="false" IsComposable="false">
         <ReturnType Type="Edm.String"/>
       </Function>
       <Annotations Target="CatalogService.Newtab">
@@ -2011,6 +2256,564 @@
             <Bool>false</Bool>
           </Eq>
         </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.cc_s_h/fs_name">
+        <Annotation Term="Common.Text" Path="position">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules">
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="status"/>
+                  <PropertyValue Property="Label" String="Status"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="mail_subject"/>
+                  <PropertyValue Property="Value" Path="mail_subject"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="mail_body"/>
+                  <PropertyValue Property="Value" Path="mail_body"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="GeneratedFacet1"/>
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/notification_rules">
+        <Annotation Term="Common.DraftRoot">
+          <Record Type="Common.DraftRootType">
+            <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+            <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+            <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules/status">
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="rule_statuses"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="status"/>
+                  <PropertyValue Property="ValueListProperty" String="value2"/>
+                </Record>
+                <Record Type="Common.ValueListParameterOut">
+                  <PropertyValue Property="ValueListProperty" String="table_key"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="table_key"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Status"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.notification_rules/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.assignment_ruless">
+        <Annotation Term="UI.FieldGroup" Qualifier="FieldGroup4">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataFieldForAction">
+                  <PropertyValue Property="Action" String="CatalogService.toggleon"/>
+                  <PropertyValue Property="Label" String="active"/>
+                  <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
+                  <PropertyValue Property="Inline" Bool="true"/>
+                  <Annotation Term="UI.Hidden">
+                    <Eq>
+                      <Path>is_on</Path>
+                      <String>n</String>
+                    </Eq>
+                  </Annotation>
+                </Record>
+                <Record Type="UI.DataFieldForAction">
+                  <PropertyValue Property="Action" String="CatalogService.toggleoff"/>
+                  <PropertyValue Property="Label" String="inactive"/>
+                  <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Negative"/>
+                  <PropertyValue Property="Inline" Bool="true"/>
+                  <Annotation Term="UI.Hidden">
+                    <Eq>
+                      <Path>is_on</Path>
+                      <String>y</String>
+                    </Eq>
+                  </Annotation>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="rule_name"/>
+              <PropertyValue Property="Label" String="ASSIGNMENT RULE"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="asstoapp/name"/>
+              <PropertyValue Property="Label" String="MEMBER(S)"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="comments"/>
+              <PropertyValue Property="Label" String="COMMENTS"/>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#FieldGroup4"/>
+              <PropertyValue Property="Label" String="STATUS"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection/>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="GeneratedFacet1"/>
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Assignment Rules"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/assignment_ruless">
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Assignment Rules"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.toggleon(CatalogService.assignment_ruless)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>_it/is_on</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.toggleoff(CatalogService.assignment_ruless)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>_it/is_on</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.approval_rules">
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.FieldGroup" Qualifier="FieldGroup3">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataFieldForAction">
+                  <PropertyValue Property="Action" String="CatalogService.apprtoggleon"/>
+                  <PropertyValue Property="Label" String="active"/>
+                  <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
+                  <PropertyValue Property="Inline" Bool="true"/>
+                  <Annotation Term="UI.Hidden">
+                    <Eq>
+                      <Path>is_on</Path>
+                      <String>n</String>
+                    </Eq>
+                  </Annotation>
+                </Record>
+                <Record Type="UI.DataFieldForAction">
+                  <PropertyValue Property="Action" String="CatalogService.apprtoggleoff"/>
+                  <PropertyValue Property="Label" String="inactive"/>
+                  <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Negative"/>
+                  <PropertyValue Property="Inline" Bool="true"/>
+                  <Annotation Term="UI.Hidden">
+                    <Eq>
+                      <Path>is_on</Path>
+                      <String>y</String>
+                    </Eq>
+                  </Annotation>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem" Qualifier="tableView">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="apprtocri/rule"/>
+              <PropertyValue Property="Label" String="RULE"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="approval_type"/>
+              <PropertyValue Property="Label" String="APPROVAL TYPE"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="apprtoapp/name"/>
+              <PropertyValue Property="Label" String="APPROVER"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="comments"/>
+              <PropertyValue Property="Label" String="COMMENTS"/>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#FieldGroup3"/>
+              <PropertyValue Property="Label" String="STATUS"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem#tableView</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Approval Rules"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/approval_rules">
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem#tableView</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Approval Rules"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.apprtoggleon(CatalogService.approval_rules)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>_it/is_on</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.apprtoggleoff(CatalogService.approval_rules)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>_it/is_on</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification">
+        <Annotation Term="UI.CreateHidden" Bool="true"/>
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.LineItem" Qualifier="tableView">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="status_desc"/>
+              <PropertyValue Property="Label" String="STATUS"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="mailtocc/name"/>
+              <PropertyValue Property="Label" String="CC"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="subject"/>
+              <PropertyValue Property="Label" String="MAIL SUBJECT"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="body"/>
+              <PropertyValue Property="Label" String="MAIL BODY"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem#tableView</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Email Notifications"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.CollectionFacet">
+              <PropertyValue Property="Label" String="Rules Notification"/>
+              <PropertyValue Property="ID" String="RulesNotification"/>
+              <PropertyValue Property="Facets">
+                <Collection>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="ID" String="Status"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Status"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="CC"/>
+                    <PropertyValue Property="ID" String="tab"/>
+                    <PropertyValue Property="Target" AnnotationPath="mailtocc/@UI.LineItem#tab"/>
+                  </Record>
+                </Collection>
+              </PropertyValue>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Status">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="status_desc"/>
+                  <PropertyValue Property="Label" String="Status"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="subject"/>
+                  <PropertyValue Property="Label" String="Mail Subject"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="body"/>
+                  <PropertyValue Property="Label" String="Mail Body"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/emailnotification">
+        <Annotation Term="UI.CreateHidden" Bool="true"/>
+        <Annotation Term="UI.DeleteHidden" Bool="true"/>
+        <Annotation Term="UI.SelectionPresentationVariant" Qualifier="tableView">
+          <Record Type="UI.SelectionPresentationVariantType">
+            <PropertyValue Property="PresentationVariant">
+              <Record Type="UI.PresentationVariantType">
+                <PropertyValue Property="Visualizations">
+                  <Collection>
+                    <AnnotationPath>@UI.LineItem#tableView</AnnotationPath>
+                  </Collection>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="SelectionVariant">
+              <Record Type="UI.SelectionVariantType">
+                <PropertyValue Property="SelectOptions">
+                  <Collection/>
+                </PropertyValue>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Text" String="Email Notifications"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.DraftRoot">
+          <Record Type="Common.DraftRootType">
+            <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+            <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+            <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/body">
+        <Annotation Term="UI.MultiLineText" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/subject">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/status_desc">
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="rule_statuses"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="status_desc"/>
+                  <PropertyValue Property="ValueListProperty" String="value2"/>
+                </Record>
+                <Record Type="Common.ValueListParameterOut">
+                  <PropertyValue Property="ValueListProperty" String="table_key"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="invoice_status"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Status"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.emailnotification/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc">
+        <Annotation Term="UI.LineItem" Qualifier="cctable">
+          <Collection/>
+        </Annotation>
+        <Annotation Term="UI.LineItem" Qualifier="tab">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+              <PropertyValue Property="Label" String="name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc/name">
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="cc_s_h"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="name"/>
+                  <PropertyValue Property="ValueListProperty" String="fs_name"/>
+                </Record>
+                <Record Type="Common.ValueListParameterOut">
+                  <PropertyValue Property="ValueListProperty" String="member_id"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="member_id"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="CC"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.mail_cc/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.n_r_cc/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.n_r_cc/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.n_r_cc/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.n_r_cc/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
       <Annotations Target="CatalogService.DraftAdministrativeData">
         <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>

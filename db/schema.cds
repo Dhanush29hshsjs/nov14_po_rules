@@ -214,14 +214,6 @@ entity invoice_No {
 }
 
 //////////////rules////////////
-entity cc_s_h {
-    key invoice_status : String default ' ';
-        name           : String;
-        position       : String;
-    key member_id      : Integer;
-    key group_id       : Integer;
-    key department_id  : Integer;
-}
 
 entity rulenoti_s_h {
     key value2 : String;
@@ -320,20 +312,33 @@ entity criteria {
 }
 
 entity emailnotification {
-    key e_id           : UUID;
+    key e_id           : Integer;
     key invoice_status : String;
-        body           : String;
+     body           : String;
+     subject        : String;
         status_desc    : String;
-        subject        : String;
+
         mailtocc       : Composition of many mail_cc
                              on mailtocc.cctomail = $self;
 }
 
 
 entity mail_cc {
+    key idd:UUID;
     key invoice_status : String;
-    key member_id      : Integer;
+     member_id      : Integer;
         name           : String;
         cctomail       : Association to one emailnotification
                              on cctomail.invoice_status = invoice_status;
+}
+
+entity cc_s_h {
+    key member_id     : Integer;
+        department_id : Integer;
+        email         : String;
+        fs_name       : String;
+        group_id      : Integer;
+        ls_name       : String;
+        position      : String;
+        profile_photo : String;
 }

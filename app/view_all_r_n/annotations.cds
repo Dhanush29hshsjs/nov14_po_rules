@@ -143,6 +143,7 @@ annotate service.approval_rules with @(
     }
 );
 annotate service.emailnotification with @(
+    UI.CreateHidden:true,
     UI.DeleteHidden:true,
     UI.LineItem #tableView : [
         {
@@ -178,3 +179,111 @@ annotate service.emailnotification with @(
         Text : 'Email Notifications',
     }
 );
+annotate service.emailnotification with @(
+    UI.Facets : [
+        {
+            $Type : 'UI.CollectionFacet',
+            Label : 'Rules Notification',
+            ID : 'RulesNotification',
+            Facets : [
+            {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'Status',
+            Target : '@UI.FieldGroup#Status',
+        },
+                {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'CC',
+            ID : 'tab',
+            Target : 'mailtocc/@UI.LineItem#tab',
+        },
+                ],
+        },
+    ],
+    UI.FieldGroup #Status : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : status_desc,
+                Label : 'Status',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : subject,
+                Label : 'Mail Subject',
+            },{
+                $Type : 'UI.DataField',
+                Value : body,
+                Label : 'Mail Body',
+            },],
+    }
+);
+
+annotate service.emailnotification with {
+    status_desc @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'rule_statuses',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_desc,
+                    ValueListProperty : 'value2',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'table_key',
+                    LocalDataProperty : invoice_status,
+                },
+            ],
+            Label : 'Status',
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.mail_cc with {
+    name @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'cc_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : name,
+                    ValueListProperty : 'fs_name',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'member_id',
+                    LocalDataProperty : member_id,
+                },
+            ],
+            Label : 'CC',
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.cc_s_h with {
+    fs_name @Common.Text : {
+            $value : position,
+            ![@UI.TextArrangement] : #TextLast,
+        }
+};
+annotate service.mail_cc with @(
+    UI.LineItem #cctable : [
+    ]
+);
+annotate service.mail_cc with @(
+    UI.LineItem #tab : [
+        {
+            $Type : 'UI.DataField',
+            Value : name,
+            Label : 'name',
+        },]
+);
+annotate service.emailnotification with {
+    subject @Common.FieldControl : #Mandatory
+};
+annotate service.emailnotification with {
+    body @UI.MultiLineText : true
+};
+annotate service.emailnotification with {
+    status_desc @Common.FieldControl : #ReadOnly
+};

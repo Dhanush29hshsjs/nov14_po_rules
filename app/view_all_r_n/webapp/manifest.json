@@ -108,6 +108,16 @@
                     "pattern": "assignment_ruless({key}):?query:",
                     "name": "assignment_rulessObjectPage",
                     "target": "assignment_rulessObjectPage"
+                },
+                {
+                    "pattern": "approval_rules({key}):?query:",
+                    "name": "approval_rulesObjectPage",
+                    "target": "approval_rulesObjectPage"
+                },
+                {
+                    "pattern": "emailnotification({key}):?query:",
+                    "name": "emailnotificationObjectPage",
+                    "target": "emailnotificationObjectPage"
                 }
             ],
             "targets": {
@@ -123,6 +133,16 @@
                                 "assignment_ruless": {
                                     "detail": {
                                         "route": "assignment_rulessObjectPage"
+                                    }
+                                },
+                                "approval_rules": {
+                                    "detail": {
+                                        "route": "approval_rulesObjectPage"
+                                    }
+                                },
+                                "emailnotification": {
+                                    "detail": {
+                                        "route": "emailnotificationObjectPage"
                                     }
                                 }
                             },
@@ -196,6 +216,28 @@
                         "settings": {
                             "editableHeaderContent": false,
                             "contextPath": "/assignment_ruless"
+                        }
+                    }
+                },
+                "approval_rulesObjectPage": {
+                    "type": "Component",
+                    "id": "approval_rulesObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/approval_rules",
+                            "navigation": {}
+                        }
+                    }
+                },
+                "emailnotificationObjectPage": {
+                    "type": "Component",
+                    "id": "emailnotificationObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/emailnotification",
+                            "navigation": {}
                         }
                     }
                 }
