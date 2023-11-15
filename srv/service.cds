@@ -112,6 +112,7 @@ service CatalogService {
 
     entity approvers          as projection on demo.approvers;
 
+@odata.draft.enabled
     entity approval_rules     as projection on demo.approval_rules actions {
         @(
             cds.odata.bindingparameter.name: '_it',
