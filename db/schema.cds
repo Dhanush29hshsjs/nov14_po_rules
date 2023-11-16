@@ -288,6 +288,8 @@ entity approval_rules {
                                    on apprtoapp.apptoappr = $self;
         apprtocri            : Composition of many criteria
                                    on apprtocri.critoappr = $self;
+        apprtoapp1            : Composition of many approvers11
+                                   on apprtoapp1.apptoappr1 = $self;                           
 }
 
 entity approvers1 {
@@ -321,6 +323,11 @@ entity criteria {
                            on critoappr.rule_id = rule_id;
 }
 
+entity value1sh{
+    key code:String;
+       key  master_name:String;
+               description:String;
+}
 entity emailnotification {
     key e_id           : Integer;
     key invoice_status : String;
@@ -362,4 +369,27 @@ entity approvalrulesdecider_s_h {
 entity rules_n_status_s_h {
     key table_key : String;
      key   value2    : String;
+}
+
+entity approvers_s_h{
+ key table_key: Integer;
+ drop_key:String;
+            value2:String;
+            value3:String;
+            value4:String; 
+}
+
+entity approvers11{
+    key idd_d :UUID;
+     key rule_id              : Integer;
+table_key: Integer;
+ drop_key:String;
+            value2:String;
+            value3:String;
+            value4:String; 
+apptoappr1 : Association to one approval_rules
+                        on apptoappr1.rule_id = rule_id;
+}
+entity approvaltype_s_h{
+    key sh:String;
 }

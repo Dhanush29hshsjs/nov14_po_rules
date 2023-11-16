@@ -134,5 +134,12 @@ service CatalogService {
 
     entity mail_cc                 as projection on demo.mail_cc;
 entity cc_s_h             as projection on demo.cc_s_h;   
+entity value1sh             as projection on demo.value1sh;   
 entity approvalrulesdecider_s_h       as projection on demo.approvalrulesdecider_s_h;
+entity approvers_s_h             as projection on demo.approvers_s_h;   
+entity approvaltype_s_h            as projection on demo.approvaltype_s_h;   
+
+
+
+
 }

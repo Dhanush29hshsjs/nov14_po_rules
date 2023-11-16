@@ -232,7 +232,48 @@
                                     "sections": {
                                         "Fillblank": {
                                             "template": "viewallrn.ext.fragment.Fillblank",
-                                            "type": "XMLFragment"
+                                            "type": "XMLFragment",
+                                            "position": {
+                                                "anchor": "Ruletab",
+                                                "placement": "After"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "apprtocri/@com.sap.vocabularies.UI.v1.LineItem#Ruletab": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    },
+                                    "columns": {
+                                        "DataField::Criteria": {
+                                            "width": "200px"
+                                        },
+                                        "DataField::Condition": {
+                                            "width": "150px"
+                                        },
+                                        "DataField::Value1": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::Value2": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::currCondition": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::currCriteria": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::currValue1": {
+                                            "width": "175px"
+                                        }
+                                    }
+                                },
+                                "apprtoapp1/@com.sap.vocabularies.UI.v1.LineItem#approvers": {
+                                    "columns": {
+                                        "DataField::table_key": {
+                                            "width": "100px"
                                         }
                                     }
                                 }

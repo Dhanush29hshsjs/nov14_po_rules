@@ -1,4 +1,5 @@
 using CatalogService as service from '../../srv/service';
+using from '../../db/schema';
 
 annotate service.assignment_ruless with @(
      UI.FieldGroup #FieldGroup4 : {
@@ -297,6 +298,12 @@ annotate service.approval_rules with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
+            Label : 'approvers',
+            ID : 'approvers',
+            Target : 'apprtoapp1/@UI.LineItem#approvers',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
             Label : 'Rule tab',
             ID : 'Ruletab',
             Target : 'apprtocri/@UI.LineItem#Ruletab',
@@ -307,8 +314,8 @@ annotate service.approval_rules with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : criteria,
-                Label : 'Criteria',
+                Value : approval_type,
+                Label : 'Approval Type',
             },],
     }
 );
@@ -340,22 +347,36 @@ annotate service.criteria with @(
             $Type : 'UI.DataField',
             Value : Value1,
             Label : 'Value1',
-        },{
+             ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'Criteria'}, 'Amount']}}
+        },
+        // $If: {
+        //     $Ne: [{$Path: 'Criteria'}, 'Amount'],
+        //     $Then: 'name1',
+        //     $ElseIf: {
+        //         $Ne: [{$Path: 'Criteria'}, 'Amount2'],
+        //         $Then: 'name2',
+        //         $Else: 'default name'
+        //     }
+        // }},   
+        // },
+        {
             $Type : 'UI.DataField',
             Value : Value2,
-            Label : 'Value2',
-        },{
+            Label : 'Amount',
+            
+            ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Criteria'}, 'Amount']}}
+        },
+        {
             $Type : 'UI.DataField',
             Value : currCondition,
-            Label : 'currCondition',
-        },{
-            $Type : 'UI.DataField',
-            Value : currCriteria,
-            Label : 'currCriteria',
+            Label : 'Amount-To',
+             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Condition'}, 'In Between']}}
         },{
             $Type : 'UI.DataField',
             Value : currValue1,
-            Label : 'currValue1',
+            Label : 'CURRENCY',
+             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Criteria'}, 'Amount']}},
+             
         },]
 );
 annotate service.criteria with {
@@ -386,6 +407,92 @@ annotate service.criteria with {
                     $Type : 'Common.ValueListParameterInOut',
                     LocalDataProperty : Criteria,
                     ValueListProperty : 'value2',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.criteria with {
+    currValue1 @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Currency',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : currValue1,
+                    ValueListProperty : 'code',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'description',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.criteria with {
+    Value1 @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'value1sh',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Value1,
+                    ValueListProperty : 'code',
+                },
+                {
+                    $Type : 'Common.ValueListParameterIn',
+                    ValueListProperty : 'master_name',
+                    LocalDataProperty : Criteria,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+        
+        
+)};
+annotate service.value1sh with {
+    code @Common.Text : {
+        $value : description,
+        ![@UI.TextArrangement] : #TextLast,
+    }
+};
+annotate service.approvers11 with @(
+    UI.LineItem #approvers : [
+        {
+            $Type : 'UI.DataField',
+            Value : value2,
+            Label : 'Approval By',
+        },]
+);
+annotate service.approvers11 with {
+    value2 @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvers_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : value2,
+                    ValueListProperty : 'value2',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'table_key',
+                    LocalDataProperty : table_key,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.approval_rules with {
+    approval_type @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvaltype_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : approval_type,
+                    ValueListProperty : 'sh',
                 },
             ],
         },
