@@ -114,7 +114,7 @@ annotate service.approval_rules with @(
             Label : 'APPROVAL TYPE',
         },{
             $Type : 'UI.DataField',
-            Value : apprtoapp.name,
+            Value : apprtoapp.position,
             Label : 'APPROVER',
         },{
             $Type : 'UI.DataField',
@@ -291,22 +291,54 @@ annotate service.emailnotification with {
 annotate service.approval_rules with @(
     UI.Facets : [
         {
+            $Type : 'UI.CollectionFacet',
+            Label : 'c2',
+            ID : 'c2',
+            Facets : [
+            {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Rule tab',
+            ID : 'Ruletab',
+            Target : 'apprtocri/@UI.LineItem#Ruletab',
+        },
+                {
             $Type : 'UI.ReferenceFacet',
             Label : 'form1',
             ID : 'form1',
             Target : '@UI.FieldGroup#form1',
         },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'approvers',
-            ID : 'approvers',
-            Target : 'apprtoapp1/@UI.LineItem#approvers',
+                ],
         },
         {
+            $Type : 'UI.CollectionFacet',
+            Label : 'Modify Approval Rules',
+            ID : 'ModifyApprovalRules',
+            Facets : [
+            {
             $Type : 'UI.ReferenceFacet',
-            Label : 'Rule tab',
-            ID : 'Ruletab',
-            Target : 'apprtocri/@UI.LineItem#Ruletab',
+            Label : 'approvers',
+            ID : 'approvers1',
+            Target : 'apprtoapp/@UI.LineItem#approvers',
+        },
+                {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'comments',
+            ID : 'comments',
+            Target : '@UI.FieldGroup#comments',
+        },
+                ],
+        },
+        // {
+        //     $Type : 'UI.ReferenceFacet',
+        //     Label : 'hide',
+        //     ID : 'hide',
+        //     Target : '@UI.FieldGroup#hide',
+        // },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'demooo',
+            ID : 'demooo',
+            Target : 'apprtocri/@UI.LineItem#demooo',
         },
     ],
     UI.FieldGroup #form1 : {
@@ -333,6 +365,10 @@ annotate service.approval_rules with {
         },
         Common.ValueListWithFixedValues : true
 )};
+//  
+// 
+// 
+//  
 annotate service.criteria with @(
     UI.LineItem #Ruletab : [
         {
@@ -346,37 +382,86 @@ annotate service.criteria with @(
         },{
             $Type : 'UI.DataField',
             Value : Value1,
-            Label : 'Value1',
+            Label : 'Value',
              ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'Criteria'}, 'Amount']}}
         },
-        // $If: {
-        //     $Ne: [{$Path: 'Criteria'}, 'Amount'],
-        //     $Then: 'name1',
-        //     $ElseIf: {
-        //         $Ne: [{$Path: 'Criteria'}, 'Amount2'],
-        //         $Then: 'name2',
-        //         $Else: 'default name'
-        //     }
-        // }},   
-        // },
         {
             $Type : 'UI.DataField',
             Value : Value2,
             Label : 'Amount',
-            
-            ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Criteria'}, 'Amount']}}
+             ![@UI.Hidden] : {$edmJson : 
+                              
+                       {$Or: [ {$Or: [    {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Cost Center']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Default']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Department']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]},
+
+                                  {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Document Type']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'G/ L Account']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]}, ]},{$Or: [    {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Item Category']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Jurisdiction Code']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]},
+
+                                  {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'PO Type']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Vendor']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]}, ]},]},
+                                         
+                                         },
         },
         {
             $Type : 'UI.DataField',
             Value : currCondition,
             Label : 'Amount-To',
-             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Condition'}, 'In Between']}}
-        },{
+              ![@UI.Hidden] : {$edmJson : 
+                              
+                              {$Or: [{$Or: [   {$Eq : [{$Path : 'Condition'}, 'Equal To']},
+                                 {$Eq : [{$Path : 'Condition'}, 'Less Than']},
+                                   ]     },
+                                    {$Or: [   {$Eq : [{$Path : 'Condition'}, 'Equal To']},
+                                 {$Eq : [{$Path : 'Condition'}, 'More Than']},
+                                   ]     }]}
+                                   },
+                                    
+        },
+        {
             $Type : 'UI.DataField',
             Value : currValue1,
-            Label : 'CURRENCY',
-             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'Criteria'}, 'Amount']}},
-             
+            Label : 'Currency',
+             ![@UI.Hidden] : {$edmJson : 
+                              
+                       {$Or: [ {$Or: [    {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Cost Center']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Default']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Department']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]},
+
+                                  {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Document Type']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'G/ L Account']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]}, ]},{$Or: [    {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'Item Category']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Jurisdiction Code']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]},
+
+                                  {$Or: [       {$Or: [ {$Eq : [{$Path : 'Criteria'}, 'PO Type']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},  ]},
+                             
+                             { $Or: [    {$Eq : [{$Path : 'Criteria'}, 'Vendor']},
+                                 {$Eq : [{$Path : 'Criteria'}, 'Condition2']},]},    ]}, ]},]},
+                                         
+                                         },
+            // ![@UI.Hidden] : {$Path : 'PresentationVariant', $Eq : 'NonDraft'}
+
+            // ![@UI.Hidden] : {$edmJson :{$Not :{PresentationVariant, NonDraft}}},
         },]
 );
 annotate service.criteria with {
@@ -445,6 +530,11 @@ annotate service.criteria with {
                     ValueListProperty : 'master_name',
                     LocalDataProperty : Criteria,
                 },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'description',
+                    LocalDataProperty : descri,
+                },
             ],
         },
         Common.ValueListWithFixedValues : true,
@@ -457,33 +547,8 @@ annotate service.value1sh with {
         ![@UI.TextArrangement] : #TextLast,
     }
 };
-annotate service.approvers11 with @(
-    UI.LineItem #approvers : [
-        {
-            $Type : 'UI.DataField',
-            Value : value2,
-            Label : 'Approval By',
-        },]
-);
-annotate service.approvers11 with {
-    value2 @(Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'approvers_s_h',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : value2,
-                    ValueListProperty : 'value2',
-                },
-                {
-                    $Type : 'Common.ValueListParameterOut',
-                    ValueListProperty : 'table_key',
-                    LocalDataProperty : table_key,
-                },
-            ],
-        },
-        Common.ValueListWithFixedValues : true
-)};
+
+
 annotate service.approval_rules with {
     approval_type @(Common.ValueList : {
             $Type : 'Common.ValueListType',
@@ -498,3 +563,161 @@ annotate service.approval_rules with {
         },
         Common.ValueListWithFixedValues : true
 )};
+annotate service.approvers1 with @(
+    UI.LineItem #approvers : [
+        {
+            $Type : 'UI.DataField',
+            Value : approver,
+            Label : 'approver',
+        },{
+            $Type : 'UI.DataField',
+            Value : isgroup,
+            Label : 'isgroup',
+        },{
+            $Type : 'UI.DataField',
+            Value : m_id,
+            Label : 'm_id',
+        },{
+            $Type : 'UI.DataField',
+            Value : position,
+            Label : 'position',
+        },{
+            $Type : 'UI.DataField',
+            Value : name,
+            Label : 'name',
+        },]
+);
+annotate service.approvers1 with {
+    position @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvers_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : position,
+                    ValueListProperty : 'value2',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'table_key',
+                    LocalDataProperty : approver,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.approvers1 with {
+    name @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'approvers_s_h1',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : name,
+                    ValueListProperty : 'name',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'iid',
+                    LocalDataProperty : m_id,
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'is_group',
+                    LocalDataProperty : isgroup,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.approval_rules with @(
+    UI.FieldGroup #comments : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : comments,
+                Label : 'COMMENTS(optional)',
+            },],
+    }
+);
+annotate service.approval_rules with {
+    comments @UI.MultiLineText : true
+};
+annotate service.criteria with {
+    Value1 @Common.Text : {
+            $value : descri,
+            ![@UI.TextArrangement] : #TextLast,
+        }
+};
+annotate service.criteria with @(
+    UI.LineItem #demooo : [
+        {
+            $Type : 'UI.DataField',
+            Value : Condition,
+            Label : 'Condition',
+        },{
+            $Type : 'UI.DataField',
+            Value : Criteria,
+            Label : 'Criteria',
+        },{
+            $Type : 'UI.DataField',
+            Value : currCriteria,
+            Label : 'currCriteria',
+        },{
+            $Type : 'UI.DataField',
+            Value : currCondition,
+            Label : 'currCondition',
+        },{
+            $Type : 'UI.DataField',
+            Value : currValue1,
+            Label : 'currValue1',
+        },{
+            $Type : 'UI.DataField',
+            Value : d_value,
+            Label : 'd_value',
+        },{
+            $Type : 'UI.DataField',
+            Value : d_value2,
+            Label : 'd_value2',
+        },{
+            $Type : 'UI.DataField',
+            Value : Value2,
+            Label : 'Value2',
+        },{
+            $Type : 'UI.DataField',
+            Value : Value1,
+            Label : 'Value1',
+        },{
+            $Type : 'UI.DataField',
+            Value : rule_id,
+            Label : 'rule_id',
+        },{
+            $Type : 'UI.DataField',
+            Value : rule,
+            Label : 'rule',
+        },{
+            $Type : 'UI.DataField',
+            Value : operator,
+            Label : 'operator',
+        },{
+            $Type : 'UI.DataField',
+            Value : descri,
+            Label : 'descri',
+        },{
+            $Type : 'UI.DataField',
+            Value : decider_type,
+            Label : 'decider_type',
+        },]
+);
+annotate service.approval_rules with @(
+    UI.FieldGroup #hide : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : apprtocri.Condition,
+                Label : 'Condition',
+            },],
+    }
+);

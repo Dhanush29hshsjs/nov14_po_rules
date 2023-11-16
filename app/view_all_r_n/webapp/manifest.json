@@ -234,7 +234,7 @@
                                             "template": "viewallrn.ext.fragment.Fillblank",
                                             "type": "XMLFragment",
                                             "position": {
-                                                "anchor": "Ruletab",
+                                                "anchor": "ModifyApprovalRules",
                                                 "placement": "After"
                                             }
                                         }

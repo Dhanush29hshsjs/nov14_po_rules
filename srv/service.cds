@@ -137,6 +137,7 @@ entity cc_s_h             as projection on demo.cc_s_h;
 entity value1sh             as projection on demo.value1sh;   
 entity approvalrulesdecider_s_h       as projection on demo.approvalrulesdecider_s_h;
 entity approvers_s_h             as projection on demo.approvers_s_h;   
+entity approvers_s_h1             as projection on demo.approvers_s_h1;   
 entity approvaltype_s_h            as projection on demo.approvaltype_s_h;   
 
 

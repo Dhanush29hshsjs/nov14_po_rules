@@ -37,6 +37,7 @@ module.exports = cds.service.impl(async function () {
     let {
         approvaltype_s_h,
         approvers_s_h,
+        approvers_s_h1,
         value1sh,
         approvalrulesdecider_s_h,
         approval_rules,
@@ -995,6 +996,7 @@ module.exports = cds.service.impl(async function () {
                 let entries = [];
                 let entries1 = [];
                 let entries2 = [];
+                let prev_ent = 0;
                 
                     entries.push({
                         approval_type: `${spaces.approval_type}`,
@@ -1012,14 +1014,29 @@ module.exports = cds.service.impl(async function () {
                     });
                     const spaces1 = spaces.criteria;
                     spaces1.forEach(space1 => {
-                        entries1.push({
-                            rule_id: parseInt(spaces.rule_id, 10),
-                            rule: `${space1.decider}`,
-                            operator:`${space1.operator}`,
-                            d_value2:`${space1.d_value2}`,
-                            d_value:`${space1.d_value}`,
-                            decider_type: `${space1.decider_type}`,
-                        });
+                        prev_ent = entries1.length -1;
+
+                        if (space1.decider == "currency") {
+                            let sub = entries1[prev_ent].Value1;
+                            entries1[prev_ent].Value1 = "";
+                            entries1[prev_ent].currValue1 = `${space1.d_value}`;
+                                entries1[prev_ent].Value2 = sub;
+                            
+                        }else{
+                            entries1.push({
+                                Criteria:`${space1.decider}`,
+                                Condition:`${space1.operator}`,
+                                Value1:`${space1.d_value}`,
+                                currCondition:`${space1.d_value2}`,
+    
+                                rule_id: parseInt(spaces.rule_id, 10),
+                                rule: `${space1.decider}`,
+                                operator:`${space1.operator}`,
+                                d_value2:`${space1.d_value2}`,
+                                d_value:`${space1.d_value}`,
+                                decider_type: `${space1.decider_type}`,
+                            });
+                        }  
                     });
                     const spaces2 = spaces.approvers;
                     spaces2.forEach(space2 => {
@@ -1083,8 +1100,8 @@ module.exports = cds.service.impl(async function () {
                             approver: space2.approver,
                             isgroup: `${space2.isgroup}`,
                             level: space2.level,
-                            name: `${space2.name}`,
-                            position: `${space2.position}`,
+                            position: `${space2.name}`,
+                            name: `${space2.position}`,
                         });
                     });
                 });
@@ -1490,7 +1507,7 @@ this.before('READ',rules_n_status_s_h, async (req) => {
             const entries = [];
             spaces.forEach(space => {
                 entries.push({
-                    rule_id:req.params[0],
+        
                  table_key:space.table_key,
  drop_key:`${space.drop_key}`,
             value2:`${space.value2}`,
@@ -1499,6 +1516,30 @@ this.before('READ',rules_n_status_s_h, async (req) => {
                 });
             });
             await cds.tx(req).run(INSERT.into(approvers_s_h).entries(entries));
+        }
+        return req;
+    }
+    catch (err) {
+        req.error(500, err.message);
+    }
+});
+///////////approvers_s_h1
+this.before('READ', approvers_s_h1, async (req) => {
+    debugger
+    try {
+        if (true) {
+            const resp = await c5re.get('/dev/assignment-approver');
+            await cds.tx(req).run(DELETE(approvers_s_h1));
+            const spaces = resp.body;
+            const entries = [];
+            spaces.forEach(space => {
+                entries.push({
+                    id:space.id,
+                    is_group:`${space.is_group}`,
+                    name:`${space.name}`,
+                });
+            });
+            await cds.tx(req).run(INSERT.into(approvers_s_h1).entries(entries));
         }
         return req;
     }

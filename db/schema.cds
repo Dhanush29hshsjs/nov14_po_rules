@@ -288,14 +288,19 @@ entity approval_rules {
                                    on apprtoapp.apptoappr = $self;
         apprtocri            : Composition of many criteria
                                    on apprtocri.critoappr = $self;
-        apprtoapp1            : Composition of many approvers11
-                                   on apprtoapp1.apptoappr1 = $self;                           
+                                 
 }
 
 entity approvers1 {
+    key iddd:UUID;
     key rule_id   : Integer;
-    key approver  : Integer;
+     approver  : Integer;
         isgroup   : String;
+        ///////
+
+        m_id :Integer;
+
+        /////
         level     : Integer;
         name      : String;
         position  : String;
@@ -314,8 +319,9 @@ entity criteria {
         Criteria:String;
         currCriteria:String;
         Condition:String;
-        currCondition:String;
+        currCondition:String ;
         Value1:String;
+        descri:String;
         currValue1:String;
         Value2:String;
         ////////////
@@ -378,18 +384,12 @@ entity approvers_s_h{
             value3:String;
             value4:String; 
 }
-
-entity approvers11{
-    key idd_d :UUID;
-     key rule_id              : Integer;
-table_key: Integer;
- drop_key:String;
-            value2:String;
-            value3:String;
-            value4:String; 
-apptoappr1 : Association to one approval_rules
-                        on apptoappr1.rule_id = rule_id;
+entity approvers_s_h1{
+ key iid: Integer;
+            is_group:String;
+            name:String;
 }
+
 entity approvaltype_s_h{
     key sh:String;
 }
