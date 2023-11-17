@@ -998,6 +998,7 @@ module.exports = cds.service.impl(async function () {
                 let entries = [];
                 let entries1 = [];
                 let entries2 = [];
+                let entries3 = [];
                 let prev_ent = 0;
                     spaces.forEach(space => {
                         entries.push({
@@ -1066,7 +1067,18 @@ module.exports = cds.service.impl(async function () {
                     //     }  
                     // });
                     const spaces2 = space.approvers;
+                    let uniqueIds = new Set();
                     spaces2.forEach(space2 => {
+                        let {level,approver} = {level:space2.level,approver:space2.approver};
+                                if (uniqueIds.has(level)) {
+                                    const originalapprover = [...uniqueIds].find(level => level === space2.level);
+                                    entries3.push({
+                                    approver : originalapprover,
+                                    approverk:space2.approver,
+                                     mem_name: `${space2.name}`,
+                                    //  rule_id: space.rule_id,
+                                    });
+                                }else{
                                     entries2.push({
                                         rule_id: space.rule_id,
                                         approver: space2.approver,
@@ -1075,12 +1087,17 @@ module.exports = cds.service.impl(async function () {
                                         name: `${space2.name}`,
                                         position: `${space2.position}`,
                                     });
+                                    uniqueIds.add(level);
+                                }
+
+                                    
                                 });
                     });
     
                 await cds.tx(req).run(INSERT.into(approval_rules).entries(entries));
                 await cds.tx(req).run(INSERT.into(criteria).entries(entries1));
                 await cds.tx(req).run(INSERT.into(approvers1).entries(entries2));
+                await cds.tx(req).run(INSERT.into(members_gc).entries(entries3));
                 return req;
     
     
@@ -1299,7 +1316,7 @@ let ccc = 1;
     });
     ///////////rulenoti_s_h help
     this.before('READ', cc_s_h, async (req) => {
-        
+        debugger
         try {
             if (true) {
                 // const stat = await SELECT`table_key`.from(notification_rules);
@@ -1635,20 +1652,43 @@ this.before('READ', approvaltype_s_h, async (req) => {
     this.on('UPDATE', approval_rules, async (req) => {
         debugger
 //         const input =req.data.mailtocc;
-spaces=req.data.apprtocri;
+let lev = 1;
+let approvers = [];
+
+let spaces=req.data.apprtocri;
+let spaces1=req.data.apprtoapp;
+spaces1.forEach(space1 => {
+    let mems = [];
+    space1.apprtomem.forEach(space11 => {
+        mems.push(
+        space11.approver
+        );
+    });
+approvers.push({
+approver:space1.approver,
+isgroup:`${space1.isgroup}`,
+level:lev,
+members:mems,
+});
+lev++;
+
+});
 spaces.forEach(space => {
+   if (space.Criteria == 'Currency') {
+    space.decider_type = 'string';
+   }
+    if (space.Value2 != 'undefined' && space.Value2 != null){
+        space.Value1 = space.Value11;
+    };
     if (space.Value2 == 'undefined'){
         space.Value2 = null;
     };
-    if (space.Value2 != 'undefined'){
-        space.Value1 = space.Value11;
-    };
 if (space.decider == null) {
-    space.decider = req.data.apprtocri.Criteria.replace(/\s+/g, '_').toLowerCase();    
+    space.decider = space.Criteria.replace(/\s+/g, '_').toLowerCase();    
 }
 });
 // const output = input.map(item => item.member_id);
-        let approvers= apprtoapp.map(approver => ({ name: approver.name, age: approver.age }));
+         approvers= apprtoapp.map(approver => ({ name: approver.name, age: approver.age }));
         let criteria= req.data.apprtocri.map(approver => ({ decider: approver.decider, operator: approver.operator, type: approver.decider_type, value1: approver.Value1, value2: approver.Value2 }));
         const bodyy = {
         approval_type:req.data.approval_type ,

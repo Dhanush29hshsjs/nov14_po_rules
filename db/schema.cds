@@ -309,11 +309,13 @@ entity approvers1 {
 }
 entity members_gc {
     key idd :UUID;
-     approver  : Integer;
+    approver  : Integer;
+    // rule_id   : Integer;
+     approverk  : Integer ;
      m_id           : Integer;
     mem_name :String;
         memtoappr : Association to one approvers1
-                        on memtoappr.approver = approver;
+                        on memtoappr.level = approver;
 }
 
 entity criteria {

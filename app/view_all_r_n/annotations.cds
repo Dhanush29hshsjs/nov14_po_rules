@@ -642,9 +642,9 @@ annotate service.approvers1 with @(
     UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
-            Label : 'Add Members',
-            ID : 'AddMembers',
-            Target : 'apprtomem/@UI.LineItem#AddMembers',
+            Label : 'd',
+            ID : 'd',
+            Target : 'apprtomem/@UI.LineItem#d',
         },
     ]
 );
@@ -674,7 +674,7 @@ annotate service.members_gc with {
                 {
                     $Type : 'Common.ValueListParameterOut',
                     ValueListProperty : 'member_id',
-                    LocalDataProperty : m_id,
+                    LocalDataProperty : approverk,
                 },
             ],
         },
@@ -696,4 +696,12 @@ annotate service.approval_rules with @(
             Value : rule_id,
         },
     }
+);
+annotate service.members_gc with @(
+    UI.LineItem #d : [
+        {
+            $Type : 'UI.DataField',
+            Value : mem_name,
+            Label : 'mem_name',
+        },]
 );
