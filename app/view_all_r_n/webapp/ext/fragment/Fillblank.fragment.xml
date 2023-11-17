@@ -3,7 +3,7 @@
         <VBox id="_IDGenVBox2">
             <HBox id="_IDGenHBox1">
                 <Text id="_IDGenText2" text="Send Notification"/>
-                <Input width="90%" id="input0" value="{due_notification}" />
+                <Input width="90%" id="input0" value="{due_notification}"/>
                 <Text id="_IDGenText6" text="day(s) before due date, send reminder every"/>
                 <Input width="90%" id="input1" value="{due_reminder}" />
                 <Text id="_IDGenText7" text="day(s) thereafter."/>

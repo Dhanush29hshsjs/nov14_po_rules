@@ -65,7 +65,8 @@
                 "sap.m": {},
                 "sap.ui.core": {},
                 "sap.ushell": {},
-                "sap.fe.templates": {}
+                "sap.fe.templates": {},
+                "sap.f": {}
             }
         },
         "contentDensities": {
@@ -174,9 +175,6 @@
                                         "DataField::approval_type": {
                                             "width": "150px"
                                         },
-                                        "DataField::apprtoapp::name": {
-                                            "width": "175px"
-                                        },
                                         "DataField::comments": {
                                             "width": "200px"
                                         }
@@ -234,31 +232,19 @@
                                             "template": "viewallrn.ext.fragment.Fillblank",
                                             "type": "XMLFragment",
                                             "position": {
-                                                "anchor": "ModifyApprovalRules",
+                                                "anchor": "c2",
                                                 "placement": "After"
                                             }
                                         }
                                     }
+                                },
+                                "header": {
+                                    "visible": true
                                 }
                             },
                             "controlConfiguration": {
                                 "apprtocri/@com.sap.vocabularies.UI.v1.LineItem#Ruletab": {
-                                    "tableSettings": {
-                                        "type": "GridTable"
-                                    },
                                     "columns": {
-                                        "DataField::Criteria": {
-                                            "width": "200px"
-                                        },
-                                        "DataField::Condition": {
-                                            "width": "150px"
-                                        },
-                                        "DataField::Value1": {
-                                            "width": "175px"
-                                        },
-                                        "DataField::Value2": {
-                                            "width": "175px"
-                                        },
                                         "DataField::currCondition": {
                                             "width": "175px"
                                         },
@@ -267,6 +253,28 @@
                                         },
                                         "DataField::currValue1": {
                                             "width": "175px"
+                                        },
+                                        "DataField::Value11": {
+                                            "width": "150px"
+                                        },
+                                        "DataField::Value2": {
+                                            "width": "150px"
+                                        },
+                                        "DataField::Criteria": {
+                                            "width": "300px"
+                                        },
+                                        "DataField::Condition": {
+                                            "width": "200px"
+                                        },
+                                        "DataField::Value1": {
+                                            "width": "300px"
+                                        }
+                                    },
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false,
+                                            "filter": false
                                         }
                                     }
                                 },
@@ -276,8 +284,18 @@
                                             "width": "100px"
                                         }
                                     }
+                                },
+                                "apprtoapp/@com.sap.vocabularies.UI.v1.LineItem#approvers": {
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false,
+                                            "filter": false
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            "variantManagement": "None"
                         }
                     }
                 },

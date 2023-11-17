@@ -139,7 +139,7 @@ entity approvalrulesdecider_s_h       as projection on demo.approvalrulesdecider
 entity approvers_s_h             as projection on demo.approvers_s_h;   
 entity approvers_s_h1             as projection on demo.approvers_s_h1;   
 entity approvaltype_s_h            as projection on demo.approvaltype_s_h;   
-
+entity members_gc             as projection on demo.members_gc;   
 
 
 

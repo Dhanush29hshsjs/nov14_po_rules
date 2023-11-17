@@ -293,24 +293,33 @@ entity approval_rules {
 
 entity approvers1 {
     key iddd:UUID;
-    key rule_id   : Integer;
+     rule_id   : Integer;
      approver  : Integer;
         isgroup   : String;
         ///////
-
         m_id :Integer;
-
         /////
         level     : Integer;
         name      : String;
         position  : String;
+     apprtomem            : Composition of many members_gc
+                                   on apprtomem.memtoappr = $self;
         apptoappr : Association to one approval_rules
                         on apptoappr.rule_id = rule_id;
 }
+entity members_gc {
+    key idd :UUID;
+     approver  : Integer;
+     m_id           : Integer;
+    mem_name :String;
+        memtoappr : Association to one approvers1
+                        on memtoappr.approver = approver;
+}
 
 entity criteria {
+    key idd_ :UUID;
     key rule_id      : Integer;
-    key rule         : String;
+     rule         : String;
         decider_type : String;
         operator:String;
         d_value2:String;
@@ -321,9 +330,11 @@ entity criteria {
         Condition:String;
         currCondition:String ;
         Value1:String;
+        Value11:String;
         descri:String;
         currValue1:String;
         Value2:String;
+        decider:String;
         ////////////
         critoappr    : Association to one approval_rules
                            on critoappr.rule_id = rule_id;
@@ -375,6 +386,7 @@ entity approvalrulesdecider_s_h {
 entity rules_n_status_s_h {
     key table_key : String;
      key   value2    : String;
+     operator:String;
 }
 
 entity approvers_s_h{
