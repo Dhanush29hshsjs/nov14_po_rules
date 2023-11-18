@@ -268,6 +268,7 @@ entity approvers {
 }
 
 entity approval_rules {
+    // key iddd:UUID;
     key rule_id              : Integer;
         ////
         criteria             : String;
@@ -300,7 +301,7 @@ entity approvers1 {
         m_id :Integer;
         /////
         level     : Integer;
-        name      : String;
+     key   name      : String;
         position  : String;
      apprtomem            : Composition of many members_gc
                                    on apprtomem.memtoappr = $self;
@@ -310,12 +311,13 @@ entity approvers1 {
 entity members_gc {
     key idd :UUID;
     approver  : Integer;
+    name :String;
     // rule_id   : Integer;
      approverk  : Integer ;
      m_id           : Integer;
     mem_name :String;
         memtoappr : Association to one approvers1
-                        on memtoappr.level = approver;
+                        on memtoappr.name=name ;
 }
 
 entity criteria {

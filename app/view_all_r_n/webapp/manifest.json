@@ -119,11 +119,6 @@
                     "pattern": "emailnotification({key}):?query:",
                     "name": "emailnotificationObjectPage",
                     "target": "emailnotificationObjectPage"
-                },
-                {
-                    "pattern": "approval_rules({key})/apprtoapp({key2}):?query:",
-                    "name": "approval_rules_apprtoappObjectPage",
-                    "target": "approval_rules_apprtoappObjectPage"
                 }
             ],
             "targets": {
@@ -229,13 +224,7 @@
                     "options": {
                         "settings": {
                             "contextPath": "/approval_rules",
-                            "navigation": {
-                                "apprtoapp": {
-                                    "detail": {
-                                        "route": "approval_rules_apprtoappObjectPage"
-                                    }
-                                }
-                            },
+                            "navigation": {},
                             "content": {
                                 "body": {
                                     "sections": {
@@ -317,17 +306,6 @@
                     "options": {
                         "settings": {
                             "contextPath": "/emailnotification",
-                            "navigation": {}
-                        }
-                    }
-                },
-                "approval_rules_apprtoappObjectPage": {
-                    "type": "Component",
-                    "id": "approval_rules_apprtoappObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "contextPath": "/approval_rules/apprtoapp",
                             "navigation": {}
                         }
                     }

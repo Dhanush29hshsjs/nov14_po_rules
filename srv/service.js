@@ -1067,14 +1067,17 @@ module.exports = cds.service.impl(async function () {
                     //     }  
                     // });
                     const spaces2 = space.approvers;
-                    let uniqueIds = new Set();
+                    const firstAppearanceMap = new Map();
                     spaces2.forEach(space2 => {
-                        let {level,approver} = {level:space2.level,approver:space2.approver};
-                                if (uniqueIds.has(level)) {
-                                    const originalapprover = [...uniqueIds].find(level => level === space2.level);
+                        const { level, name } = space2;
+                        // {level:space2.level,name:space2.name};
+                                if (firstAppearanceMap.has(level)) {
+                                    // const originalname = [...uniqueIds].find(level => level === space2.level);
+                                    space2.name = firstAppearanceMap.get(level);
                                     entries3.push({
-                                    approver : originalapprover,
-                                    approverk:space2.approver,
+                                        
+                                    name : `${space2.name}`,
+                                    approver:space2.approver,
                                      mem_name: `${space2.name}`,
                                     //  rule_id: space.rule_id,
                                     });
@@ -1087,7 +1090,8 @@ module.exports = cds.service.impl(async function () {
                                         name: `${space2.name}`,
                                         position: `${space2.position}`,
                                     });
-                                    uniqueIds.add(level);
+                                    firstAppearanceMap.set(level, name);
+
                                 }
 
                                     

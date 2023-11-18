@@ -703,5 +703,10 @@ annotate service.members_gc with @(
             $Type : 'UI.DataField',
             Value : mem_name,
             Label : 'mem_name',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : name,
+            Label : 'name',
         },]
 );
