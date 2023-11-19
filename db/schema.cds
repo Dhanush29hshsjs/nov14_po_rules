@@ -293,7 +293,9 @@ entity approval_rules {
 }
 
 entity approvers1 {
+    key testid: String default '';
     key iddd:UUID;
+    name      : String ;
      rule_id   : Integer;
      approver  : Integer;
         isgroup   : String;
@@ -301,23 +303,29 @@ entity approvers1 {
         m_id :Integer;
         /////
         level     : Integer;
-     key   name      : String;
+     
         position  : String;
      apprtomem            : Composition of many members_gc
                                    on apprtomem.memtoappr = $self;
+        //  apprtomemt            : Composition of many members_gc
+        //                        on apprtomemt.memtoapprt = $self;
         apptoappr : Association to one approval_rules
                         on apptoappr.rule_id = rule_id;
 }
 entity members_gc {
     key idd :UUID;
+     kid :String;
     approver  : Integer;
     name :String;
     // rule_id   : Integer;
      approverk  : Integer ;
      m_id           : Integer;
+     m_i           : Integer;
     mem_name :String;
         memtoappr : Association to one approvers1
-                        on memtoappr.name=name ;
+                        on memtoappr.testid = kid ;
+        //  memtoapprt : Association to one approvers1
+        //                on memtoapprt.testid = kid ;
 }
 
 entity criteria {
@@ -372,6 +380,7 @@ entity mail_cc {
 
 entity cc_s_h {
     key member_id     : Integer;
+    member_i :Integer;
         department_id : Integer;
         email         : String;
         fs_name       : String;
@@ -397,6 +406,7 @@ entity approvers_s_h{
  key table_key: Integer;
  drop_key:String;
             value2:String;
+            value22:String;
             value3:String;
             value4:String; 
 }

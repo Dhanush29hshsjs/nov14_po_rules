@@ -1073,16 +1073,19 @@ module.exports = cds.service.impl(async function () {
                         // {level:space2.level,name:space2.name};
                                 if (firstAppearanceMap.has(level)) {
                                     // const originalname = [...uniqueIds].find(level => level === space2.level);
-                                    space2.name = firstAppearanceMap.get(level);
+                                    let keyy = firstAppearanceMap.get(level);
                                     entries3.push({
-                                        
-                                    name : `${space2.name}`,
+                                     kid: `${keyy}`,
+                                     member_id:space2.approver,   
+                                    name : `${keyy}`,
                                     approver:space2.approver,
                                      mem_name: `${space2.name}`,
                                     //  rule_id: space.rule_id,
                                     });
                                 }else{
                                     entries2.push({
+                                        testid:`${space2.name}`,
+
                                         rule_id: space.rule_id,
                                         approver: space2.approver,
                                         isgroup: `${space2.isgroup}`,
@@ -1320,7 +1323,6 @@ let ccc = 1;
     });
     ///////////rulenoti_s_h help
     this.before('READ', cc_s_h, async (req) => {
-        debugger
         try {
             if (true) {
                 // const stat = await SELECT`table_key`.from(notification_rules);
@@ -1332,10 +1334,11 @@ let ccc = 1;
                     entries.push({
                         department_id: space.department_id,
                         email: `${space.email}`,
-                        fs_name: `${space.fs_name} ${space.ls_name}`,
+                        fs_name: `${space.fs_name} ${space.ls_name} ${space.member_id}`,
                         group_id: space.group_id,
                         ls_name: `${space.ls_name}`,
                         member_id: space.member_id,
+                        member_i: space.member_id,
                         position: `${space.position}`,
                         profile_photo: `${space.profile_photo}`,
                     });
@@ -1579,7 +1582,7 @@ this.before('READ',rules_n_status_s_h, async (req) => {
 });
  ///////////approvers_s_h
  this.before('READ', approvers_s_h, async (req) => {
-    debugger
+    
     try {
         if (true) {
             const resp = await c5re.get('/dev/dropdown?drop_key=approver');
@@ -1592,6 +1595,7 @@ this.before('READ',rules_n_status_s_h, async (req) => {
                  table_key:space.table_key,
  drop_key:`${space.drop_key}`,
             value2:`${space.value2}`,
+            value22:`${space.value2}`,
             value3:`${space.value3}`,
             value4:`${space.value4}`,
                 });
@@ -1664,6 +1668,16 @@ let spaces1=req.data.apprtoapp;
 spaces1.forEach(space1 => {
     let mems = [];
     space1.apprtomem.forEach(space11 => {
+
+        
+        if (space11.approver == null) {
+            let lastSpaceIndex = space11.mem_name.lastIndexOf(' ');
+            // Extract the numbers after the last space and convert to integer
+            let numbers = parseInt(space11.mem_name.substring(lastSpaceIndex + 1), 10);
+        
+            // Save the numbers into another data structure (e.g., add it to a new property)
+            space11.approver = numbers;
+          }
         mems.push(
         space11.approver
         );
@@ -1692,11 +1706,14 @@ if (space.decider == null) {
 }
 });
 // const output = input.map(item => item.member_id);
-         approvers= apprtoapp.map(approver => ({ name: approver.name, age: approver.age }));
+        //  approvers= apprtoapp.map(approver => ({ name: approver.name, age: approver.age }));
         let criteria= req.data.apprtocri.map(approver => ({ decider: approver.decider, operator: approver.operator, type: approver.decider_type, value1: approver.Value1, value2: approver.Value2 }));
+        req.data.approval_type = req.data.approval_type.charAt(0).toUpperCase() + inputString.slice(1);
         const bodyy = {
         approval_type:req.data.approval_type ,
+        approvers:approvers,
         comments:req.data.comments ,
+        criteria:criteria,
         due_notification:req.data.due_notification ,
         due_reminder:req.data.due_reminder ,
         ec_isgroup:req.data.ec_isgroup ,
@@ -1704,12 +1721,12 @@ if (space.decider == null) {
         ifnot_withindays:req.data.ifnot_withindays ,
         overdue_notification:req.data.overdue_notification,
         overdue_reminder:req.data.overdue_reminder,
-        // post_noti_app:,
-        // post_noti_isgroup:,
+        post_noti_app:"",
+        post_noti_isgroup:"",
         }
-        const inv_stat = req.params[0].invoice_status;
+        const inv_stat = req.params[0].rule_id;
         try {
-            resp = await c5re.patch('/dev/rule-notification?invoice_status='+inv_stat, bodyy);
+            resp = await c5re.patch(`/dev/rules?rule_id=${inv_stat}`, bodyy);
             // await UPDATE(Currency).set(req.data).where({ code: req.data.code });
             return req.data;
         } catch (err) {

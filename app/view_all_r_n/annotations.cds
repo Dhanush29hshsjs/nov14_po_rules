@@ -492,6 +492,7 @@ annotate service.approval_rules with {
         Common.ValueListWithFixedValues : true
 )};
 annotate service.approvers1 with @(
+  
     UI.LineItem #approvers : [
         {
             $Type : 'UI.DataField',
@@ -543,6 +544,11 @@ annotate service.approvers1 with {
                         ValueListProperty : 'value3',
                         LocalDataProperty : isgroup,
                     },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'value22',
+                    LocalDataProperty : testid,
+                },
                 ],
         },
         Common.ValueListWithFixedValues : true
@@ -674,7 +680,7 @@ annotate service.members_gc with {
                 {
                     $Type : 'Common.ValueListParameterOut',
                     ValueListProperty : 'member_id',
-                    LocalDataProperty : approverk,
+                    LocalDataProperty : m_id,
                 },
             ],
         },
