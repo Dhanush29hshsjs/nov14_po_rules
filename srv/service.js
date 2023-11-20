@@ -2038,18 +2038,32 @@ let criteria= req.data.asstocri.map(approver => ({ decider: approver.decider_key
         req.error(500, err.message);
     }
 });
-  // update assignment_rules
-//   this.on('DELETE', approval_rules, async (req) => {
-//     debugger
-// const rulid = req.params[0].rule_id;
-//     try {
-//         resp = await c5re.delete(`/dev/rules?rule_id=`+ rulid);
+  
+  this.on('DELETE', approval_rules, async (req) => {
+    debugger
+const rulid = req.params[0].rule_id;
+    try {
+        resp = await c5re.delete(`/dev/rules?rule_id=`+ rulid);
        
-//         return req.data;
-//     } catch (err) {
-//         req.error(500, err.message);
-//     }
-// });
+        return req.data;
+    } catch (err) {
+        req.error(500, err.message);
+    }
+});
+
+
+this.on('DELETE', assignment_ruless, async (req) => {
+    debugger
+    const rule_idd = req.params[0].rule_id;
+    const rule_namee = req.params[0].rule_name;
+    try {
+        resp = await c5re.delete(`/dev/rules?rule_name=${rule_namee}&rule_id=${rule_idd}`);
+       
+        return req.data;
+    } catch (err) {
+        req.error(500, err.message);
+    }
+});
 
 
 });

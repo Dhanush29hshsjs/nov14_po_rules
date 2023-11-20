@@ -25,7 +25,7 @@ annotate service.assignment_ruless with @(
         },
     ]
 },
-
+UI.CreateHidden:true,
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
@@ -121,6 +121,7 @@ annotate service.approval_rules with @(
         },
     ]
 },
+UI.CreateHidden:true,
     UI.LineItem #tableView : [
         {
             $Type : 'UI.DataField',
