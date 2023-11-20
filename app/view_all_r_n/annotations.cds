@@ -55,11 +55,10 @@ annotate service.assignment_ruless with @(
     UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
-            Label : 'General Information',
-            Target : '@UI.FieldGroup#GeneratedGroup1',
-        },
-    ]
+            Label : 'Rules',
+            ID : 'Rules',
+            Target : 'asstocri/@UI.LineItem#Rules',
+        },]
 );
 annotate service.assignment_ruless with @(
     UI.SelectionPresentationVariant #tableView : {
@@ -716,3 +715,100 @@ annotate service.members_gc with @(
             Label : 'name',
         },]
 );
+annotate service.criteriaa with @(
+    UI.LineItem #Rules : [
+        {
+            $Type : 'UI.DataField',
+            Value : decider,
+            Label : 'decider',
+        },{
+            $Type : 'UI.DataField',
+            Value : operator,
+            Label : 'operator',
+   ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'decider'}, '']}},
+        },{
+            $Type : 'UI.DataField',
+            Value : value1,
+            Label : 'value1',
+            //  ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'decider'}, 'Invoice Value']}},
+            //   ![@UI.Hidden] : {$edmJson : {$Eq : [{$Path : 'decider'}, '']}},
+             ![@UI.Hidden] : {$edmJson :   {$Or:[ {$Eq : [{$Path : 'decider'}, '']},{$Eq : [{$Path : 'decider'}, 'Invoice Value']}]},
+              }
+        },{
+            $Type : 'UI.DataField',
+            Value : value11,
+            Label : 'value11',
+             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'decider'}, 'Invoice Value']}},
+        },{
+            $Type : 'UI.DataField',
+            Value : value2,
+            Label : 'value2',
+            //  ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'decider'}, 'Invoice Value']}},
+               ![@UI.Hidden] : {$edmJson : {$Not:  {$Or:[ {$Eq : [{$Path : 'operator'}, 'between']},{$Eq : [{$Path : 'decider'}, 'Invoice Value']}]}},
+              }
+        },]
+);
+annotate service.criteriaa with {
+    decider @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'assignmentcri_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : decider,
+                    ValueListProperty : 'value2',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.criteriaa with {
+    operator @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'rules_n_status_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : operator,
+                    ValueListProperty : 'operator',
+                },
+                {
+                    $Type : 'Common.ValueListParameterIn',
+                    ValueListProperty : 'table_key',
+                    LocalDataProperty : decider,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.rules_n_status_s_h with {
+    operator @Common.Text : {
+        $value : value2,
+        ![@UI.TextArrangement] : #TextLast,
+    }
+};
+annotate service.criteriaa with {
+    value1 @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'avalue1sh',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : value1,
+                    ValueListProperty : 'code',
+                },
+                {
+                    $Type : 'Common.ValueListParameterIn',
+                    ValueListProperty : 'master_name',
+                    LocalDataProperty : decider,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.avalue1sh with {
+    code @Common.Text : {
+        $value : description,
+        ![@UI.TextArrangement] : #TextLast,
+    }
+};

@@ -98,6 +98,7 @@ service CatalogService {
     entity rule_statuses      as projection on demo.rule_statuses;
 
     ////////view all r and n//////////
+    @odata.draft.enabled
     entity assignment_ruless  as projection on demo.assignment_ruless actions {
         @(
             cds.odata.bindingparameter.name: '_it',
@@ -111,6 +112,10 @@ service CatalogService {
     };
 
     entity approvers          as projection on demo.approvers;
+    entity criteriaa          as projection on demo.criteriaa;
+    entity assignmentc_s_h          as projection on demo.assignmentc_s_h;
+    entity assignmentcri_s_h          as projection on demo.assignmentcri_s_h;
+    
 
 @odata.draft.enabled
     entity approval_rules     as projection on demo.approval_rules actions {
@@ -135,6 +140,7 @@ service CatalogService {
     entity mail_cc                 as projection on demo.mail_cc;
 entity cc_s_h             as projection on demo.cc_s_h;   
 entity value1sh             as projection on demo.value1sh;   
+entity avalue1sh             as projection on demo.avalue1sh;   
 entity approvalrulesdecider_s_h       as projection on demo.approvalrulesdecider_s_h;
 entity approvers_s_h             as projection on demo.approvers_s_h;   
 entity approvers_s_h1             as projection on demo.approvers_s_h1;   

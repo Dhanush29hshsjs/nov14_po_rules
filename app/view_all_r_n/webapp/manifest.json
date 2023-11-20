@@ -213,7 +213,31 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "contextPath": "/assignment_ruless"
+                            "contextPath": "/assignment_ruless",
+                            "controlConfiguration": {
+                                "asstocri/@com.sap.vocabularies.UI.v1.LineItem#Rules": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    },
+                                    "columns": {
+                                        "DataField::decider": {
+                                            "width": "250px"
+                                        },
+                                        "DataField::operator": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::value1": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::value11": {
+                                            "width": "175px"
+                                        },
+                                        "DataField::value2": {
+                                            "width": "175px"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },

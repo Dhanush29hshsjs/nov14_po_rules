@@ -249,16 +249,30 @@ entity n_r_cc {
 ///////////////////////view all r & n//////
 entity assignment_ruless {
     key rule_id   : Integer;
-        rule_name : String;
+    key    rule_name : String;
         comments  : String;
         is_on     : String;
         asstoapp  : Composition of many approvers
                         on asstoapp.apptoass = $self;
+        asstocri  : Composition of many criteriaa
+                        on asstocri.critoass = $self;
 }
-
+entity assignmentc_s_h{
+    key id:Integer;
+    is_group:String;
+    name:String;
+}
+entity assignmentcri_s_h{
+    drop_key:String;
+    table_key:String;
+    value4:String;
+    value3:String;
+    value2:String;
+}
 entity approvers {
-    key rule_id  : Integer;
-    key approver : Integer;
+    key iddd : UUID;
+       rule_id  : Integer;
+        approver : Integer;
         isgroup  : String;
         level    : Integer;
         name     : String;
@@ -266,7 +280,19 @@ entity approvers {
         apptoass : Association to one assignment_ruless
                        on apptoass.rule_id = rule_id;
 }
+entity criteriaa {
+    key idd:UUID;
+     rule_id  : Integer;
+    decider:String;
+    operator:String default '=';
+    type:String;
+    value1:String;
+    value11:String;
+    value2:String;
+     critoass : Association to one assignment_ruless
+                       on critoass.rule_id = rule_id;
 
+}
 entity approval_rules {
     // key iddd:UUID;
     key rule_id              : Integer;
@@ -321,7 +347,7 @@ entity members_gc {
      approverk  : Integer ;
      m_id           : Integer;
      m_i           : Integer;
-    mem_name :String;
+    mem_name :String default '';
         memtoappr : Association to one approvers1
                         on memtoappr.testid = kid ;
         //  memtoapprt : Association to one approvers1
@@ -353,6 +379,11 @@ entity criteria {
 }
 
 entity value1sh{
+    key code:String;
+       key  master_name:String;
+               description:String;
+}
+entity avalue1sh{
     key code:String;
        key  master_name:String;
                description:String;

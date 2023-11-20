@@ -35,6 +35,9 @@ function togglebutton(i) {
 module.exports = cds.service.impl(async function () {
     /* SERVICE ENTITIES */
     let {
+        avalue1sh,
+        assignmentc_s_h,
+        assignmentcri_s_h,
         members_gc,
         approvaltype_s_h,
         approvers_s_h,
@@ -44,6 +47,7 @@ module.exports = cds.service.impl(async function () {
         approval_rules,
         approvers1,
         criteria,
+        criteriaa,
         approvers,
         mail_cc,
         assignment_ruless,
@@ -902,6 +906,7 @@ module.exports = cds.service.impl(async function () {
             const spaces = resp.body;
             let entries = [];
             let entries1 = [];
+            let entries2 = [];
             // let entries2 = {state : true};
             // if (no == 1) {
             // no++;
@@ -912,6 +917,7 @@ module.exports = cds.service.impl(async function () {
             // }
             await cds.tx(req).run(DELETE(assignment_ruless));
             await cds.tx(req).run(DELETE(approvers));
+            await cds.tx(req).run(DELETE(criteriaa));
             spaces.forEach(space => {
                 entries.push({
                     rule_id: space.rule_id,
@@ -936,11 +942,45 @@ module.exports = cds.service.impl(async function () {
                         position: `${space11.position}`
                     });
                 });
+                const space2 = space.criteria;
+                
+
+
+                space2.forEach(space22 => {
+                    let parts = space22.rule.split(/\s*([=!<>]+|between)\s*/);
+                    if (parts[1]=="between") {
+                         parts = space22.rule.split(/(\b\w+\b)\s+(between)\s+(\d+)\s+and\s+(\d+)/);
+                         parts[0] = parts[1];
+                         parts[1] = parts[2];
+                         parts[2] = parts[3];
+                         parts[3] = parts[4];
+                    }
+
+
+                    entries2.push({
+                        rule_id: space.rule_id,
+                        decider:`${parts[0]}`,
+                        operator:`${parts[1]}`,
+                        value1:`${parts[2]}`,
+                        value11:`${parts[2]}`,
+                        value2:`${parts[3]}`,
+                        type:`${space22.decider_type}`
+                    });
+                });
+
+
+                
+                
+                
+                
+                
+                
             });
             // }
             await cds.tx(req).run(INSERT.into(assignment_ruless).entries(entries));
             // await cds.tx(req).run(INSERT.into(togglee).entries(entries2));
             await cds.tx(req).run(INSERT.into(approvers).entries(entries1));
+            await cds.tx(req).run(INSERT.into(criteriaa).entries(entries2));
             return req;
 
         } catch (err) {
@@ -1404,7 +1444,29 @@ this.before('READ',rules_n_status_s_h, async (req) => {
             cds.tx(req).run(DELETE(rules_n_status_s_h));
             const entries = []; 
             
+            entries.push({
+                    
+                table_key :`Invoice Value`,
+                value2    :`Equal To`,
+                operator:`=`,
+            });
+            entries.push({
+                table_key :`Invoice Value`,
+                value2    :`In Between`,
+                operator:`between`,
+            });
+            entries.push({
+                table_key :`Invoice Value`,
+                value2    :`Less Than`,
+                operator:`<`,
+            });
+            entries.push({
+                table_key :`Invoice Value`,
+                value2    :`More Than`,
+                operator:`>`,
+            });
                 entries.push({
+                    
                     table_key :`Amount`,
                     value2    :`Equal To`,
                     operator:`=`,
@@ -1579,6 +1641,80 @@ this.before('READ',rules_n_status_s_h, async (req) => {
     catch (err) {
         req.error(500, err.message);
     }
+}); ///////////avalue1sh
+this.before('READ', avalue1sh, async (req) => {
+   
+   try {
+       if (true) {
+           
+           let resp = await c5re.get('/dev/report?document_type=invoice');
+           await cds.tx(req).run(DELETE(avalue1sh));
+           let spaces = resp.body.search_help;
+           let entries = [];
+           spaces.forEach(space => {
+               entries.push({
+                    code:`${space.code}`,
+                   master_name:`${space.master_name}`,
+                            description:`${space.description}`,
+                           });
+           });
+            resp = await c5re.get('/dev/search-help?master_id=12');
+            spaces = resp.body.search_help;
+           
+            spaces.forEach(space => {
+                entries.push({
+                     code:`${space.code}`,
+                    master_name:`${space.master_name}`,
+                             description:`${space.description}`,
+                            });
+            });
+            resp = await c5re.get('/dev/dropdown?drop_key=invoice_type');
+            spaces = resp.body;
+           
+            spaces.forEach(space => {
+                entries.push({
+                     code:`${space.table_key}`,
+                    master_name:`Invoice type`,
+                             description:`${space.table_key}`,
+                            });
+            });
+            resp = await c5re.get('/dev/dropdown?drop_key=supplier_type');
+            spaces = resp.body;
+           
+            spaces.forEach(space => {
+                entries.push({
+                     code:`${space.table_key}`,
+                    master_name:`Supplier Type`,
+                             description:`${space.table_key}`,
+                            });
+            });
+            resp = await c5re.get('/dev/svendor');
+            spaces = resp.body.search_help;
+           
+            spaces.forEach(space => {
+                entries.push({
+                     code:`${space.code}`,
+                    master_name:`Vendor`,
+                             description:`${space.description}`,
+                            });
+            });
+            resp = await c5re.get('/dev/search-help?master_id=0');
+            spaces = resp.body.search_help;
+            spaces.forEach(space => {
+                entries.push({
+                     code:`${space.code}`,
+                    master_name:`${space.master_name}`,
+                             description:`${space.description}`,
+                            });
+            });
+
+           await cds.tx(req).run(INSERT.into(avalue1sh).entries(entries));
+       }
+       return req;
+   }
+   catch (err) {
+       req.error(500, err.message);
+   }
 });
  ///////////approvers_s_h
  this.before('READ', approvers_s_h, async (req) => {
@@ -1707,8 +1843,10 @@ if (space.decider == null) {
 });
 // const output = input.map(item => item.member_id);
         //  approvers= apprtoapp.map(approver => ({ name: approver.name, age: approver.age }));
+        req.data.approval_type = req.data.approval_type.charAt(0).toLowerCase() + req.data.approval_type.slice(1);
         let criteria= req.data.apprtocri.map(approver => ({ decider: approver.decider, operator: approver.operator, type: approver.decider_type, value1: approver.Value1, value2: approver.Value2 }));
-        req.data.approval_type = req.data.approval_type.charAt(0).toUpperCase() + inputString.slice(1);
+        
+        // .charAt(0).toUpperCase() + inputString.slice(1);
         const bodyy = {
         approval_type:req.data.approval_type ,
         approvers:approvers,
@@ -1733,6 +1871,68 @@ if (space.decider == null) {
             req.error(500, err.message);
         }
     });
+     ///////////assignmentc_s_h
+ this.before('READ', assignmentc_s_h, async (req) => {
+    
+    try {
+        if (true) {
+            const resp = await c5re.get('/dev/assignment-approver');
+            await cds.tx(req).run(DELETE(assignmentc_s_h));
+            const spaces = resp.body;
+            const entries = [];
+            spaces.forEach(space => {
+                entries.push({
+        
+                 id:space.id,
+ is_group:`${space.is_group}`,
+            name:`${space.name}`,
+         
+                });
+            });
+            await cds.tx(req).run(INSERT.into(assignmentc_s_h).entries(entries));
+        }
+        return req;
+    }
+    catch (err) {
+        req.error(500, err.message);
+    }
+});
+
+     ///////////assignmentcri_s_h
+     this.before('READ', assignmentcri_s_h, async (req) => {
+    
+        try {
+            if (true) {
+                const resp = await c5re.get('/dev/dropdown?drop_key=assignment_criteria');
+                await cds.tx(req).run(DELETE(assignmentcri_s_h));
+                const spaces = resp.body;
+                const entries = [];
+                spaces.forEach(space => {
+                    entries.push({
+                drop_key:`${space.drop_key}`,
+                table_key:`${space.table_key}`,
+                value2:`${space.value2}`,
+                value3:`${space.value3}`,
+                value4:`${space.value4}`,
+                    });
+                });
+                entries.push({
+                    drop_key:`Cri`,
+                    table_key:`Currency`,
+                    value2:`Currency`,
+                    value3:`Currency`,
+                    value4:`Currency`,
+                        });
+                await cds.tx(req).run(INSERT.into(assignmentcri_s_h).entries(entries));
+            }
+            return req;
+        }
+        catch (err) {
+            req.error(500, err.message);
+        }
+    });
+    
+
 
 
 
