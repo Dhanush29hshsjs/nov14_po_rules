@@ -178,9 +178,6 @@
                                         "DataField::comments": {
                                             "width": "200px"
                                         }
-                                    },
-                                    "tableSettings": {
-                                        "selectionMode": "None"
                                     }
                                 },
                                 "/emailnotification/@com.sap.vocabularies.UI.v1.LineItem#tableView": {
@@ -200,6 +197,11 @@
                                         "DataField::body": {
                                             "width": "250px"
                                         }
+                                    }
+                                },
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "selectionMode": "Multi"
                                     }
                                 }
                             }

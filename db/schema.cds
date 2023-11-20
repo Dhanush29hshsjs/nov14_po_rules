@@ -274,11 +274,18 @@ entity approvers {
        rule_id  : Integer;
         approver : Integer;
         isgroup  : String;
-        level    : Integer;
+        level    : String;
         name     : String;
         position : String;
         apptoass : Association to one assignment_ruless
                        on apptoass.rule_id = rule_id;
+}
+entity assignmentapp_s_h {
+                id:Integer;
+            is_group:String;
+            name:String;
+            position:String;
+
 }
 entity criteriaa {
     key idd:UUID;
@@ -289,6 +296,7 @@ entity criteriaa {
     value1:String;
     value11:String;
     value2:String;
+    decider_key:String;
      critoass : Association to one assignment_ruless
                        on critoass.rule_id = rule_id;
 

@@ -112,6 +112,7 @@ service CatalogService {
     };
 
     entity approvers          as projection on demo.approvers;
+     entity assignmentapp_s_h          as projection on demo.assignmentapp_s_h;
     entity criteriaa          as projection on demo.criteriaa;
     entity assignmentc_s_h          as projection on demo.assignmentc_s_h;
     entity assignmentcri_s_h          as projection on demo.assignmentcri_s_h;

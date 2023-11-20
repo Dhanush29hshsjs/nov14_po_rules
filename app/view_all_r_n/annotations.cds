@@ -25,7 +25,7 @@ annotate service.assignment_ruless with @(
         },
     ]
 },
-UI.DeleteHidden:true,
+
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
@@ -54,10 +54,29 @@ annotate service.assignment_ruless with @(
     },
     UI.Facets : [
         {
+            $Type : 'UI.CollectionFacet',
+            Label : 'Modify Assignment Rules.',
+            ID : 'ModifyAssignmentRules',
+            Facets : [
+            {
             $Type : 'UI.ReferenceFacet',
             Label : 'Rules',
             ID : 'Rules',
             Target : 'asstocri/@UI.LineItem#Rules',
+        },
+                {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Approvers',
+            ID : 'Approvers',
+            Target : 'asstoapp/@UI.LineItem#Approvers',
+        },
+                {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Comments(Optional)',
+            ID : 'CommentsOptional',
+            Target : '@UI.FieldGroup#CommentsOptional',
+        },
+                ],
         },]
 );
 annotate service.assignment_ruless with @(
@@ -78,7 +97,7 @@ annotate service.assignment_ruless with @(
     }
 );
 annotate service.approval_rules with @(
-    UI.DeleteHidden:true,
+    
        UI.FieldGroup #FieldGroup3 : {
     Data : [
          {
@@ -743,9 +762,9 @@ annotate service.criteriaa with @(
             $Type : 'UI.DataField',
             Value : value2,
             Label : 'value2',
-            //  ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'decider'}, 'Invoice Value']}},
-               ![@UI.Hidden] : {$edmJson : {$Not:  {$Or:[ {$Eq : [{$Path : 'operator'}, 'between']},{$Eq : [{$Path : 'decider'}, 'Invoice Value']}]}},
-              }
+             ![@UI.Hidden] : {$edmJson : {$Ne : [{$Path : 'operator'}, 'between']}},
+            //    ![@UI.Hidden] : {$edmJson : {$Not:  {$Or:[ {$Eq : [{$Path : 'operator'}, 'between']},{$Eq : [{$Path : 'decider'}, 'Invoice Value']}]}},
+            //   }
         },]
 );
 annotate service.criteriaa with {
@@ -753,12 +772,22 @@ annotate service.criteriaa with {
             $Type : 'Common.ValueListType',
             CollectionPath : 'assignmentcri_s_h',
             Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : decider,
-                    ValueListProperty : 'value2',
-                },
-            ],
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        LocalDataProperty : decider,
+                        ValueListProperty : 'value2',
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterOut',
+                        ValueListProperty : 'value3',
+                        LocalDataProperty : type,
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterOut',
+                        ValueListProperty : 'table_key',
+                        LocalDataProperty : decider_key,
+                    },
+                ],
         },
         Common.ValueListWithFixedValues : true
 )};
@@ -812,3 +841,45 @@ annotate service.avalue1sh with {
         ![@UI.TextArrangement] : #TextLast,
     }
 };
+annotate service.approvers with @(
+    UI.LineItem #Approvers : [
+        {
+            $Type : 'UI.DataField',
+            Value : name,
+            Label : 'name',
+        },]
+);
+annotate service.approvers with {
+    name @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'assignmentapp_s_h',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : name,
+                    ValueListProperty : 'name',
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'id',
+                    LocalDataProperty : approver,
+                },
+                {
+                    $Type : 'Common.ValueListParameterOut',
+                    ValueListProperty : 'is_group',
+                    LocalDataProperty : isgroup,
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.assignment_ruless with @(
+    UI.FieldGroup #CommentsOptional : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : comments,
+            },],
+    }
+);

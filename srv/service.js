@@ -35,6 +35,7 @@ function togglebutton(i) {
 module.exports = cds.service.impl(async function () {
     /* SERVICE ENTITIES */
     let {
+        assignmentapp_s_h,
         avalue1sh,
         assignmentc_s_h,
         assignmentcri_s_h,
@@ -937,7 +938,7 @@ module.exports = cds.service.impl(async function () {
                         rule_id: space.rule_id,
                         approver: space11.approver,
                         isgroup: `${space11.isgroup}`,
-                        level: space11.level,
+                        level: `${space11.level}`,
                         name: `${space11.name}`,
                         position: `${space11.position}`
                     });
@@ -988,7 +989,7 @@ module.exports = cds.service.impl(async function () {
         }
     });
     this.on('toggleon', async (req) => {
-        debugger
+        
         var ruleid = req.params[0].rule_id
         // console.log("button hit aytu");
         const stat = await SELECT`is_on`.from(assignment_ruless).where`rule_id = ${ruleid}`;
@@ -1918,9 +1919,9 @@ if (space.decider == null) {
                 });
                 entries.push({
                     drop_key:`Cri`,
-                    table_key:`Currency`,
+                    table_key:`currency`,
                     value2:`Currency`,
-                    value3:`Currency`,
+                    value3:`string`,
                     value4:`Currency`,
                         });
                 await cds.tx(req).run(INSERT.into(assignmentcri_s_h).entries(entries));
@@ -1932,8 +1933,123 @@ if (space.decider == null) {
         }
     });
     
+     ///////////assignmentcri_s_h
+     this.before('READ', assignmentapp_s_h, async (req) => {
+    
+        try {
+            if (true) {
+                const resp = await c5re.get('/dev/assignment-approver?search_string=&assign_details=X');
+                await cds.tx(req).run(DELETE(assignmentapp_s_h));
+                const spaces = resp.body;
+                const entries = [];
+                spaces.forEach(space => {
+                    entries.push({
+                
+                id:space.id,
+                is_group:`${space.is_group}`,
+                name:`${space.name}`,
+                position:`${space.position}`,
+                    });
+                });
+             
+                await cds.tx(req).run(INSERT.into(assignmentapp_s_h).entries(entries));
+            }
+            return req;
+        }
+        catch (err) {
+            req.error(500, err.message);
+        }
+    });
+    
+  // update assignment_rules
+  this.on('UPDATE', assignment_ruless, async (req) => {
+    debugger
+    const spaces =req.data.asstocri;
+    spaces.forEach(space => {
+        if(space.value2 != 'undefined' && space.value2 != null){
+            space.value1 = space.value11;
+        }
+        if(space.value2 == 'undefined'){
+            space.value2 = null;
+        }
+        if(space.value1 == 'Invoice' ||space.value1 == 'Debit Memo' ||space.value1 == 'Credit Memo' ){
+            switch (space.value1) {
+                case "Invoice":
+                    space.value1 = `RE`;
+                  break;
+                case "Debit Memo":
+                    space.value1 = `SU`;
+                  break;
+                case "Credit Memo":
+                    space.value1 = `KG`;
+                  break;
+                default:
+                    space.value1 = `RE`;
+              }  }
+        if(space.decider_key == null){
+            switch (space.decider) {
+                case "":
+                    space.decider_key = `default_assignment`;
+                  break;
+                case "Document Type":
+                    space.decider_key = `document_type`;
+                  break;
+                case "Invoice Value":
+                    space.decider_key = `invoice_value`;
+                  break;
+                  case "Invoice Type":
+                    space.decider_key = `invoice_type`;
+                  break;
+                  case "Jurisdiction Code":
+                    space.decider_key = `jurisdiction_code`;
+                  break;
+                  case "Supplier Type":
+                    space.decider_key = `supplier_type`;
+                  break;
+                  case "Vendor No.":
+                    space.decider_key = `vendor_no`;
+                  break;
+                  case "Currency":
+                    space.decider_key = `currency`;
+                  break;
+                default:
+                    space.decider_key = `default_assignment`;
+              }  
+        }
+    });
 
 
+let approvers= req.data.asstoapp.map(approver => ({ approver: approver.approver, isgroup: approver.isgroup, level:""}));
+let criteria= req.data.asstocri.map(approver => ({ decider: approver.decider_key, operator: approver.operator, type:approver.type, value1: approver.value1, value2: approver.value2}));
+
+
+    const bodyy = {
+        approvers:approvers,
+        comments:req.data.comments,
+        criteria:criteria,
+    }
+    const rule_idd = req.params[0].rule_id;
+    const rule_namee = req.params[0].rule_name;
+    try {
+        resp = await c5re.patch(`/dev/rules?rule_name=${rule_namee}&rule_id=${rule_idd}`, bodyy);
+        // await UPDATE(Currency).set(req.data).where({ code: req.data.code });
+        return req.data;
+    } catch (err) {
+        req.error(500, err.message);
+    }
+});
+  // update assignment_rules
+//   this.on('DELETE', approval_rules, async (req) => {
+//     debugger
+// const rulid = req.params[0].rule_id;
+//     try {
+//         resp = await c5re.delete(`/dev/rules?rule_id=`+ rulid);
+       
+//         return req.data;
+//     } catch (err) {
+//         req.error(500, err.message);
+//     }
+// });
 
 
 });
