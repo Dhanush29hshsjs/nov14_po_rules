@@ -7,6 +7,7 @@ modules:
   type: nodejs
   path: gen/srv
   requires:
+  - name: P_O_dep-db
   - name: uaa_P_O_dep
   provides:
   - name: srv-api
@@ -16,6 +17,13 @@ modules:
     buildpack: nodejs_buildpack
   build-parameters:
     builder: npm
+- name: P_O_dep-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: P_O_dep-db
+  parameters:
+    buildpack: nodejs_buildpack
 - name: P_O_dep-destination-content
   type: com.sap.application.content
   requires:
@@ -127,6 +135,11 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
+- name: P_O_dep-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
 - name: P_O_dep-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
