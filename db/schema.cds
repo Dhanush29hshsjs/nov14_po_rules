@@ -2,24 +2,24 @@ namespace demo;
 
 entity Newtab {
     key Ref_PO_No          : Integer;
-        PO_No              : String(20);
-        Customer_Name      : String(50);
-        Date               : String(11);
-        Modified_Date_Time : String(25);
-        PO_File            : String(100);
-        po_number          : String(20);
-        po_date            : String(11);
-        delivery_date      : String(11);
-        delivery_address   : String(500);
-        bill_to_address    : String(100);
-        customer           : String(100);
-        currency           : String(5);
-        purchase_group     : String(100);
+        PO_No              : String;
+        Customer_Name      : String;
+        Date               : String;
+        Modified_Date_Time : String;
+        PO_File            : String;
+        po_number          : String;
+        po_date            : String;
+        delivery_date      : String;
+        delivery_address   : String;
+        bill_to_address    : String;
+        customer           : String;
+        currency           : String;
+        purchase_group     : String;
         taxable_amount     : Integer;
-        amount_total       : String(30);
+        amount_total       : String;
         tax                : Integer;
-        company_code       : String(10);
-        plant              : String(100);
+        company_code       : String;
+        plant              : String;
         file_link          : LargeString;
         // newtodata : Composition of many podatatab on newtodata.data = $self;
         newtoitem          : Association to many po_data_item
@@ -29,24 +29,24 @@ entity Newtab {
 entity Draft {
     key Ref_PO_No          : Integer;
         PO_No              : String;
-        Customer_Name      : String(50);
-        Date               : String(11);
-        Modified_by        : String(50);
-        Modified_Date_Time : String(25);
-        PO_File            : String(100);
-        po_number          : String(20);
-        po_date            : String(11);
-        delivery_date      : String(11);
-        delivery_address   : String(500);
-        bill_to_address    : String(100);
-        customer           : String(100);
-        currency           : String(5);
-        purchase_group     : String(100);
+        Customer_Name      : String;
+        Date               : String;
+        Modified_by        : String;
+        Modified_Date_Time : String;
+        PO_File            : String;
+        po_number          : String;
+        po_date            : String;
+        delivery_date      : String;
+        delivery_address   : String;
+        bill_to_address    : String;
+        customer           : String;
+        currency           : String;
+        purchase_group     : String;
         taxable_amount     : Integer;
-        amount_total       : String(30);
+        amount_total       : String;
         tax                : Integer;
-        company_code       : String(10);
-        plant              : String(100);
+        company_code       : String;
+        plant              : String;
         file_link          : LargeString;
         // drafttodata : Composition of many  podatatab on drafttodata.data1 = $self;
         drafttoitem        : Association to many po_data_itemD
@@ -56,23 +56,23 @@ entity Draft {
 entity Submitted {
     key Ref_PO_No          : Integer;
         PO_No              : String;
-        Customer_Name      : String(50);
-        Date               : String(11);
-        Modified_Date_Time : String(25);
-        PO_File            : String(100);
-        po_number          : String(20);
-        po_date            : String(11);
-        delivery_date      : String(11);
-        delivery_address   : String(500);
-        bill_to_address    : String(100);
-        customer           : String(100);
-        currency           : String(5);
-        purchase_group     : String(100);
+        Customer_Name      : String;
+        Date               : String;
+        Modified_Date_Time : String;
+        PO_File            : String;
+        po_number          : String;
+        po_date            : String;
+        delivery_date      : String;
+        delivery_address   : String;
+        bill_to_address    : String;
+        customer           : String;
+        currency           : String;
+        purchase_group     : String;
         taxable_amount     : Integer;
-        amount_total       : String(30);
+        amount_total       : String;
         tax                : Integer;
-        company_code       : String(10);
-        plant              : String(100);
+        company_code       : String;
+        plant              : String;
         file_link          : LargeString;
         // submittedtodata : Composition of many  podatatab on submittedtodata.data2 = $self;
         submittedtoitem    : Association to many po_data_itemS
@@ -91,17 +91,17 @@ entity po_data_item {
     key uid             : UUID;
         slno            : Integer;
         ref_po_no       : Integer;
-        item_no         : String(10);
-        hsn_code        : String(10);
-        material_no     : String(10);
-        material_name   : String(60);
+        item_no         : String;
+        hsn_code        : String;
+        material_no     : String;
+        material_name   : String;
         quantity        : Integer;
-        unit_price      : String(20);
-        unit_of_measure : String(5);
+        unit_price      : String;
+        unit_of_measure : String;
         tax_percentage  : Integer;
-        taxable_amount  : String(15);
-        tax_amount      : String(15);
-        total_amount    : String(15);
+        taxable_amount  : String;
+        tax_amount      : String;
+        total_amount    : String;
         podataN         : Association to one Newtab
                               on podataN.Ref_PO_No = ref_po_no;
 //  podataD : Association to one Draft on podataD.Ref_PO_No = ref_po_no;
@@ -113,17 +113,17 @@ entity po_data_itemD {
     key uid             : UUID;
         slno            : Integer;
         ref_po_no       : Integer;
-        item_no         : String(10);
-        hsn_code        : String(10);
-        material_no     : String(10);
-        material_name   : String(60);
+        item_no         : String;
+        hsn_code        : String;
+        material_no     : String;
+        material_name   : String;
         quantity        : Integer;
-        unit_price      : String(20);
-        unit_of_measure : String(5);
+        unit_price      : String;
+        unit_of_measure : String;
         tax_percentage  : Integer;
-        taxable_amount  : String(15);
-        tax_amount      : String(15);
-        total_amount    : String(15);
+        taxable_amount  : String;
+        tax_amount      : String;
+        total_amount    : String;
         //  podataN : Association to one Newtab on podataN.Ref_PO_No = ref_po_no;
         podataD         : Association to one Draft
                               on podataD.Ref_PO_No = ref_po_no;
@@ -135,17 +135,17 @@ entity po_data_itemS {
     key uid             : UUID;
         slno            : Integer;
         ref_po_no       : Integer;
-        item_no         : String(10);
-        hsn_code        : String(10);
-        material_no     : String(10);
-        material_name   : String(60);
+        item_no         : String;
+        hsn_code        : String;
+        material_no     : String;
+        material_name   : String;
         quantity        : Integer;
-        unit_price      : String(20);
-        unit_of_measure : String(5);
+        unit_price      : String;
+        unit_of_measure : String;
         tax_percentage  : Integer;
-        taxable_amount  : String(15);
-        tax_amount      : String(15);
-        total_amount    : String(15);
+        taxable_amount  : String;
+        tax_amount      : String;
+        total_amount    : String;
         //  podataN : Association to one Newtab on podataN.Ref_PO_No = ref_po_no;
         //  podataD : Association to one Draft on podataD.Ref_PO_No = ref_po_no;
         podataS         : Association to one Submitted
@@ -155,31 +155,31 @@ entity po_data_itemS {
 
 entity Currency {
     key idd         : UUID;
-        code        : String(10);
-        description : String(50);
+        code        : String;
+        description : String;
 }
 
 entity Plant {
     key idd         : UUID;
-        code        : String(10);
-        description : String(50);
+        code        : String;
+        description : String;
 }
 
 entity CompanyCode {
     key idd         : UUID;
-        code        : String(10);
-        description : String(50);
+        code        : String;
+        description : String;
 }
 
 entity Track_po {
     key idd           : UUID;
         ref_po_no     : Integer;
-        error_log     : String(20);
-        modified_by   : String(30);
-        Date          : String(11);
+        error_log     : String;
+        modified_by   : String;
+        Date          : String;
         po_number     : String;
-        status        : String(10);
-        supplier_name : String(20);
+        status        : String;
+        supplier_name : String;
 }
 
 entity email {
